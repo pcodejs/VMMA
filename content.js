@@ -1,103 +1,367 @@
-/* Update event information here. Speaker profiles below are a user-requested draft from Canva. */
+/* Source: Canva portfolio DAHZYP2Oy8w, reviewed 04.11.2026. Speakers and agenda remain tentative. */
 window.VMAA_CONTENT = {
-  event: {
-    name: 'Diễn đàn M&A Miền Trung 2026',
-    start: '2026-12-13T13:30:00+07:00',
-    end: '2026-12-13T17:30:00+07:00',
-    location: 'Đà Nẵng, Việt Nam',
-    venue: '',
-    registrationDeadline: null
+  "event": {
+    "name": "Diễn đàn M&A Miền Trung 2026",
+    "start": "2026-12-13T13:30:00+07:00",
+    "end": "2026-12-13T17:30:00+07:00",
+    "location": "Đà Nẵng, Việt Nam",
+    "venue": "",
+    "registrationDeadline": null,
+    "dinnerStart": "2026-12-13T18:00:00+07:00",
+    "dinnerEnd": "2026-12-13T20:30:00+07:00"
   },
-  links: { registration: '', partnership: '', contactEmail: '' },
-  /* Draft sources and image/name pairings: references/canva-speaker-sources.md. */
-  speakersStatus: 'draft',
-  speakers: [
+  "links": {
+    "registration": "",
+    "partnership": "#lien-he",
+    "contactEmail": "vmaacentral@gmail.com"
+  },
+  "speakersStatus": "draft",
+  "speakers": [
     {
-      name: 'Nguyễn Thu Hà', title: 'Tổng giám đốc', organization: 'Quỹ đầu tư Horizon Việt Nam',
-      forumRole: 'Diễn giả', image: 'assets/speakers/nguyen-thu-ha.png',
-      bio: 'Hơn 15 năm kinh nghiệm đầu tư và tư vấn M&A tại Việt Nam và khu vực. Tập trung vào các lĩnh vực tăng trưởng, chuyển đổi và phát triển thị trường mới.'
+      "name": "Dương Thùy Dung",
+      "title": "Giám đốc Điều hành, Trưởng Bộ phận Định giá, Nghiên cứu & Tư vấn",
+      "organization": "CBRE Việt Nam",
+      "forumRole": "Diễn giả",
+      "image": "assets/speakers/duong-thuy-dung.png",
+      "imageStyle": "portfolio",
+      "bio": "Hội viên RICS (MRICS), chuyên về đầu tư tài chính bất động sản. Phụ trách Nghiên cứu, Tư vấn phát triển, Khách sạn và Thẩm định giá. Từng quản lý dự án đầu tư xây dựng tại Feikema B.V. (Hà Lan)."
     },
     {
-      name: 'Trần Minh Quang', title: 'Chủ tịch HĐQT', organization: 'Tập đoàn An Phát',
-      forumRole: 'Diễn giả', image: 'assets/speakers/tran-minh-quang.png',
-      bio: 'Hơn 20 năm kinh nghiệm điều hành doanh nghiệp và thực hiện các thương vụ M&A chiến lược trong lĩnh vực công nghiệp, năng lượng và hạ tầng tại Việt Nam và Đông Nam Á.'
+      "name": "Nguyễn Đức Kiên",
+      "title": "Chủ tịch",
+      "organization": "Hiệp hội Mua bán và Sáp nhập Doanh nghiệp Việt Nam (VMAA)",
+      "forumRole": "Diễn giả",
+      "image": "assets/speakers/nguyen-duc-kien.png",
+      "imageStyle": "portfolio",
+      "bio": "Chủ tịch VMAA, tổ chức nghề nghiệp đầu tiên của Việt Nam về M&A. Tổ trưởng Tổ Tư vấn kinh tế của Thủ tướng Chính phủ (bổ nhiệm cuối năm 2019). Phó Chủ nhiệm Ủy ban Kinh tế của Quốc hội (Khóa XIII, XIV)."
     },
     {
-      name: 'Lê Hoàng Nam', title: 'Sáng lập & Điều hành', organization: 'Indochine Counsel',
-      forumRole: 'Diễn giả', image: 'assets/speakers/le-hoang-nam.png',
-      bio: 'Hơn 25 năm kinh nghiệm tư vấn pháp lý về M&A, đầu tư xuyên biên giới và thị trường vốn. Đồng hành cùng nhiều tập đoàn trong và ngoài nước tại Việt Nam và khu vực.'
+      "name": "Trần Sĩ Chương",
+      "title": "Chủ tịch Hội đồng Cố vấn",
+      "organization": "Hội Thành viên Độc lập HĐQT Doanh nghiệp Việt Nam (VNIDA)",
+      "forumRole": "Diễn giả",
+      "image": "assets/speakers/tran-si-chuong.png",
+      "imageStyle": "portfolio",
+      "bio": "Hơn 25 năm tư vấn kinh tế, chiến lược doanh nghiệp tại Hoa Kỳ và Việt Nam. Từng là cố vấn cấp cao cho Ủy ban Ngân hàng Quốc hội Hoa Kỳ. Đồng tác giả báo cáo WB/IFC (1996) về khu vực kinh tế tư nhân Việt Nam."
     },
     {
-      name: 'Nguyễn Minh Anh', title: 'Tổng giám đốc', organization: 'Quỹ Đầu tư Horizon Việt Nam',
-      forumRole: 'Diễn giả', image: 'assets/speakers/nguyen-minh-anh.webp',
-      bio: 'Hơn 15 năm kinh nghiệm trong đầu tư và M&A tại Việt Nam và khu vực. Từng dẫn dắt nhiều thương vụ chiến lược trong các lĩnh vực tiêu dùng, công nghệ và hạ tầng.'
+      "name": "Đặng Đình Đức",
+      "title": "Phó Chủ tịch Thường trực Cơ quan điều hành",
+      "organization": "Trung tâm tài chính quốc tế Việt Nam tại TP. Đà Nẵng (VIFC-DN)",
+      "forumRole": "Diễn giả",
+      "image": "assets/speakers/dang-dinh-duc.png",
+      "imageStyle": "portfolio",
+      "bio": "Tham gia điều hành VIFC-DN từ khi ra mắt bộ máy điều hành. Nguyên Phó Giám đốc Sở Tài chính TP. Đà Nẵng. Nguyên Viện trưởng Viện Nghiên cứu Phát triển KT–XH Đà Nẵng."
     },
     {
-      name: 'Trần Quang Huy', title: 'Chủ tịch', organization: 'Công ty Tư vấn M&A Việt Á',
-      forumRole: 'Diễn giả', image: 'assets/speakers/tran-quang-huy.webp',
-      bio: 'Chuyên gia hàng đầu về M&A với hơn 20 năm kinh nghiệm tư vấn cho các tập đoàn trong và ngoài nước. Đồng hành cùng nhiều thương vụ quy mô lớn tại Việt Nam và Đông Nam Á.'
-    },
-    {
-      name: 'Lê Thu Hà', title: 'Thành viên HĐQT', organization: 'Tập đoàn Biển Đông',
-      forumRole: 'Diễn giả', image: 'assets/speakers/le-thu-ha.webp',
-      bio: 'Hơn 18 năm kinh nghiệm trong phát triển doanh nghiệp, chiến lược tăng trưởng và hợp tác đầu tư. Đóng vai trò quan trọng trong nhiều dự án hạ tầng và bất động sản quy mô lớn tại miền Trung.'
-    },
-    {
-      name: 'Phạm Hoàng Nam', title: 'Giám đốc Điều hành', organization: 'Công ty Công nghệ Nextone',
-      forumRole: 'Diễn giả', image: 'assets/speakers/pham-hoang-nam.png',
-      bio: 'Doanh nhân và nhà đầu tư trong lĩnh vực công nghệ và đổi mới sáng tạo. Từng tham gia nhiều thương vụ gọi vốn và M&A, thúc đẩy hệ sinh thái khởi nghiệp Việt Nam.'
-    },
-    {
-      name: 'Tim Koo', title: 'Founder & CEO', organization: 'Normsun',
-      forumRole: 'Khách mời đặc biệt', image: 'assets/speakers/tim-koo.png',
-      bio: 'Fellow CPA (HK) với kinh nghiệm về kiểm toán, M&A và giao dịch xuyên biên giới. Nhà sáng lập kiêm CEO của Normsun, công ty kế toán có hơn 20 năm hoạt động và là thành viên Allinial Global.'
-    },
-    {
-      name: 'Kate Trương', title: 'Senior GTM Partnership Manager', organization: 'Airwallex',
-      forumRole: 'Khách mời đặc biệt', image: 'assets/speakers/kate-truong.webp',
-      bio: 'Hơn 12 năm kinh nghiệm trong fintech và tăng trưởng số. Từng phụ trách quan hệ đối tác tại TikTok for Business, chuyên về chiến lược tiếp cận thị trường và mở rộng kinh doanh trong khu vực.'
-    },
-    {
-      name: 'Dang The Duc', title: 'Managing Partner', organization: 'Indochine Counsel',
-      forumRole: 'Khách mời đặc biệt', image: 'assets/speakers/dang-the-duc.png',
-      bio: 'Nhà sáng lập và Managing Partner của Indochine Counsel với hơn 25 năm kinh nghiệm về giao dịch xuyên biên giới, M&A, đầu tư vốn cổ phần tư nhân và thị trường vốn; tư vấn cho các tập đoàn đa quốc gia và nhà đầu tư quốc tế.'
-    },
-    {
-      name: 'Nguyen Hoang Long', title: 'Partner', organization: 'Vina Capital',
-      forumRole: 'Khách mời đặc biệt', image: 'assets/speakers/nguyen-hoang-long.webp',
-      bio: 'Chuyên gia đầu tư với hơn 20 năm kinh nghiệm trong đầu tư vốn cổ phần tư nhân, M&A và vốn tăng trưởng. Partner tại VinaCapital, tập trung vào thị trường Việt Nam và ASEAN.'
-    },
-    {
-      name: 'Pham Minh Quan', title: 'Investment Director', organization: 'Vietcap',
-      forumRole: 'Khách mời', image: 'assets/speakers/pham-minh-quan.webp', imageStyle: 'framed',
-      bio: 'Hơn 15 năm kinh nghiệm trong ngân hàng đầu tư, M&A và tư vấn chiến lược. Dẫn dắt nhiều giao dịch trong các lĩnh vực tiêu dùng, bất động sản và năng lượng tái tạo tại Việt Nam.'
-    },
-    {
-      name: 'Nguyen Thi Lan', title: 'Partner', organization: 'Vina Capital',
-      forumRole: 'Khách mời', image: 'assets/speakers/nguyen-thi-lan.png', imageStyle: 'framed',
-      bio: 'Hơn 20 năm kinh nghiệm trong đầu tư vốn cổ phần tư nhân và đầu tư tăng trưởng. Chuyên về mở rộng quy mô doanh nghiệp tầm trung và M&A xuyên biên giới tại Đông Nam Á.'
-    },
-    {
-      name: 'Nguyễn Khánh Linh', title: 'Managing Partner', organization: 'BluePeak Capital',
-      forumRole: 'Khách mời', image: 'assets/speakers/nguyen-khanh-linh.png', bio: ''
-    },
-    {
-      name: 'Trần Minh Quân', title: 'CEO', organization: 'Central Ventures',
-      forumRole: 'Khách mời', image: 'assets/speakers/tran-minh-quan.png', bio: ''
+      "name": "Nguyễn Mạnh Hùng",
+      "title": "Chủ tịch",
+      "organization": "Hiệp hội Doanh nhân Khởi nghiệp Việt Nam – Nhật Bản",
+      "forumRole": "Diễn giả",
+      "image": "assets/speakers/nguyen-manh-hung.png",
+      "imageStyle": "portfolio",
+      "bio": "Thạc sĩ Đại học Khoa học Kỹ thuật Toyohashi, Nhật Bản. Giám đốc vận hành (COO) NewIT Inc. (Nhật Bản). Giám đốc điều hành (CEO) VJPlus Inc. (Nhật Bản)."
     }
   ],
-  /* Partner: { name, tier, logo, url }. */
-  partners: [],
-  tickets: { price: null, currency: 'VND', note: 'Giá vé và quyền lợi tham dự sẽ được Ban Tổ chức công bố.' },
-  agenda: [
-    { start: '14:00', end: '14:20', kind: '', title: 'Ra mắt VMAA miền Trung – Khai mở hệ sinh thái M&A khu vực', detail: '', category: 'forum' },
-    { start: '14:20', end: '14:35', kind: '', title: 'Bản đồ dòng vốn và thương vụ Việt Nam 2026: Những cơ hội tiếp theo sẽ đến từ đâu?', detail: 'Diễn giả sẽ được công bố.', category: 'forum' },
-    { start: '14:35', end: '15:20', kind: 'Phiên thảo luận 1:', title: 'BẤT ĐỘNG SẢN MIỀN TRUNG: LÀM GÌ ĐỂ BỨT PHÁ THÀNH DOANH NGHIỆP DẪN ĐẦU?', detail: 'Người tham gia và người điều phối sẽ được công bố.', category: 'forum', featured: true },
-    { start: '15:20', end: '15:35', kind: '', title: 'Coffee Break - Nghỉ giữa giờ', detail: '', category: 'connect' },
-    { start: '15:35', end: '16:20', kind: 'Phiên thảo luận 2:', title: 'CHIẾN LƯỢC VỐN CHO TĂNG TRƯỞNG: CÔNG NGHỆ VÀ NHỮNG NGÀNH DẪN DẮT LÀN SÓNG ĐẦU TƯ MỚI', detail: 'Người tham gia và người điều phối sẽ được công bố.', category: 'forum', featured: true },
-    { start: '16:20', end: '16:40', kind: '', title: 'Điều gì làm nên một thương vụ M&A thành công?', detail: 'Diễn giả sẽ được công bố.', category: 'forum' },
-    { start: '16:40', end: '17:00', kind: '', title: 'Q&A: Hỏi đáp', detail: '', category: 'forum' },
-    { start: '17:00', end: '17:15', kind: '', title: 'Từ tiềm năng đến hành động VMAA Miền Trung', detail: '', category: 'forum' },
-    { start: '17:15', end: '17:30', kind: '', title: 'Deal Connect Session', detail: '', category: 'connect' }
-  ]
+  "partners": [],
+  "tickets": {
+    "price": null,
+    "currency": "VND",
+    "note": "Giá vé và quyền lợi tham dự sẽ được Ban Tổ chức công bố. Liên hệ Ban Tổ chức để trao đổi nhu cầu tham gia."
+  },
+  "agenda": [
+    {
+      "start": "13:30",
+      "end": "14:00",
+      "kind": "",
+      "title": "Đón khách và kết nối",
+      "detail": "Registration & Regional Networking",
+      "category": "connect"
+    },
+    {
+      "start": "14:00",
+      "end": "14:20",
+      "kind": "",
+      "title": "Ra mắt VMAA Miền Trung – Khai mở hệ sinh thái M&A khu vực",
+      "detail": "Công bố sự hiện diện của VMAA tại Miền Trung · Ra mắt Ban điều hành",
+      "category": "forum"
+    },
+    {
+      "start": "14:20",
+      "end": "14:35",
+      "kind": "",
+      "title": "Bản đồ dòng vốn và thương vụ Việt Nam 2026",
+      "detail": "",
+      "category": "forum"
+    },
+    {
+      "start": "14:35",
+      "end": "15:20",
+      "kind": "Tọa đàm 1",
+      "title": "Doanh nghiệp Miền Trung – Làm gì để bứt phá thành doanh nghiệp dẫn đầu?",
+      "detail": "",
+      "category": "forum",
+      "featured": true
+    },
+    {
+      "start": "15:20",
+      "end": "15:35",
+      "kind": "",
+      "title": "Coffee break & kết nối",
+      "detail": "Giao lưu giữa khách tham dự",
+      "category": "connect"
+    },
+    {
+      "start": "15:35",
+      "end": "16:20",
+      "kind": "Tọa đàm 2",
+      "title": "Chiến lược vốn cho tăng trưởng – Công nghệ và những ngành dẫn dắt làn sóng đầu tư mới",
+      "detail": "",
+      "category": "forum",
+      "featured": true
+    },
+    {
+      "start": "16:20",
+      "end": "16:40",
+      "kind": "",
+      "title": "M&A Reality Check: Điều gì làm nên một thương vụ thành công?",
+      "detail": "",
+      "category": "forum"
+    },
+    {
+      "start": "16:40",
+      "end": "17:00",
+      "kind": "",
+      "title": "Hỏi đáp cùng diễn giả",
+      "detail": "",
+      "category": "forum"
+    },
+    {
+      "start": "17:00",
+      "end": "17:15",
+      "kind": "",
+      "title": "Từ tiềm năng đến hành động: VMAA Central Vietnam Action Agenda",
+      "detail": "",
+      "category": "forum"
+    },
+    {
+      "start": "17:15",
+      "end": "17:30",
+      "kind": "",
+      "title": "Deal Connect Session",
+      "detail": "Kết nối chuyên sâu giữa diễn giả, doanh nghiệp, nhà đầu tư và đối tác",
+      "category": "connect"
+    },
+    {
+      "start": "18:00",
+      "end": "20:30",
+      "kind": "Founding & Networking Dinner",
+      "title": "Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung",
+      "detail": "",
+      "category": "connect"
+    }
+  ],
+  "contact": {
+    "name": "Mr. Antony Vũ",
+    "title": "Trưởng ban tổ chức",
+    "phone": "0913.989.365",
+    "telephone": "+84913989365"
+  },
+  "sponsorship": {
+    "tiers": [
+      {
+        "name": "Kim cương",
+        "price": 100000000,
+        "note": "Đơn vị tài trợ chính · Duy nhất 01 đơn vị",
+        "highlights": [
+          "05 vé Networking · tối đa 05 cuộc kết nối 1–1",
+          "Độc quyền 01 suất keynote khai mạc (10 phút)",
+          "01 ghế panelist, được chọn phiên / chủ đề trước"
+        ]
+      },
+      {
+        "name": "Vàng",
+        "price": 50000000,
+        "note": "Nhà tài trợ Vàng",
+        "highlights": [
+          "03 vé Networking · tối đa 03 cuộc kết nối 1–1",
+          "Khu ghế ưu tiên & VIP Networking",
+          "01 ghế panelist trong phiên thảo luận"
+        ]
+      },
+      {
+        "name": "Bạc",
+        "price": 30000000,
+        "note": "Nhà tài trợ Bạc",
+        "highlights": [
+          "02 vé Networking · tối đa 01 cuộc kết nối 1–1",
+          "Khu ghế ưu tiên tại sự kiện",
+          "Video doanh nghiệp 30 giây trên LED sân khấu"
+        ]
+      },
+      {
+        "name": "Đồng",
+        "price": 10000000,
+        "note": "Nhà tài trợ Đồng",
+        "highlights": [
+          "01 vé tham dự chương trình Networking",
+          "Logo trên website & backdrop sân khấu",
+          "Gian hàng trưng bày ở vị trí ưu tiên số 4"
+        ]
+      }
+    ],
+    "groups": [
+      {
+        "title": "Trước sự kiện",
+        "subtitle": "Truyền thông & quảng bá",
+        "rows": [
+          [
+            "Tên & logo trên kênh truyền thông chính thức",
+            "Vị trí đầu tiên trên mọi kênh truyền thông",
+            "Website, Fanpage, Zalo, thông cáo báo chí",
+            "Website, Fanpage, Zalo",
+            "Website chính thức"
+          ],
+          [
+            "Bài viết giới thiệu truyền thông riêng",
+            "Bài chuyên đề riêng (Website + Fanpage)",
+            "Bài giới thiệu riêng ngắn (Fanpage)",
+            "Bài tổng hợp nhà tài trợ (có mô tả)",
+            "Bài tổng hợp nhà tài trợ (chỉ logo)"
+          ],
+          [
+            "Bài PR trước sự kiện trên các báo lớn",
+            "01 bài riêng",
+            "—",
+            "—",
+            "—"
+          ]
+        ]
+      },
+      {
+        "title": "Trong sự kiện",
+        "subtitle": "Hiện diện & kết nối",
+        "rows": [
+          [
+            "Gian hàng trưng bày & giới thiệu sản phẩm",
+            "Vị trí ưu tiên số 1",
+            "Vị trí ưu tiên số 2",
+            "Vị trí ưu tiên số 3",
+            "Vị trí ưu tiên số 4"
+          ],
+          [
+            "Vé tham dự chương trình Networking",
+            "05 vé",
+            "03 vé",
+            "02 vé",
+            "01 vé"
+          ],
+          [
+            "Khu ghế ưu tiên & VIP Networking",
+            "Bàn VIP hàng 1 + VIP Networking",
+            "Khu ghế ưu tiên + VIP Networking",
+            "Khu ghế ưu tiên",
+            "—"
+          ],
+          [
+            "Kết nối 1–1 với đối tác mục tiêu theo danh mục đăng ký (BTC sắp xếp)",
+            "Tối đa 05 cuộc",
+            "Tối đa 03 cuộc",
+            "Tối đa 01 cuộc",
+            "—"
+          ],
+          [
+            "Session phỏng vấn cá nhân chuyên nghiệp tại sự kiện",
+            "02 video",
+            "01 video",
+            "—",
+            "—"
+          ],
+          [
+            "Keynote khai mạc sân khấu chính (10 phút)",
+            "Độc quyền 01 suất",
+            "—",
+            "—",
+            "—"
+          ],
+          [
+            "Diễn giả / ghế panelist trong phiên thảo luận",
+            "01 ghế (được chọn phiên / chủ đề trước)",
+            "01 ghế panelist",
+            "—",
+            "—"
+          ],
+          [
+            "Nghi thức vinh danh trên sân khấu chính",
+            "Trao cúp riêng bởi lãnh đạo + chụp ảnh riêng",
+            "Trao cúp riêng trên sân khấu",
+            "Trao cúp & chụp ảnh nhóm Bạc",
+            "Trao cúp cùng nhóm Đồng"
+          ],
+          [
+            "Logo trên backdrop sân khấu chính",
+            "Kích thước lớn nhất",
+            "Kích thước lớn",
+            "Kích thước vừa",
+            "Kích thước nhỏ"
+          ],
+          [
+            "Video giới thiệu doanh nghiệp trên màn LED sân khấu",
+            "90 giây × 2 lần (mở màn & giữa chương trình) + slide logo",
+            "60 giây × 1 lần + slide logo luân phiên",
+            "30 giây × 1 lần + slide logo luân phiên",
+            "Slide logo luân phiên giờ giải lao"
+          ],
+          [
+            "MC giới thiệu nhà tài trợ",
+            "Giới thiệu riêng",
+            "Giới thiệu riêng",
+            "Nhắc tên",
+            "Lời cảm ơn chung"
+          ],
+          [
+            "Hoa, cúp vinh danh & túi quà tri ân từ BTC",
+            "Có",
+            "Có",
+            "Có",
+            "Có"
+          ]
+        ]
+      },
+      {
+        "title": "Sau sự kiện",
+        "subtitle": "Tổng kết & duy trì kết nối",
+        "rows": [
+          [
+            "Bài PR sau sự kiện trên các báo lớn",
+            "Nhắc tên trong tất cả bài PR trên các báo đưa tin về sự kiện",
+            "Nhắc tên trong một số bài PR trên các báo đưa tin về sự kiện",
+            "—",
+            "—"
+          ],
+          [
+            "Thông tin khách tham dự (chỉ khi người tham dự đồng ý)",
+            "Toàn bộ dữ liệu được khách đồng ý chia sẻ",
+            "Toàn bộ dữ liệu được khách đồng ý chia sẻ",
+            "—",
+            "—"
+          ],
+          [
+            "Buổi uống trà & ăn tối cùng chuyên gia, lãnh đạo mong muốn kết nối tại Đà Nẵng",
+            "Độc quyền",
+            "—",
+            "—",
+            "—"
+          ],
+          [
+            "Gửi thông tin giới thiệu doanh nghiệp đến khách mời và người tham gia",
+            "Có",
+            "Có",
+            "Có",
+            "Có"
+          ]
+        ]
+      }
+    ]
+  }
 };

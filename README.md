@@ -12,6 +12,7 @@ Website GitHub Pages: https://kirei1805.github.io/VMMA/
 - `styles.css`, `sections.css`: kiểu chữ, bảng màu và bố cục chung.
 - `hero-v2.css`: chữ key visual và M&A lấy từ artwork gốc.
 - `takeaways.css`: Section 7 với nội dung gom trái, ảnh đổi theo mục ở bên phải.
+- `portfolio-update.css`: bố cục nội dung bổ sung theo portfolio Canva tháng 11.2026.
 - `assets/`: hình ảnh và font tự lưu.
 - `licenses/`: giấy phép font.
 
@@ -31,6 +32,8 @@ Mỗi lần push vào `main`, workflow `.github/workflows/pages.yml` triển kha
 
 ## Trạng thái nội dung
 
-Danh sách diễn giả đang là bản dự kiến. Giá vé, hạn đăng ký, địa điểm cụ thể và kênh liên hệ đang chờ thông tin chính thức; cập nhật trong `content.js` khi được chốt. Hiện trang không có backend hoặc biểu mẫu thu thập thông tin cá nhân.
+Nội dung cập nhật theo [portfolio chuẩn trên Canva](https://www.canva.com/design/DAHZYP2Oy8w/6U8wKzVL9h2sREGejGKhbQ/edit), đối chiếu ngày 04.11.2026: 5 diễn giả dự kiến, 11 mục lịch trình (gồm đón khách và tiệc tối), 6 nhóm khách tham dự, thông tin VMAA, 4 hạng tài trợ và quyền lợi, truyền thông, đầu mối liên hệ. Mục về Diễn đàn M&A Mùa Thu 13.11 trong portfolio là một sự kiện khác, không dùng làm thông tin cho sự kiện Miền Trung 13.12.
+
+Diễn giả và chương trình vẫn là bản dự kiến. Giá vé, hạn đăng ký, địa điểm cụ thể và danh sách đối tác/truyền thông đang chờ công bố; không coi các logo giữ chỗ trong portfolio là đối tác xác nhận. Đầu mối: Mr. Antony Vũ, Trưởng ban tổ chức — 0913.989.365, vmaacentral@gmail.com. Nút đăng ký/đối tác cuộn tới nội dung trên trang; các nút gọi điện/email mở kênh liên hệ tương ứng. Hiện trang không có backend hoặc biểu mẫu thu thập thông tin cá nhân.
 
 Artwork nhận diện được sử dụng từ bộ tài sản VMAA do chủ dự án cung cấp. Manrope, Plus Jakarta Sans và Outfit được lưu tại chỗ; giấy phép font nằm trong `licenses/`.
