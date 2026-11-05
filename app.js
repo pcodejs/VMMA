@@ -180,13 +180,14 @@
   if(content.event.venue) $('#venue-note').textContent = content.event.venue;
 
   if(content.speakers.length) {
+    $('#speaker-list').classList.toggle('speaker-list-five',content.speakers.length === 5);
     $('#speaker-pending').hidden = true;
     $('#speaker-draft-notice').hidden = content.speakersStatus !== 'draft';
     $('#speaker-count').textContent = `${content.speakers.length} hồ sơ`;
     content.speakers.forEach((speaker, index) => {
       const card = document.createElement('article'); card.className = 'speaker-card';
       const image = safeImageUrl(speaker.image);
-      card.innerHTML = `<div class="speaker-portrait${speaker.imageStyle === 'portfolio' ? ' portfolio-portrait' : speaker.imageStyle === 'framed' ? ' framed' : ''}">${image ? `<img src="${escape(image)}" alt="Chân dung ${escape(speaker.name)}" loading="lazy" decoding="async">` : ''}</div><div class="speaker-copy"><h3>${escape(speaker.name)}</h3><p class="speaker-title">${escape(speaker.title)}</p><p class="speaker-organization">${escape(speaker.organization)}</p><span class="speaker-role">${escape(speaker.forumRole || 'Vai trò đang cập nhật')}${content.speakersStatus === 'draft' ? ' · Dự kiến' : ''}</span><p class="speaker-bio">${escape(speaker.bio || 'Tiểu sử đang được cập nhật.')}</p><button aria-label="Xem hồ sơ ${escape(speaker.name)}" aria-haspopup="dialog">Xem hồ sơ <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button></div>`;
+      card.innerHTML = `<div class="speaker-portrait${speaker.imageStyle === 'portfolio' ? ' portfolio-portrait' : speaker.imageStyle === 'framed' ? ' framed' : ''}">${image ? `<img src="${escape(image)}" alt="Chân dung ${escape(speaker.name)}" loading="lazy" decoding="async">` : ''}</div><div class="speaker-copy"><h3>${escape(speaker.name)}</h3><div class="speaker-meta"><p class="speaker-title">${escape(speaker.title)}</p><p class="speaker-organization">${escape(speaker.organization)}</p></div><span class="speaker-role">${escape(speaker.forumRole || 'Vai trò đang cập nhật')}${content.speakersStatus === 'draft' ? ' · Dự kiến' : ''}</span><p class="speaker-bio">${escape(speaker.bio || 'Tiểu sử đang được cập nhật.')}</p><button aria-label="Xem hồ sơ ${escape(speaker.name)}" aria-haspopup="dialog">Xem hồ sơ <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button></div>`;
       card.querySelector('button').addEventListener('click',() => openInfo('speaker',speaker)); $('#speaker-list').append(card);
     });
   }
