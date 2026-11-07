@@ -56,7 +56,7 @@
     invoiceLookupButton.disabled = true;
     invoiceLookupStatus.textContent = 'Đang tra cứu thông tin doanh nghiệp…';
     try {
-      const signal = AbortSignal.any([invoiceLookupController.signal, AbortSignal.timeout(20000)]);
+      const signal = AbortSignal.any([invoiceLookupController.signal, AbortSignal.timeout(25000)]);
       const company = await post('/api/tax-code', { taxCode }, signal);
       if (sequence !== invoiceLookupSequence) return;
       if (invoiceName.value === previousName) invoiceName.value = company.name;

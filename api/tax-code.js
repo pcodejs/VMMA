@@ -14,7 +14,17 @@ module.exports = async function taxCode(req, res) {
         response = await fetch(`https://api.vietqr.io/v2/business/${taxCode}`, {
           signal: AbortSignal.timeout(8000)
         });
-        if (response.status < 500 || response.ok) break;
+        if (response.ok || (response.status < 500 && response.status !== 429)) break;
+        if (attempt === 0) {
+          const retryAfter = response.headers?.get('retry-after');
+          const resetAt = Number(response.headers?.get('x-ratelimit-reset') || 0) * 1000;
+          const retryAt = retryAfter
+            ? (/^\d+$/.test(retryAfter) ? Date.now() + Number(retryAfter) * 1000 : Date.parse(retryAfter))
+            : resetAt;
+          const delay = Math.max(1000, retryAt - Date.now());
+          if (!Number.isFinite(delay) || delay > 3000) break;
+          await new Promise(resolve => setTimeout(resolve, delay + 100));
+        }
       } catch (error) {
         if (attempt === 1) throw error;
       }
