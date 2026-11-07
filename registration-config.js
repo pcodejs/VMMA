@@ -1,7 +1,7 @@
 (function (root) {
   const config = {
     price: 500000,
-    receiptFieldName: 'Hình ảnh xác thực đã thanh toán',
+    receiptFieldId: 'fld1O49NDC',
     maxReceiptBytes: 2 * 1024 * 1024,
     bank: {
       bin: '970416',
@@ -29,7 +29,7 @@
     fieldIds: {
       name: 'fld2hJoYwG', phone: 'fldYGMiTgF', email: 'fldzHB6qIr',
       company: 'fldBf5wvXt', title: 'fld5XBBP7C', companySize: 'fldgH4L5HI',
-      stage: 'fldZhnxK3v', industry: 'fldY9JP3Q2', sessions: 'fldmyrqafx',
+      stage: 'fldZhnxK3v', industry: 'fldY9JP3Q2', industryOther: 'fldpIr8Dkq', sessions: 'fldmyrqafx',
       inviteCode: 'fld7KEG8lq', quantity: 'fld1lcl8fp', payment: 'fldCEUM1kz'
     }
   };

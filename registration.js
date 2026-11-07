@@ -66,6 +66,16 @@
     const select = form.elements.namedItem(name);
     choices.forEach(value => select.add(new Option(value, value)));
   }
+  const industry = form.elements.namedItem('industry');
+  const industryOther = form.elements.namedItem('industryOther');
+  function updateIndustryOther() {
+    const needsDescription = industry.value === 'Khác';
+    document.querySelector('#registration-industry-other').hidden = !needsDescription;
+    industryOther.disabled = !needsDescription;
+    industryOther.required = needsDescription;
+    if (!needsDescription) industryOther.value = '';
+  }
+  industry.addEventListener('change', updateIndustryOther);
   const sessions = document.querySelector('#registration-sessions');
   config.sessions.forEach(value => {
     const label = document.createElement('label');
@@ -100,6 +110,7 @@
     previousOverflow = document.body.style.overflow;
     if (completed) {
       form.reset();
+      updateIndustryOther();
       currentData = null;
       currentFingerprint = null;
       requestId = null;

@@ -3,6 +3,7 @@ const assert = require('node:assert/strict');
 const jsQR = require('jsqr');
 const { PNG } = require('pngjs');
 const config = require('../registration-config');
+const receiptFieldName = 'Hình ảnh xác thực đã thanh toán';
 
 const originalFetch = global.fetch;
 const envNames = ['LARK_APP_ID', 'LARK_APP_SECRET', 'LARK_BASE_TOKEN', 'LARK_TABLE_ID'];
@@ -30,7 +31,7 @@ beforeEach(() => {
   rejectCreate = false;
   rejectUpload = false;
   schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'sessions' ? 4 : 1 }));
-  schema.push({ field_id: 'test_receipt_field', field_name: config.receiptFieldName, type: 17 });
+  schema.push({ field_id: config.receiptFieldId, field_name: receiptFieldName, type: 17 });
   envNames.forEach(key => { process.env[key] = 'test_value'; });
   for (const name of ['../lib/registration', '../lib/receipt', '../api/payment', '../api/receipt', '../api/register']) delete require.cache[require.resolve(name)];
   global.fetch = async (url, options) => {
@@ -115,6 +116,14 @@ test('all ticket quantities calculate on the server', () => {
   for (let i = 0; i < 5; i++) assert.equal(validateRegistration(attendee({ quantity: config.quantities[i], amount: 0 })).amount, (i + 1) * 500000);
 });
 
+test('other industry requires a description and maps it to the matching Base field', () => {
+  const { validateRegistration, recordFields } = require('../lib/registration');
+  assert.throws(() => validateRegistration(attendee({ industry: 'Khác' })), /lĩnh vực hoạt động/);
+  const data = validateRegistration(attendee({ industry: 'Khác', industryOther: 'Năng lượng' }));
+  assert.equal(recordFields(data, schema).industryOther, 'Năng lượng');
+  assert.equal(validateRegistration(attendee({ industryOther: 'stale value' })).industryOther, '');
+});
+
 test('guest and bulk registrations skip the transfer and keep the correct Lark status', async () => {
   for (const override of [{ attendeeType: 'guest' }, { quantity: config.quantities[5] }]) {
     const payment = await invoke('payment', attendee(override));
@@ -143,7 +152,7 @@ test('retries keep the same Lark idempotency token and exact field mapping', asy
   assert.deepEqual(createdRecords.get(requestId).sessions, data.sessions);
   assert.equal(createdRecords.get(requestId).payment, config.paymentLabels.paid);
   assert.equal(createdRecords.get(requestId).phone, data.phone);
-  assert.deepEqual(createdRecords.get(requestId)[config.receiptFieldName], [{ file_token: 'test_receipt_token' }]);
+  assert.deepEqual(createdRecords.get(requestId)[receiptFieldName], [{ file_token: 'test_receipt_token' }]);
   const uploads = requests.filter(request => request.url.endsWith('medias/upload_all'));
   assert.equal(uploads.length, 1, 'register retries reuse the uploaded receipt');
   assert.equal(uploads[0].body.get('parent_type'), 'bitable_image');

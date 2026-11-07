@@ -35,7 +35,7 @@ Cấu hình các biến môi trường sau trong dự án Vercel, cho môi trư�
 | `LARK_BASE_TOKEN` | App token của Base thực nhận đăng ký, lấy từ thông tin API của Base |
 | `LARK_TABLE_ID` | ID bảng nhận đăng ký |
 
-Ứng dụng cần quyền đọc cấu trúc trường, tạo bản ghi, tải ảnh đính kèm và quyền truy cập Base đích. Các trường được đối chiếu bằng ID trong `registration-config.js` rồi chuyển sang tên trường thật trước khi ghi dữ liệu. Trường biên lai được tìm theo tên chính xác `Hình ảnh xác thực đã thanh toán` và phải có kiểu Attachment (17).
+Ứng dụng cần quyền đọc cấu trúc trường, tạo bản ghi, tải ảnh đính kèm và quyền truy cập Base đích. Các trường được đối chiếu bằng ID trong `registration-config.js` rồi chuyển sang tên trường thật trước khi ghi dữ liệu. Trường biên lai `fld1O49NDC` phải có kiểu Attachment (17). Thông tin lĩnh vực khác được lưu vào `fldpIr8Dkq` khi khách chọn “Khác”.
 
 Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa tích hợp được lưu trong cấu hình môi trường của Vercel.
 
