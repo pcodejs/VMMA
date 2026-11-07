@@ -36,6 +36,16 @@ beforeEach(() => {
   rejectUpload = false;
   rejectQR = false;
   schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'sessions' ? 4 : 1 }));
+  const choicesByField = {
+    companySize: config.companySizes, stage: config.stages, industry: config.industries,
+    sessions: config.sessions, quantity: config.quantities,
+    payment: Object.values(config.paymentLabels), privacyConsent: config.privacyConsents
+  };
+  for (const [key, choices] of Object.entries(choicesByField)) {
+    const field = schema.find(item => item.field_id === config.fieldIds[key]);
+    field.type = key === 'sessions' ? 4 : 3;
+    field.property = { options: choices.map(name => ({ name })) };
+  }
   schema.push({ field_id: config.receiptFieldId, field_name: receiptFieldName, type: 17 });
   envNames.forEach(key => { process.env[key] = 'test_value'; });
   for (const name of ['../lib/registration', '../lib/receipt', '../api/payment', '../api/receipt', '../api/register']) delete require.cache[require.resolve(name)];
@@ -159,6 +169,24 @@ test('privacy consent is explicit and preserves the selected sharing scope in La
     const data = validateRegistration(attendee({ privacyConsent }));
     assert.equal(recordFields(data, schema).privacyConsent, privacyConsent);
   }
+});
+
+test('changed Lark choices stop payment before displaying a QR', async () => {
+  const field = schema.find(item => item.field_id === config.fieldIds.sessions);
+  field.property.options = [{ name: 'Nhu cầu kết nối mới' }];
+  const result = await invoke('payment', attendee());
+  assert.equal(result.status, 503);
+  assert.equal(requests.some(request => request.url.startsWith('https://img.vietqr.io/')), false);
+});
+
+test('registration refreshes Lark choices after a receipt has been prepared', async () => {
+  const data = await paidAttendee();
+  schema = structuredClone(schema);
+  schema.find(item => item.field_id === config.fieldIds.sessions).property.options = [{ name: 'Nhu cầu kết nối mới' }];
+  const result = await invoke('register', data);
+  assert.equal(result.status, 503);
+  assert.equal(createdRecords.size, 0);
+  assert.equal(requests.filter(request => request.url.includes('/fields?')).length, 2);
 });
 
 test('other industry requires a description and maps it to the matching Base field', () => {

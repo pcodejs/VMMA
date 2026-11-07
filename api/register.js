@@ -8,7 +8,7 @@ module.exports = async function register(req, res) {
     const data = validateRegistration(body, true);
     validateRequestId(body.requestId);
     if (data.amount > 0 && !body.receiptHandle) throw new RegistrationError('Vui lòng tải ảnh biên lai trước khi gửi đăng ký.');
-    const context = await getLarkContext();
+    const context = await getLarkContext({ refreshFields: true });
     const fields = recordFields(data, context.fields);
     if (data.amount > 0) fields[context.receiptField.field_name] = [{ file_token: receiptToken(body.receiptHandle, body.requestId, data) }];
     const query = new URLSearchParams({ client_token: body.requestId });

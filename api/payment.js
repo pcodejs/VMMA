@@ -5,7 +5,7 @@ module.exports = async function payment(req, res) {
   res.setHeader('Cache-Control', 'no-store');
   try {
     const data = validateRegistration(requestBody(req));
-    await getLarkContext();
+    await getLarkContext({ refreshFields: true });
     let qrDataURL = null;
     const memo = data.memo;
     if (data.amount > 0) {

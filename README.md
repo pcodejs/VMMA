@@ -42,7 +42,7 @@ Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa t�
 ## Đăng ký và QR
 
 1. Khách điền thông tin và chọn phiên, hình thức tham dự, số lượng vé.
-2. Máy chủ kiểm tra dữ liệu và kết nối Base trước khi trả QR.
+2. Máy chủ kiểm tra dữ liệu, cấu trúc trường và các lựa chọn hiện tại trong Base trước khi trả QR. Khi gửi đăng ký, máy chủ đọc lại cấu hình Base để phát hiện thay đổi trong lúc điền form.
    Biểu mẫu yêu cầu đại biểu chọn phạm vi đồng ý xử lý thông tin cá nhân đúng theo form Lark.
 3. Đại biểu trả phí quét QR, chuyển khoản, tải ảnh biên lai và chọn xác nhận đã chuyển khoản.
 4. Website gửi đăng ký vào Lark bằng API chính thức.
