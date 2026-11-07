@@ -8,9 +8,17 @@ module.exports = async function taxCode(req, res) {
     if (!/^(?:\d{10}|\d{13})$/.test(taxCode)) {
       throw new RegistrationError('Vui lòng nhập mã số thuế doanh nghiệp gồm 10 số hoặc 13 số.');
     }
-    const response = await fetch(`https://api.vietqr.io/v2/business/${taxCode}`, {
-      signal: AbortSignal.timeout(8000)
-    });
+    let response;
+    for (let attempt = 0; attempt < 2; attempt++) {
+      try {
+        response = await fetch(`https://api.vietqr.io/v2/business/${taxCode}`, {
+          signal: AbortSignal.timeout(8000)
+        });
+        if (response.status < 500 || response.ok) break;
+      } catch (error) {
+        if (attempt === 1) throw error;
+      }
+    }
     if (!response.ok) throw new RegistrationError('Tra cứu đang gián đoạn. Bạn có thể nhập thông tin hóa đơn bên dưới.', 503);
     const result = await response.json();
     if (['51', '52'].includes(result.code)) {

@@ -42,6 +42,28 @@ test('invalid tax input is rejected before contacting the provider', async () =>
   }
 });
 
+test('tax lookup retries a temporary provider failure once', async () => {
+  for (const failure of ['network', 'server']) {
+    let attempts = 0;
+    global.fetch = async () => {
+      attempts++;
+      if (attempts === 1) {
+        if (failure === 'network') throw new Error('Temporary connection failure');
+        return { ok: false, status: 503 };
+      }
+      return { ok: true, status: 200, json: async () => ({ code: '00', data: {
+        id: '0110596988', name: 'CÔNG TY KIỂM THỬ', address: 'Địa chỉ kiểm thử'
+      } }) };
+    };
+    assert.equal((await lookup('0110596988')).status, 200);
+    assert.equal(attempts, 2);
+  }
+  let attempts = 0;
+  global.fetch = async () => { attempts++; return { ok: false, status: 429 }; };
+  assert.equal((await lookup('0110596988')).status, 503);
+  assert.equal(attempts, 1);
+});
+
 test('missing, mismatched and unavailable company data never return a successful lookup', async () => {
   for (const code of ['51', '52']) {
     global.fetch = async () => ({ ok: true, json: async () => ({ code }) });
