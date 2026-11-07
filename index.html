@@ -36,8 +36,12 @@
   <link rel="stylesheet" href="hero-v2.css?v=keyvisual-ma-crisper">
   <link rel="stylesheet" href="takeaways.css?v=grouped-copy-preview">
   <link rel="stylesheet" href="portfolio-update.css?v=speakers-balanced-20261104">
-  <script src="content.js?v=portfolio-20261104" defer></script>
-  <script src="app.js?v=speakers-balanced-20261104" defer></script>
+  <link rel="stylesheet" href="sponsors.css?v=20261107">
+  <link rel="stylesheet" href="registration.css?v=20261107">
+  <script src="content.js?v=20261107" defer></script>
+  <script src="app.js?v=20261107" defer></script>
+  <script src="registration-config.js?v=20261107" defer></script>
+  <script src="registration.js?v=20261107" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -113,7 +117,7 @@
         <div class="section-top"><span class="eyebrow">02 / TỔNG QUAN DIỄN ĐÀN</span><span class="micro">CENTRAL VIETNAM M&A ECOSYSTEM</span></div>
         <div class="overview-layout overview-scene" id="scene">
           <div class="delegate-number"><span>250<span class="plus">+</span></span><h2 id="overview-title">ĐẠI BIỂU</h2><p>Doanh nghiệp · Nhà đầu tư · Tổ chức tài chính · Chuyên gia M&A</p></div>
-          <div class="overview-copy"><p>Nơi những cơ hội của Miền Trung gặp gỡ dòng vốn, nhà đầu tư và đối tác chiến lược, mở ra những hướng đi mới cho tăng trưởng doanh nghiệp và kinh tế khu vực.</p><div class="inline-actions"><a class="button button-primary" href="#tham-du">Đăng ký tham dự</a><a class="button button-outline" href="#doi-tac">Trở thành đối tác</a></div></div>
+          <div class="overview-copy"><p>Nơi những cơ hội của Miền Trung gặp gỡ dòng vốn, nhà đầu tư và đối tác chiến lược, mở ra những hướng đi mới cho tăng trưởng doanh nghiệp và kinh tế khu vực.</p><div class="inline-actions"><a class="button button-primary" href="#tham-du" data-registration>Đăng ký tham dự</a><a class="button button-outline" href="#doi-tac">Trở thành đối tác</a></div></div>
         </div>
         <div class="countdown-bar" hidden><div class="countdown-heading"><span class="status-dot"></span><div><span class="micro">ĐẾM NGƯỢC THỜI GIAN ĐĂNG KÝ</span><p id="countdown-label">Hạn đăng ký sẽ được Ban Tổ chức công bố.</p></div></div><div class="countdown" id="registration-countdown" role="timer" aria-label="Thời gian còn lại đến hạn đăng ký" hidden><div><strong id="days">--</strong><span>NGÀY</span></div><b>:</b><div><strong id="hours">--</strong><span>GIỜ</span></div><b>:</b><div><strong id="minutes">--</strong><span>PHÚT</span></div><b>:</b><div><strong id="seconds">--</strong><span>GIÂY</span></div></div><div class="countdown-pending" id="countdown-pending"><span class="small-tag">SẮP CÔNG BỐ HẠN ĐĂNG KÝ</span></div><button class="calendar-link" data-calendar>Thêm vào lịch <span aria-hidden="true">＋</span></button></div>
 
@@ -227,7 +231,7 @@
       </div>
     </div></section>
 
-    <section class="content-section partners section-pad reference-layout" id="doi-tac" aria-labelledby="partners-title"><div class="wrap"><div class="section-top"><span class="eyebrow">08 / ĐỐI TÁC ĐỒNG HÀNH</span><span class="micro">GROW TOGETHER</span></div><div class="organizer-row"><div><span class="micro">ĐƠN VỊ CHỦ TRÌ</span><img src="assets/vmaa-logo.png" alt="VMAA" width="1454" height="605" loading="lazy"></div><div class="partner-announcement" id="partner-announcement"><span class="micro">NHÀ TÀI TRỢ & ĐƠN VỊ ĐỒNG HÀNH</span><p>Những kết nối mới đang được mở ra.<br>Danh sách đối tác sẽ được cập nhật.</p></div></div><div id="partner-list" class="partner-list"></div>
+    <section class="content-section partners section-pad reference-layout" id="doi-tac" aria-labelledby="partners-title"><div class="wrap"><div class="section-top"><span class="eyebrow">08 / ĐỐI TÁC ĐỒNG HÀNH</span><span class="micro">GROW TOGETHER</span></div><div class="organizer-row"><div><span class="micro">ĐƠN VỊ CHỦ TRÌ</span><img class="organizer-supplied-logo" src="assets/partners/vmaa.webp" alt="VMAA — Đơn vị chủ trì" width="787" height="320" loading="lazy"></div><div class="partner-announcement" id="partner-announcement"><span class="micro">NHÀ TÀI TRỢ & ĐƠN VỊ ĐỒNG HÀNH</span><p>Những kết nối mới đang được mở ra.<br>Danh sách đối tác sẽ được cập nhật.</p></div></div><div id="partner-list" class="partner-list sponsor-groups"></div>
       <div class="vmaa-about" aria-labelledby="vmaa-about-title">
         <div class="portfolio-context-heading"><span class="eyebrow">VỀ VMAA</span><h3 id="vmaa-about-title">Từ cộng đồng nghề nghiệp<br><span class="text-lavender">đến hệ sinh thái M&A.</span></h3></div>
         <div class="portfolio-context-copy"><p>Hiệp hội Mua bán và Sáp nhập Doanh nghiệp Việt Nam (VMAA) là tổ chức xã hội nghề nghiệp của công dân và tổ chức Việt Nam hoạt động trong lĩnh vực mua bán, sáp nhập và tái cấu trúc doanh nghiệp.</p><p>Hiệp hội hoạt động trên phạm vi toàn quốc, theo nguyên tắc tự nguyện, tự quản, dân chủ, công khai, minh bạch và không vì mục tiêu lợi nhuận. VMAA bảo vệ quyền, lợi ích hợp pháp của Hiệp hội và hội viên; kết nối, đồng hành, điều phối và thúc đẩy chuẩn mực nghề nghiệp trong cộng đồng M&A.</p></div>
@@ -262,7 +266,7 @@
       <div class="partner-action"><a class="button button-outline" href="#lien-he">Trao đổi hợp tác <span class="cta-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></a></div>
     </div></section>
 
-    <section class="content-section registration section-pad" id="tham-du" aria-labelledby="registration-title"><div class="wrap registration-layout"><div><span class="eyebrow">09 / THÔNG TIN THAM DỰ</span><h2 id="registration-title">Hẹn gặp tại <br><span class="text-lavender">Đà Nẵng.</span></h2><p>Diễn đàn M&A Miền Trung 2026<br>Khơi thông nguồn lực. Kiến tạo tăng trưởng mới.</p><div class="registration-event"><span>13.12.2026</span><span>13:30 — 17:30</span><span>ĐÀ NẴNG</span></div><p class="registration-dinner">18:00 — 20:30 · Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung (dự kiến).</p><a href="#lien-he" class="text-link registration-contact">Liên hệ Ban Tổ chức để trao đổi nhu cầu tham dự <span aria-hidden="true">→</span></a></div><div class="ticket-panel"><div class="ticket-heading"><span class="micro">GIÁ VÉ & ĐĂNG KÝ</span><span class="ticket-mark action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></div><span class="small-tag" id="ticket-status">SẮP CÔNG BỐ</span><h3 id="ticket-price">Sắp công bố</h3><p id="ticket-note">Giá vé và quyền lợi tham dự sẽ được Ban Tổ chức công bố. Liên hệ Ban Tổ chức để trao đổi nhu cầu tham gia.</p><div class="ticket-rule"></div><p class="ticket-location">Đà Nẵng, Việt Nam<br><small id="venue-note">Địa điểm cụ thể sẽ được cập nhật.</small></p><button class="ticket-calendar" data-calendar>Lưu sự kiện vào lịch <span aria-hidden="true">＋</span></button><p class="ticket-fineprint" id="registration-pending">Hotline Ban Tổ chức: <a href="tel:+84913989365">0913.989.365</a></p></div></div></section>
+    <section class="content-section registration section-pad" id="tham-du" aria-labelledby="registration-title"><div class="wrap registration-layout"><div><span class="eyebrow">09 / THÔNG TIN THAM DỰ</span><h2 id="registration-title">Hẹn gặp tại <br><span class="text-lavender">Đà Nẵng.</span></h2><p>Diễn đàn M&A Miền Trung 2026<br>Khơi thông nguồn lực. Kiến tạo tăng trưởng mới.</p><div class="registration-event"><span>13.12.2026</span><span>13:30 — 17:30</span><span>ĐÀ NẴNG</span></div><p class="registration-dinner">18:00 — 20:30 · Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung (dự kiến).</p><a href="#lien-he" class="text-link registration-contact">Liên hệ Ban Tổ chức để trao đổi nhu cầu tham dự <span aria-hidden="true">→</span></a></div><div class="ticket-panel"><div class="ticket-heading"><span class="micro">GIÁ VÉ & ĐĂNG KÝ</span><span class="ticket-mark action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></div><span class="small-tag" id="ticket-status">SẮP CÔNG BỐ</span><h3 id="ticket-price">Sắp công bố</h3><p id="ticket-note">Giá vé và quyền lợi tham dự sẽ được Ban Tổ chức công bố. Liên hệ Ban Tổ chức để trao đổi nhu cầu tham gia.</p><div class="ticket-rule"></div><p class="ticket-location">Đà Nẵng, Việt Nam<br><small id="venue-note">Địa điểm cụ thể sẽ được cập nhật.</small></p><button class="button button-primary" type="button" data-registration>Đăng ký tham dự <span aria-hidden="true">→</span></button><button class="ticket-calendar" data-calendar>Lưu sự kiện vào lịch <span aria-hidden="true">＋</span></button><p class="ticket-fineprint" id="registration-pending">Hotline Ban Tổ chức: <a href="tel:+84913989365">0913.989.365</a></p></div></div></section>
 
     <section class="content-section contact-section section-pad" id="lien-he" aria-labelledby="contact-title"><div class="wrap">
       <div class="section-top"><span class="eyebrow">10 / LIÊN HỆ BAN TỔ CHỨC</span><span class="micro">LET'S BUILD THE NEXT CHAPTER</span></div>
@@ -283,7 +287,7 @@
           </article>
           <article class="faq-item" aria-labelledby="faq-attend-title">
             <span class="faq-index" aria-hidden="true">02</span>
-            <div><h3 id="faq-attend-title">Làm thế nào để đăng ký tham dự?</h3><p id="faq-registration">Giá vé và kênh đăng ký chính thức đang được cập nhật. Bạn có thể liên hệ Ban Tổ chức qua <a href="tel:+84913989365">0913.989.365</a> hoặc <a href="mailto:vmaacentral@gmail.com">vmaacentral@gmail.com</a> để trao đổi nhu cầu tham dự.</p></div>
+            <div><h3 id="faq-attend-title">Làm thế nào để đăng ký tham dự?</h3><p id="faq-registration">Phí tham dự 500.000đ/vé. Bạn có thể <a href="#tham-du" data-registration>đăng ký trực tiếp tại đây</a> hoặc liên hệ Ban Tổ chức qua <a href="tel:+84913989365">0913.989.365</a> hoặc <a href="mailto:vmaacentral@gmail.com">vmaacentral@gmail.com</a> để trao đổi nhu cầu tham dự.</p></div>
           </article>
           <article class="faq-item" aria-labelledby="faq-speakers-title">
             <span class="faq-index" aria-hidden="true">03</span>
@@ -300,6 +304,57 @@
 
   <footer class="site-footer"><div class="wrap"><div class="footer-main"><a href="#" class="footer-logo" aria-label="VMAA — về đầu trang"><img src="assets/vmaa-logo.png" alt="VMAA" width="1454" height="605" loading="lazy"></a><p>HIỆP HỘI MUA BÁN VÀ SÁP NHẬP<br>DOANH NGHIỆP VIỆT NAM</p><a class="text-link" href="#">Về đầu trang <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 19V5m-6 6 6-6 6 6"/></svg></span></a></div><div class="footer-bottom"><span>© 2026 VMAA · Diễn đàn M&A Miền Trung</span><span>PEOPLE · CAPITAL · OPPORTUNITIES</span></div></div></footer>
   <dialog id="info-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><button class="dialog-close" aria-label="Đóng thông tin">×</button><span class="eyebrow">VMAA · MIỀN TRUNG 2026</span><h2 id="dialog-title">Thông tin diễn giả</h2><p id="dialog-description">Thông tin khách mời và diễn giả sẽ hiển thị tại đây.</p><div id="dialog-speaker" class="dialog-speaker" hidden></div><div class="dialog-event">13.12.2026 <span>13:30 — 17:30</span></div><button class="button button-primary" data-calendar>Lưu sự kiện vào lịch <span aria-hidden="true">＋</span></button><button class="dialog-dismiss">Tiếp tục khám phá</button></dialog>
+  <dialog id="registration-dialog" class="registration-dialog" aria-labelledby="registration-title-dialog" aria-describedby="registration-description">
+    <button class="dialog-close" type="button" aria-label="Đóng đăng ký" data-registration-close>×</button>
+    <span class="eyebrow">VMAA · MIỀN TRUNG 2026</span>
+    <h2 id="registration-title-dialog">Đăng ký tham dự</h2>
+    <p id="registration-description" class="registration-description">13.12.2026 · Đà Nẵng. Ban Tổ chức sẽ xét duyệt và gửi email xác nhận chính thức đến địa chỉ bạn cung cấp.</p>
+    <span id="registration-step" class="registration-step">01 / THÔNG TIN THAM DỰ</span>
+    <div id="registration-information">
+      <form id="registration-form">
+        <div class="registration-fields">
+          <label class="registration-field">Họ và tên *<input name="name" autocomplete="name" maxlength="60" required></label>
+          <label class="registration-field">Số điện thoại di động *<input name="phone" type="tel" autocomplete="tel" maxlength="24" required></label>
+          <label class="registration-field">Email công việc *<input name="email" type="email" autocomplete="email" maxlength="200" required><small>Email xác nhận đăng ký sẽ được gửi về địa chỉ này.</small></label>
+          <label class="registration-field">Công ty / Tổ chức *<input name="company" autocomplete="organization" maxlength="200" required></label>
+          <label class="registration-field">Chức danh của bạn *<input name="title" autocomplete="organization-title" maxlength="200" required></label>
+          <label class="registration-field">Quy mô công ty *<select name="companySize" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field">Giai đoạn phát triển của công ty *<select name="stage" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field">Lĩnh vực hoạt động *<select name="industry" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field">Hình thức tham dự *<select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
+          <label class="registration-field">Số lượng vé đăng ký *<select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
+          <label class="registration-field">Mã mời (nếu có)<input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
+        </div>
+        <fieldset class="registration-sessions"><legend>Bạn muốn tham dự phiên nào? *</legend><div id="registration-sessions"></div></fieldset>
+        <div class="registration-actions"><button class="button button-primary" type="submit" data-registration-action>Tiếp tục <span aria-hidden="true">→</span></button></div>
+      </form>
+    </div>
+    <div id="registration-payment" hidden>
+      <h3 id="payment-title" tabindex="-1">Kiểm tra thông tin tham dự</h3>
+      <p class="payment-attendee"><span id="payment-name"></span><span id="payment-phone"></span></p>
+      <p id="payment-summary"></p>
+      <div id="payment-transfer">
+        <div class="payment-layout">
+          <img id="payment-qr" class="payment-qr" alt="QR chuyển khoản phí tham dự VMAA" width="260" height="260">
+          <dl class="payment-details">
+            <div><dt>Số tiền chuyển khoản</dt><dd id="payment-amount" class="payment-amount"></dd></div>
+            <div><dt>Ngân hàng · Số tài khoản</dt><dd id="payment-bank"></dd></div>
+            <div><dt>Đơn vị thụ hưởng</dt><dd id="payment-account-name"></dd></div>
+            <div><dt>Nội dung chuyển khoản</dt><dd id="payment-memo"></dd><button id="payment-copy-memo" class="payment-copy" type="button">Sao chép nội dung</button></div>
+          </dl>
+        </div>
+        <label class="payment-confirmation"><input id="payment-confirmed" type="checkbox"><span>Tôi đã chuyển khoản phí tham dự theo số tiền và nội dung bên trên.</span></label>
+      </div>
+      <p id="payment-exemption" class="payment-exemption" hidden></p>
+      <div class="registration-actions"><button id="registration-back" class="button button-outline" type="button" data-registration-action>Chỉnh sửa thông tin</button><button id="registration-submit" class="button button-primary" type="button" data-registration-action>Gửi đăng ký</button></div>
+    </div>
+    <div id="registration-success" class="registration-success" hidden>
+      <h3 id="registration-success-title" tabindex="-1">Đã gửi đăng ký</h3>
+      <p>Ban Tổ chức đã tiếp nhận thông tin của bạn. Đăng ký được xác nhận khi bạn nhận được email xác nhận chính thức từ Ban Tổ chức.</p>
+      <div class="registration-actions"><button class="button button-primary" type="button" data-registration-close>Hoàn tất</button></div>
+    </div>
+    <p id="registration-status" class="registration-status" role="status" aria-live="polite"></p>
+  </dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <noscript><div class="no-script">Bạn có thể xem toàn bộ nội dung trang. Vui lòng bật JavaScript để xem lịch trình tương tác và tải lịch sự kiện.</div></noscript>
 </body>

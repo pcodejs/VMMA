@@ -193,7 +193,37 @@
   }
   if(content.partners.length) {
     $('#partner-announcement').hidden = true;
-    content.partners.forEach(partner => { const node = document.createElement('div'); node.className = 'partner-logo'; const logo = safeUrl(partner.logo); node.innerHTML = `<span>${escape(partner.tier)}</span>${logo ? `<img src="${escape(logo)}" alt="${escape(partner.name)}" loading="lazy">` : `<p>${escape(partner.name)}</p>`}`; const url = safeUrl(partner.url); if(url) { const a = document.createElement('a'); a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.append(node); $('#partner-list').append(a); } else $('#partner-list').append(node); });
+    const partnerGroups = [
+      ['diamond', 'Nhà tài trợ Kim cương'],
+      ['gold', 'Nhà tài trợ Vàng'],
+      ['bronze', 'Nhà tài trợ Đồng'],
+      ['strategic', 'Đối tác chiến lược'],
+      ['companion', 'Đơn vị đồng hành']
+    ];
+    partnerGroups.forEach(([tier, label]) => {
+      const partners = content.partners.filter(partner => partner.tier === tier);
+      if (!partners.length) return;
+      const group = document.createElement('section');
+      group.className = `sponsor-group sponsor-group-${tier}`;
+      group.setAttribute('aria-labelledby', `sponsor-heading-${tier}`);
+      group.innerHTML = `<h3 id="sponsor-heading-${tier}">${escape(label)}</h3><div class="sponsor-logo-grid"></div>`;
+      partners.forEach(partner => {
+        const node = document.createElement('div');
+        node.className = 'sponsor-logo';
+        const logo = safeImageUrl(partner.logo);
+        node.innerHTML = logo ? `<img src="${escape(logo)}" alt="${escape(partner.name)}" width="400" height="160" loading="lazy" decoding="async">` : `<p>${escape(partner.name)}</p>`;
+        const url = safeUrl(partner.url);
+        if (url) {
+          const link = document.createElement('a');
+          link.href = url;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.append(node);
+          group.querySelector('.sponsor-logo-grid').append(link);
+        } else group.querySelector('.sponsor-logo-grid').append(node);
+      });
+      $('#partner-list').append(group);
+    });
   }
 
   if(content.sponsorship) {

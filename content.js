@@ -63,11 +63,21 @@ window.VMAA_CONTENT = {
       "bio": "Thạc sĩ Đại học Khoa học Kỹ thuật Toyohashi, Nhật Bản. Giám đốc vận hành (COO) NewIT Inc. (Nhật Bản). Giám đốc điều hành (CEO) VJPlus Inc. (Nhật Bản)."
     }
   ],
-  "partners": [],
+  "partners": [
+    { "name": "GoTek", "tier": "companion", "logo": "assets/partners/gotek.webp" },
+    { "name": "D2 Events", "tier": "companion", "logo": "assets/partners/d2-events.webp" },
+    { "name": "DNES — Vườn ươm doanh nghiệp Đà Nẵng", "tier": "companion", "logo": "assets/partners/dnes.webp" },
+    { "name": "Startup Vietnam Foundation", "tier": "companion", "logo": "assets/partners/svf.webp" },
+    { "name": "WD Capital", "tier": "companion", "logo": "assets/partners/wd-capital.webp" },
+    { "name": "Ascentium", "tier": "companion", "logo": "assets/partners/ascentium.webp" },
+    { "name": "JCI Hội An", "tier": "companion", "logo": "assets/partners/jci-hoi-an.webp" },
+    { "name": "IPC M&A Vietnam", "tier": "companion", "logo": "assets/partners/ipc-ma-vietnam.webp" },
+    { "name": "AnNam Partners", "tier": "companion", "logo": "assets/partners/annam-partners.webp" }
+  ],
   "tickets": {
-    "price": null,
+    "price": 500000,
     "currency": "VND",
-    "note": "Giá vé và quyền lợi tham dự sẽ được Ban Tổ chức công bố. Liên hệ Ban Tổ chức để trao đổi nhu cầu tham gia."
+    "note": "Phí tham dự 500.000đ/vé. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức."
   },
   "agenda": [
     {

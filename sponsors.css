@@ -1,0 +1,26 @@
+/* Sponsor hierarchy follows the supplied Drive folders. */
+#main .partners .partner-list{display:block;margin-bottom:72px}
+#main .partners .organizer-row:has(.partner-announcement[hidden]){grid-template-columns:1fr;justify-items:center;margin-bottom:38px;gap:0}
+#main .partners .organizer-row:has(.partner-announcement[hidden])>div:first-child{border:0;padding:0;text-align:center}
+#main .partners .organizer-row img.organizer-supplied-logo{width:240px;height:128px;object-fit:contain;padding:20px 24px;margin-inline:auto;border-radius:8px;background:white}
+.sponsor-group+.sponsor-group{margin-top:40px}
+.sponsor-group>h3{margin:0 0 22px;text-align:center;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--lavender)}
+.sponsor-logo-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
+.sponsor-logo-grid>a{display:block;flex:0 1 calc((100% - 54px)/4);min-width:0}
+.sponsor-logo{display:flex;align-items:center;justify-content:center;flex:0 1 calc((100% - 54px)/4);min-width:0;height:128px;padding:25px 24px;border:1px solid #ffffff16;border-radius:8px;background:#fff}
+.sponsor-logo-grid>a>.sponsor-logo{width:100%}
+.sponsor-logo img{display:block;width:100%;height:100%;object-fit:contain}
+.sponsor-group-diamond .sponsor-logo{flex-basis:340px;height:180px;padding:28px 32px}
+.sponsor-group-diamond .sponsor-logo-grid>a{flex-basis:340px}
+.sponsor-group-gold .sponsor-logo{flex-basis:290px;height:150px}
+.sponsor-group-gold .sponsor-logo-grid>a{flex-basis:290px}
+.sponsor-group-bronze .sponsor-logo{height:140px}
+@media(max-width:1000px){.sponsor-logo,.sponsor-logo-grid>a{flex-basis:calc((100% - 36px)/3)}}
+@media(max-width:720px){
+  #main .partners .partner-list{margin-bottom:48px}
+  .sponsor-logo-grid{gap:12px}
+  .sponsor-logo,.sponsor-logo-grid>a{flex-basis:calc((100% - 12px)/2)}
+  .sponsor-logo{height:108px;padding:20px 16px}
+  .sponsor-group-diamond .sponsor-logo,.sponsor-group-gold .sponsor-logo{flex-basis:100%;max-width:340px}
+  .sponsor-group-diamond .sponsor-logo-grid>a,.sponsor-group-gold .sponsor-logo-grid>a{flex-basis:100%;max-width:340px}
+}
