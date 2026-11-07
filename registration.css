@@ -5,8 +5,10 @@ dialog.registration-dialog{width:min(840px,calc(100% - 32px));max-height:calc(10
 .registration-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
 .registration-field{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--text)}
 .registration-field[hidden]{display:none}
-.registration-field input,.registration-field select{width:100%;min-width:0;min-height:46px;padding:11px 12px;border:1px solid #a1b4e24a;border-radius:5px;background:#090f23;color:var(--text);font:inherit}
-.registration-field input:focus-visible,.registration-field select:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}
+.registration-field input,.registration-field select,.registration-field textarea{width:100%;min-width:0;min-height:46px;padding:11px 12px;border:1px solid #a1b4e24a;border-radius:5px;background:#090f23;color:var(--text);font:inherit}
+.registration-field input:focus-visible,.registration-field select:focus-visible,.registration-field textarea:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}
+.registration-invoice{margin-top:26px}
+.registration-invoice textarea{resize:vertical}
 .registration-field small{font-size:11px;color:var(--muted);line-height:1.7}
 .registration-sessions{margin:26px 0 0;padding:0;border:0}
 .registration-sessions legend{font-size:13px;color:var(--text);margin-bottom:14px}

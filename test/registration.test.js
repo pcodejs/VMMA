@@ -222,6 +222,17 @@ test('obsolete session choices cannot be submitted as networking targets', async
   assert.equal(requests.length, 0);
 });
 
+test('VAT invoice information is optional and preserves multiline text in Lark', async () => {
+  const { validateRegistration, recordFields } = require('../lib/registration');
+  assert.equal(recordFields(validateRegistration(attendee()), schema).invoiceInfo, undefined);
+  const invoiceInfo = 'DON VI KIEM THU\nMST 0000000000\nDia chi kiem thu\ntest@example.com';
+  const data = await paidAttendee({ invoiceInfo: `  ${invoiceInfo}  ` });
+  assert.equal((await invoke('register', data)).status, 200);
+  assert.equal(createdRecords.get(requestId).invoiceInfo, invoiceInfo);
+  assert.throws(() => validateRegistration(attendee({ invoiceInfo: 'x'.repeat(2001) })), /hóa đơn VAT/);
+  assert.throws(() => validateRegistration(attendee({ invoiceInfo: {} })), /hóa đơn VAT/);
+});
+
 test('guest and bulk registrations skip the transfer and keep the correct Lark status', async () => {
   for (const override of [{ attendeeType: 'guest' }, { quantity: config.quantities[5] }]) {
     const payment = await invoke('payment', attendee(override));
