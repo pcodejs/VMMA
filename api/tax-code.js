@@ -19,7 +19,11 @@ module.exports = async function taxCode(req, res) {
         if (attempt === 1) throw error;
       }
     }
-    if (!response.ok) throw new RegistrationError('Tra cứu đang gián đoạn. Bạn có thể nhập thông tin hóa đơn bên dưới.', 503);
+    if (!response.ok) {
+      const error = new RegistrationError('Tra cứu đang gián đoạn. Bạn có thể nhập thông tin hóa đơn bên dưới.', 503);
+      error.upstreamCode = response.status;
+      throw error;
+    }
     const result = await response.json();
     if (['51', '52'].includes(result.code)) {
       throw new RegistrationError('Chưa tìm thấy doanh nghiệp. Vui lòng kiểm tra mã số thuế hoặc nhập thông tin hóa đơn bên dưới.', 404);
@@ -33,7 +37,11 @@ module.exports = async function taxCode(req, res) {
     }
     res.status(200).json({ taxCode, name: data.name.trim(), address: data.address.trim() });
   } catch (error) {
-    if (!error.status) error = new RegistrationError('Tra cứu đang gián đoạn. Bạn có thể nhập thông tin hóa đơn bên dưới.', 503);
+    if (!error.status) {
+      const upstreamCode = error.cause?.code || error.name;
+      error = new RegistrationError('Tra cứu đang gián đoạn. Bạn có thể nhập thông tin hóa đơn bên dưới.', 503);
+      error.upstreamCode = upstreamCode;
+    }
     sendError(res, error);
   }
 };
