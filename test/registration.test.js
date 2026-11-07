@@ -12,6 +12,7 @@ let requests;
 let createdRecords;
 let schema;
 let rejectCreate;
+let rejectUpload;
 
 function attendee(overrides = {}) {
   return {
@@ -27,15 +28,18 @@ beforeEach(() => {
   requests = [];
   createdRecords = new Map();
   rejectCreate = false;
+  rejectUpload = false;
   schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'sessions' ? 4 : 1 }));
+  schema.push({ field_id: 'test_receipt_field', field_name: config.receiptFieldName, type: 17 });
   envNames.forEach(key => { process.env[key] = 'test_value'; });
-  for (const name of ['../lib/registration', '../api/payment', '../api/register']) delete require.cache[require.resolve(name)];
+  for (const name of ['../lib/registration', '../lib/receipt', '../api/payment', '../api/receipt', '../api/register']) delete require.cache[require.resolve(name)];
   global.fetch = async (url, options) => {
-    const request = { url, options, body: options.body ? JSON.parse(options.body) : null };
+    const request = { url, options, body: typeof options.body === 'string' ? JSON.parse(options.body) : options.body };
     requests.push(request);
     let result;
     if (url.endsWith('tenant_access_token/internal')) result = { code: 0, tenant_access_token: 'test_token', expire: 7200 };
     else if (url.includes('/fields?')) result = { code: 0, data: { items: schema, has_more: false } };
+    else if (url.endsWith('drive/v1/medias/upload_all')) result = rejectUpload ? { code: 1061004 } : { code: 0, data: { file_token: 'test_receipt_token' } };
     else if (url.includes('/records?')) {
       if (rejectCreate) result = { code: 1254302 };
       else {
@@ -66,6 +70,14 @@ async function invoke(endpoint, body, overrides = {}) {
   };
   await require(`../api/${endpoint}`)(req, res);
   return result;
+}
+
+async function paidAttendee(overrides = {}) {
+  const data = attendee({ paymentConfirmed: true, ...overrides });
+  const png = PNG.sync.write(new PNG({ width: 2, height: 2 }));
+  const result = await invoke('receipt', { ...data, receipt: { mime: 'image/png', base64: png.toString('base64') } });
+  assert.equal(result.status, 200);
+  return { ...data, receiptHandle: result.data.receiptHandle };
 }
 
 function fields(payload) {
@@ -124,20 +136,60 @@ test('a normal registration requires an explicit transfer confirmation', async (
 });
 
 test('retries keep the same Lark idempotency token and exact field mapping', async () => {
-  const data = attendee({ paymentConfirmed: true });
+  const data = await paidAttendee();
   assert.equal((await invoke('register', data)).status, 200);
   assert.equal((await invoke('register', data)).status, 200);
   assert.equal(createdRecords.size, 1);
   assert.deepEqual(createdRecords.get(requestId).sessions, data.sessions);
   assert.equal(createdRecords.get(requestId).payment, config.paymentLabels.paid);
   assert.equal(createdRecords.get(requestId).phone, data.phone);
+  assert.deepEqual(createdRecords.get(requestId)[config.receiptFieldName], [{ file_token: 'test_receipt_token' }]);
+  const uploads = requests.filter(request => request.url.endsWith('medias/upload_all'));
+  assert.equal(uploads.length, 1, 'register retries reuse the uploaded receipt');
+  assert.equal(uploads[0].body.get('parent_type'), 'bitable_image');
+  assert.equal(uploads[0].body.get('parent_node'), process.env.LARK_BASE_TOKEN);
+  assert.equal(uploads[0].body.get('file').type, 'image/png');
+  assert.equal(uploads[0].body.get('file_name'), `vmaa-${requestId}.png`);
 });
 
 test('upstream failure never returns a successful registration', async () => {
   rejectCreate = true;
-  const result = await invoke('register', attendee({ paymentConfirmed: true }));
+  const result = await invoke('register', await paidAttendee());
   assert.equal(result.status, 502);
   assert.equal(result.data.success, undefined);
+});
+
+test('paid registrations require a receipt uploaded for the exact attendee and request', async () => {
+  assert.equal((await invoke('register', attendee({ paymentConfirmed: true }))).status, 400);
+  const data = await paidAttendee();
+  for (const overrides of [{ name: 'Người khác' }, { requestId: 'ed237ded-4e93-4a92-8a14-18b3bda12346' }, { receiptHandle: data.receiptHandle + 'x' }, { receiptHandle: 'forged.file_token' }]) {
+    assert.equal((await invoke('register', { ...data, ...overrides })).status, 400);
+  }
+  assert.equal(createdRecords.size, 0);
+});
+
+test('receipt uploads reject unsupported, oversized and mislabelled files', async () => {
+  const data = attendee({ paymentConfirmed: true });
+  const png = PNG.sync.write(new PNG({ width: 2, height: 2 }));
+  for (const receipt of [undefined, { mime: 'image/png', base64: Buffer.from('<svg/>').toString('base64') }, { mime: 'image/jpeg', base64: png.toString('base64') }, { mime: 'image/png', base64: '%%%' }]) {
+    assert.equal((await invoke('receipt', { ...data, receipt })).status, 400);
+  }
+  assert.equal((await invoke('receipt', { ...data, receipt: { mime: 'image/png', base64: Buffer.alloc(config.maxReceiptBytes + 1).toString('base64') } })).status, 413);
+  assert.equal(requests.length, 0);
+});
+
+test('failed receipt upload cannot create a registration', async () => {
+  rejectUpload = true;
+  const png = PNG.sync.write(new PNG({ width: 2, height: 2 }));
+  const result = await invoke('receipt', attendee({ paymentConfirmed: true, receipt: { mime: 'image/png', base64: png.toString('base64') } }));
+  assert.equal(result.status, 502);
+  assert.equal(result.data.receiptHandle, undefined);
+  assert.equal(createdRecords.size, 0);
+});
+
+test('a changed receipt column blocks QR before payment', async () => {
+  schema = schema.filter(field => field.type !== 17);
+  assert.equal((await invoke('payment', attendee())).status, 503);
 });
 
 test('missing Lark configuration blocks the QR before payment', async () => {

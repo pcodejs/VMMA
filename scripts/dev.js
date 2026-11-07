@@ -6,7 +6,7 @@ for (const file of ['.env.local', '.env']) {
   const envPath = path.join(root, file);
   if (fs.existsSync(envPath)) process.loadEnvFile(envPath);
 }
-const handlers = { '/api/payment': require('../api/payment'), '/api/register': require('../api/register') };
+const handlers = { '/api/payment': require('../api/payment'), '/api/receipt': require('../api/receipt'), '/api/register': require('../api/register') };
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 http.createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname;
@@ -14,9 +14,12 @@ http.createServer(async (req, res) => {
   res.json = data => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
   if (handlers[pathname]) {
     let body = '';
+    let bodyBytes = 0;
+    const maxBodyBytes = pathname === '/api/receipt' ? require('../lib/receipt').MAX_REQUEST_BYTES : 16000;
     for await (const chunk of req) {
       body += chunk;
-      if (Buffer.byteLength(body) > 16000) { res.status(413).json({ error: 'Thông tin đăng ký quá dài.' }); return; }
+      bodyBytes += chunk.length;
+      if (bodyBytes > maxBodyBytes) { res.status(413).json({ error: 'Thông tin đăng ký quá dài.' }); return; }
     }
     req.body = body;
     await handlers[pathname](req, res);

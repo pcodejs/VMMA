@@ -35,7 +35,7 @@ Cấu hình các biến môi trường sau trong dự án Vercel, cho môi trư�
 | `LARK_BASE_TOKEN` | App token của Base thực nhận đăng ký, lấy từ thông tin API của Base |
 | `LARK_TABLE_ID` | ID bảng nhận đăng ký |
 
-Ứng dụng cần quyền đọc cấu trúc trường, tạo bản ghi và quyền truy cập Base đích. Các trường được đối chiếu bằng ID trong `registration-config.js` rồi chuyển sang tên trường thật trước khi ghi dữ liệu.
+Ứng dụng cần quyền đọc cấu trúc trường, tạo bản ghi, tải ảnh đính kèm và quyền truy cập Base đích. Các trường được đối chiếu bằng ID trong `registration-config.js` rồi chuyển sang tên trường thật trước khi ghi dữ liệu. Trường biên lai được tìm theo tên chính xác `Hình ảnh xác thực đã thanh toán` và phải có kiểu Attachment (17).
 
 Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa tích hợp được lưu trong cấu hình môi trường của Vercel.
 
@@ -43,7 +43,7 @@ Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa t�
 
 1. Khách điền thông tin và chọn phiên, hình thức tham dự, số lượng vé.
 2. Máy chủ kiểm tra dữ liệu và kết nối Base trước khi trả QR.
-3. Đại biểu trả phí quét QR, chuyển khoản và chọn xác nhận đã chuyển khoản.
+3. Đại biểu trả phí quét QR, chuyển khoản, tải ảnh biên lai và chọn xác nhận đã chuyển khoản.
 4. Website gửi đăng ký vào Lark bằng API chính thức.
 5. Ban Tổ chức xét duyệt và gửi email xác nhận chính thức.
 
@@ -51,7 +51,9 @@ Giá hiện tại 500.000đ/vé theo form Lark được đối chiếu ngày 07.
 
 QR được tạo trên máy chủ bằng thư viện VietQR chạy offline. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `VMAA - Họ và Tên - SĐT`, bỏ dấu tiếng Việt khi mã hóa để tương thích chuyển khoản. Bản xem trước hiển thị cùng nội dung được mã hóa.
 
-Trạng thái chuyển khoản là xác nhận của khách. Ban Tổ chức đối soát giao dịch và duyệt đăng ký. Yêu cầu gửi lại dùng cùng `client_token` để Lark xử lý tính lặp.
+Ảnh biên lai hỗ trợ JPG, PNG và WEBP, tối đa 2 MB. Máy chủ kiểm tra dung lượng, chữ ký định dạng ảnh rồi tải vào đúng Base. Ảnh được lưu cùng bản ghi đăng ký trong trường đính kèm. Khách mời và đăng ký trên 5 vé không cần biên lai.
+
+Trạng thái chuyển khoản là xác nhận của khách. Ban Tổ chức đối soát giao dịch và duyệt đăng ký. Sau khi tải ảnh thành công, trình duyệt giữ mã biên lai có chữ ký máy chủ, gắn với thông tin khách và mã đăng ký, có hiệu lực 24 giờ. Gửi lại dùng cùng ảnh và `client_token` để Lark xử lý tính lặp, không tải lại ảnh sau lỗi tạo bản ghi.
 
 ## Các tệp chính
 
@@ -60,7 +62,7 @@ Trạng thái chuyển khoản là xác nhận của khách. Ban Tổ chức đ�
 - `app.js` xử lý tương tác trang, hồ sơ diễn giả, bộ lọc, lịch ICS và phân nhóm logo.
 - `registration-config.js` chứa cấu hình công khai, lựa chọn biểu mẫu và ID trường Lark.
 - `registration.js`, `registration.css` xử lý giao diện đăng ký.
-- `api/payment.js`, `api/register.js`, `lib/registration.js` xử lý QR, kiểm tra dữ liệu và kết nối Lark.
+- `api/payment.js`, `api/receipt.js`, `api/register.js`, `lib/registration.js`, `lib/receipt.js` xử lý QR, biên lai, kiểm tra dữ liệu và kết nối Lark.
 - `styles.css`, `sections.css`, `hero-v2.css`, `takeaways.css`, `portfolio-update.css` định dạng UI sự kiện.
 - `sponsors.css` định dạng phần logo bổ sung.
 - `assets/partners/` chứa bản logo tối ưu cho website.

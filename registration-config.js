@@ -1,6 +1,8 @@
 (function (root) {
   const config = {
     price: 500000,
+    receiptFieldName: 'Hình ảnh xác thực đã thanh toán',
+    maxReceiptBytes: 2 * 1024 * 1024,
     bank: {
       bin: '970416',
       name: 'ACB',

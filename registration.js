@@ -8,6 +8,8 @@
   const payment = document.querySelector('#registration-payment');
   const success = document.querySelector('#registration-success');
   const confirmation = document.querySelector('#payment-confirmed');
+  const receiptInput = document.querySelector('#payment-receipt');
+  const receiptPreview = document.querySelector('#payment-receipt-preview');
   const money = value => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
   let previousFocus;
   let previousOverflow;
@@ -16,6 +18,49 @@
   let requestId;
   let busy = false;
   let completed = false;
+  let receiptHandle;
+  let previewURL;
+
+  function clearReceipt() {
+    receiptHandle = null;
+    receiptInput.value = '';
+    if (previewURL) URL.revokeObjectURL(previewURL);
+    previewURL = null;
+    receiptPreview.removeAttribute('src');
+    receiptPreview.hidden = true;
+  }
+
+  function validReceipt(file) {
+    return file && ['image/jpeg', 'image/png', 'image/webp'].includes(file.type) && file.size > 0 && file.size <= config.maxReceiptBytes;
+  }
+
+  receiptInput.addEventListener('change', () => {
+    receiptHandle = null;
+    if (previewURL) URL.revokeObjectURL(previewURL);
+    previewURL = null;
+    receiptPreview.removeAttribute('src');
+    receiptPreview.hidden = true;
+    const file = receiptInput.files[0];
+    if (!file) return;
+    if (!validReceipt(file)) {
+      receiptInput.value = '';
+      status.textContent = 'Vui lòng chọn ảnh JPG, PNG hoặc WEBP, tối đa 2 MB.';
+      return;
+    }
+    previewURL = URL.createObjectURL(file);
+    receiptPreview.src = previewURL;
+    receiptPreview.hidden = false;
+    status.textContent = '';
+  });
+
+  function receiptData(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({ mime: file.type, base64: String(reader.result).split(',')[1] });
+      reader.onerror = () => reject(new Error('Chưa đọc được ảnh biên lai. Vui lòng chọn lại ảnh.'));
+      reader.readAsDataURL(file);
+    });
+  }
 
   for (const [name, choices] of Object.entries({ companySize: config.companySizes, stage: config.stages, industry: config.industries, quantity: config.quantities })) {
     const select = form.elements.namedItem(name);
@@ -59,6 +104,7 @@
       currentFingerprint = null;
       requestId = null;
       completed = false;
+      clearReceipt();
       showStep('information');
     }
     dialog.showModal();
@@ -85,6 +131,7 @@
     busy = value;
     dialog.setAttribute('aria-busy', String(value));
     dialog.querySelectorAll('[data-registration-action]').forEach(button => { button.disabled = value; });
+    receiptInput.disabled = value;
     status.textContent = message;
   }
 
@@ -102,6 +149,7 @@
     if (fingerprint !== currentFingerprint) {
       requestId = crypto.randomUUID();
       currentFingerprint = fingerprint;
+      clearReceipt();
     }
     setBusy(true, 'Đang chuẩn bị thông tin đăng ký…');
     try {
@@ -121,7 +169,7 @@
       const qrImage = document.querySelector('#payment-qr');
       if (details.qrDataURL) qrImage.src = details.qrDataURL;
       else qrImage.removeAttribute('src');
-      document.querySelector('#payment-summary').textContent = needsPayment ? 'Quét QR bằng ứng dụng ngân hàng, hoàn tất chuyển khoản và xác nhận bên dưới để gửi đăng ký.' : 'Kiểm tra lại thông tin và gửi đăng ký để Ban Tổ chức tiếp nhận.';
+      document.querySelector('#payment-summary').textContent = needsPayment ? 'Quét QR bằng ứng dụng ngân hàng, hoàn tất chuyển khoản, tải ảnh biên lai và xác nhận bên dưới để gửi đăng ký.' : 'Kiểm tra lại thông tin và gửi đăng ký để Ban Tổ chức tiếp nhận.';
       showStep('payment');
       document.querySelector('#payment-title').focus();
     } catch (error) {
@@ -142,14 +190,29 @@
       confirmation.focus();
       return;
     }
+    const needsPayment = !document.querySelector('#payment-transfer').hidden;
+    if (needsPayment && !validReceipt(receiptInput.files[0])) {
+      status.textContent = 'Vui lòng tải ảnh biên lai JPG, PNG hoặc WEBP, tối đa 2 MB trước khi gửi đăng ký.';
+      receiptInput.focus();
+      return;
+    }
     setBusy(true, 'Đang gửi đăng ký tới Ban Tổ chức…');
     try {
-      const result = await post('/api/register', { ...currentData, requestId, paymentConfirmed: confirmation.checked });
+      if (needsPayment && !receiptHandle) {
+        status.textContent = 'Đang tải ảnh biên lai…';
+        const uploaded = await post('/api/receipt', { ...currentData, requestId, paymentConfirmed: true, receipt: await receiptData(receiptInput.files[0]) });
+        if (!uploaded.receiptHandle) throw new Error('Chưa tải được ảnh biên lai. Vui lòng thử lại.');
+        receiptHandle = uploaded.receiptHandle;
+      }
+      status.textContent = 'Đang gửi đăng ký tới Ban Tổ chức…';
+      const result = await post('/api/register', { ...currentData, requestId, paymentConfirmed: confirmation.checked, receiptHandle: needsPayment ? receiptHandle : undefined });
       if (result.success !== true) throw new Error('Chưa xác nhận được kết quả gửi đăng ký. Vui lòng thử lại.');
       completed = true;
+      clearReceipt();
       showStep('success');
       document.querySelector('#registration-success-title').focus();
     } catch (error) {
+      if (error.message.includes('tải lại ảnh biên lai')) receiptHandle = null;
       status.textContent = error.name === 'TimeoutError' ? 'Kết nối đang chậm. Bạn có thể bấm gửi lại để kiểm tra kết quả đăng ký.' : error.message;
     } finally { setBusy(false, status.textContent); }
   });

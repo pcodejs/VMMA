@@ -343,6 +343,11 @@
             <div><dt>Nội dung chuyển khoản</dt><dd id="payment-memo"></dd><button id="payment-copy-memo" class="payment-copy" type="button">Sao chép nội dung</button></div>
           </dl>
         </div>
+        <label class="registration-field payment-receipt" for="payment-receipt">Ảnh biên lai chuyển khoản *
+          <input id="payment-receipt" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="payment-receipt-help">
+          <small id="payment-receipt-help">Tải 1 ảnh JPG, PNG hoặc WEBP, tối đa 2 MB. Ban Tổ chức dùng ảnh này để đối soát thanh toán.</small>
+        </label>
+        <img id="payment-receipt-preview" class="payment-receipt-preview" alt="Ảnh biên lai bạn đã chọn" hidden>
         <label class="payment-confirmation"><input id="payment-confirmed" type="checkbox"><span>Tôi đã chuyển khoản phí tham dự theo số tiền và nội dung bên trên.</span></label>
       </div>
       <p id="payment-exemption" class="payment-exemption" hidden></p>
