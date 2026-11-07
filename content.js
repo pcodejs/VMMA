@@ -1,4 +1,4 @@
-/* Programme copy and agenda labels follow the supplied Word document, reviewed 07.11.2026. Individual time slots and speaker profiles from the earlier portfolio remain tentative. */
+/* Agenda follows the PDF shared on 07.11.2026. Individual time slots and speaker profiles from the earlier portfolio remain tentative. */
 window.VMAA_CONTENT = {
   "event": {
     "name": "Diễn đàn M&A Miền Trung 2026",
@@ -64,20 +64,25 @@ window.VMAA_CONTENT = {
     }
   ],
   "partners": [
+    { "name": "DISSC", "tier": "strategic", "logo": "assets/partners/dissc.webp" },
+    { "name": "Diễn đàn Doanh nghiệp", "tier": "strategic", "logo": "assets/partners/dien-dan-doanh-nghiep.webp" },
+    { "name": "JCI Việt Nam", "tier": "strategic", "logo": "assets/partners/jci-vietnam.webp" },
     { "name": "GoTek", "tier": "companion", "logo": "assets/partners/gotek.webp" },
     { "name": "D2 Events", "tier": "companion", "logo": "assets/partners/d2-events.webp" },
     { "name": "DNES — Vườn ươm doanh nghiệp Đà Nẵng", "tier": "companion", "logo": "assets/partners/dnes.webp" },
-    { "name": "Startup Vietnam Foundation", "tier": "companion", "logo": "assets/partners/svf.webp" },
     { "name": "WD Capital", "tier": "companion", "logo": "assets/partners/wd-capital.webp" },
     { "name": "Ascentium", "tier": "companion", "logo": "assets/partners/ascentium.webp" },
     { "name": "JCI Hội An", "tier": "companion", "logo": "assets/partners/jci-hoi-an.webp" },
     { "name": "IPC M&A Vietnam", "tier": "companion", "logo": "assets/partners/ipc-ma-vietnam.webp" },
-    { "name": "AnNam Partners", "tier": "companion", "logo": "assets/partners/annam-partners.webp" }
+    { "name": "AnNam Partners", "tier": "companion", "logo": "assets/partners/annam-partners.webp" },
+    { "name": "CBRE", "tier": "companion", "logo": "assets/partners/cbre.webp" },
+    { "name": "Satori", "tier": "companion", "logo": "assets/partners/satori.webp" }
   ],
   "tickets": {
     "price": 500000,
     "currency": "VND",
-    "note": "Phí tham dự 500.000đ/vé. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức."
+    "note": "Phí tham dự Diễn đàn là 500.000 VNĐ/khách, chưa bao gồm chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung”. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức.",
+    "dinnerNote": "Chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung” diễn ra từ 18:00–20:30 cùng ngày. Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức."
   },
   "agenda": [
     {
@@ -86,6 +91,10 @@ window.VMAA_CONTENT = {
       "kind": "",
       "title": "Đón khách và kết nối",
       "detail": "Registration & Regional Networking",
+      "format": "Kết nối",
+      "objectives": [
+        "Đón khách, check-in và tạo kết nối ban đầu."
+      ],
       "category": "connect"
     },
     {
@@ -94,22 +103,43 @@ window.VMAA_CONTENT = {
       "kind": "",
       "title": "Ra mắt VMAA Miền Trung – Khai mở hệ sinh thái M&A khu vực",
       "detail": "VMAA Central Vietnam Launch – Activating the Regional M&A Ecosystem",
+      "format": "Khai mạc",
+      "objectives": [
+        "Chào mừng.",
+        "Chính thức công bố sự hiện diện của VMAA tại miền Trung.",
+        "Xác lập vai trò của VMAA trong hệ sinh thái đầu tư và M&A khu vực.",
+        "Vì sao M&A đang trở thành chiến lược tăng trưởng / tái cấu trúc quan trọng.",
+        "Ra mắt Ban điều hành hoặc nhóm thành viên sáng lập."
+      ],
       "category": "forum"
     },
     {
       "start": "14:20",
       "end": "14:35",
       "kind": "",
-      "title": "Bản đồ dòng vốn và thương vụ Việt Nam 2026 – Những cơ hội tiếp theo sẽ đến từ đâu?",
-      "detail": "Vietnam Capital & Deal Map 2026 – Where Will the Next Deals Come From?",
+      "title": "Bản đồ dòng vốn và thương vụ Việt Nam 2026: Những cơ hội tiếp theo sẽ đến từ đâu?",
+      "detail": "Vietnam Capital & Deal Map 2026: Where Will the Next Deals Come From?",
+      "format": "Trình bày",
+      "objectives": [
+        "Tổng quan thị trường M&A, xác định động lực thị trường, bản đồ cơ hội và vai trò của M&A đối với tăng trưởng khu vực."
+      ],
       "category": "forum"
     },
     {
       "start": "14:35",
       "end": "15:20",
       "kind": "Phiên thảo luận 1",
-      "title": "Bất động sản Miền Trung – Làm gì để bứt phá thành doanh nghiệp dẫn đầu?",
-      "detail": "Unlocking Central Vietnam’s Real Estate Champions – What Will It Take to Scale and Lead?",
+      "title": "Doanh nghiệp Miền Trung: Làm gì để bứt phá thành doanh nghiệp dẫn đầu?",
+      "detail": "Central Vietnam's Business Champions: What Will It Take to Scale and Lead?",
+      "format": "Tọa đàm",
+      "objectives": [
+        "Doanh nghiệp miền Trung có những lợi thế khác biệt nào?",
+        "Vì sao nhiều doanh nghiệp có tài sản và thương hiệu tốt nhưng chưa hấp dẫn nhà đầu tư?",
+        "Đâu là những giới hạn khiến doanh nghiệp khó mở rộng khỏi thị trường địa phương?",
+        "Doanh nghiệp gia đình nên chuẩn bị cho bài toán chuyển giao thế hệ ra sao?",
+        "M&A có thể giúp doanh nghiệp mở rộng thị trường và nâng cao năng lực cạnh tranh như thế nào?",
+        "Cần làm gì để hình thành thêm các doanh nghiệp dẫn đầu tại miền Trung?"
+      ],
       "category": "forum",
       "featured": true
     },
@@ -118,24 +148,41 @@ window.VMAA_CONTENT = {
       "end": "15:35",
       "kind": "",
       "title": "Coffee Break",
-      "detail": "Networking",
+      "detail": "",
+      "format": "Giải lao",
+      "objectives": [
+        "Kết nối giữa khách tham dự."
+      ],
       "category": "connect"
     },
     {
       "start": "15:35",
       "end": "16:20",
       "kind": "Phiên thảo luận 2",
-      "title": "Chiến lược vốn cho tăng trưởng – Công nghệ và những ngành dẫn dắt làn sóng đầu tư mới",
-      "detail": "Unlocking Capital for Growth – Technology and the Sectors Driving Vietnam’s Next Investment Wave",
+      "title": "Chiến lược vốn cho tăng trưởng: Công nghệ và những ngành dẫn dắt làn sóng đầu tư mới",
+      "detail": "Unlocking Capital for Growth: Technology and the Sectors Driving Central Vietnam’s Next Investment Wave",
+      "format": "Tọa đàm",
+      "objectives": [
+        "Vì sao công nghệ lại là động lực tăng trưởng mới.",
+        "Chiến lược gọi vốn, tìm đối tác chiến lược hay M&A: Đâu là lựa chọn phù hợp?",
+        "Giúp doanh nghiệp hiểu sự khác biệt giữa các phương án huy động vốn và tác động của từng lựa chọn đến quyền kiểm soát, chiến lược phát triển và giá trị dài hạn.",
+        "Nhóm 1 – Công nghiệp, Logistic & Chuỗi cung ứng.",
+        "Nhóm 2 – Du lịch, Nhà hàng khách sạn & BĐS.",
+        "Nhóm 3 – Công nghệ, Sức khoẻ, giáo dục và dịch vụ địa phương."
+      ],
       "category": "forum",
       "featured": true
     },
     {
       "start": "16:20",
       "end": "16:40",
-      "kind": "Gặp gỡ chuyên gia",
+      "kind": "Chia sẻ chuyên gia",
       "title": "Điều gì làm nên một thương vụ M&A thành công?",
-      "detail": "M&A Reality Check – What Makes a Deal Happen?",
+      "detail": "M&A Reality Check: What Makes a Deal Happen?",
+      "format": "Chia sẻ chuyên gia",
+      "objectives": [
+        "Làm rõ 5–7 yếu tố doanh nghiệp cần chuẩn bị trước khi bước vào M&A – ở mức overview: cấu trúc doanh nghiệp, tài chính, thuế, pháp lý, con người, định giá và mức độ chuẩn bị."
+      ],
       "category": "forum"
     },
     {
@@ -144,14 +191,22 @@ window.VMAA_CONTENT = {
       "kind": "",
       "title": "Q&A",
       "detail": "",
+      "format": "Hỏi đáp",
+      "objectives": [
+        "Khán giả đặt câu hỏi trực tiếp cho panelists."
+      ],
       "category": "forum"
     },
     {
       "start": "17:00",
       "end": "17:15",
-      "kind": "Tổng kết & Thông báo tuyển thành viên",
+      "kind": "VMAA Miền Trung",
       "title": "Từ tiềm năng đến hành động VMAA Miền Trung",
-      "detail": "Activating the Corridor – VMAA Central Vietnam Action Agenda",
+      "detail": "Activating the Corridor: VMAA Central Vietnam Action Agenda.",
+      "format": "VMAA Miền Trung",
+      "objectives": [
+        "Công bố các sáng kiến dự kiến của VMAA miền Trung."
+      ],
       "category": "forum"
     },
     {
@@ -159,15 +214,23 @@ window.VMAA_CONTENT = {
       "end": "17:30",
       "kind": "",
       "title": "Deal Connect Session",
-      "detail": "Connect Capital. Unlock Opportunities.",
+      "detail": "",
+      "format": "Bế mạc",
+      "objectives": [
+        "Kết nối chuyên sâu giữa speaker, doanh nghiệp, nhà đầu tư và đối tác; giới thiệu booth/đơn vị hỗ trợ."
+      ],
       "category": "connect"
     },
     {
       "start": "18:00",
       "end": "20:30",
-      "kind": "Gala Dinner",
+      "kind": "",
       "title": "Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung",
       "detail": "VMAA Central Vietnam Founding & Networking Dinner",
+      "format": "Kết nối",
+      "objectives": [
+        "Tăng cường kết nối và xây dựng quan hệ trong hệ sinh thái M&A."
+      ],
       "category": "connect"
     }
   ],

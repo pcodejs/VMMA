@@ -10,6 +10,8 @@
 .sponsor-logo{display:flex;align-items:center;justify-content:center;flex:0 1 calc((100% - 54px)/4);min-width:0;height:128px;padding:25px 24px;border:1px solid #ffffff16;border-radius:8px;background:#fff}
 .sponsor-logo-grid>a>.sponsor-logo{width:100%}
 .sponsor-logo img{display:block;width:100%;height:100%;object-fit:contain}
+.sponsor-logo:has(img[src$="/dien-dan-doanh-nghiep.webp"]),.sponsor-logo:has(img[src$="/satori.webp"]){overflow:hidden}
+.sponsor-logo img[src$="/dien-dan-doanh-nghiep.webp"],.sponsor-logo img[src$="/satori.webp"]{transform:scale(2)}
 .sponsor-group-diamond .sponsor-logo{flex-basis:340px;height:180px;padding:28px 32px}
 .sponsor-group-diamond .sponsor-logo-grid>a{flex-basis:340px}
 .sponsor-group-gold .sponsor-logo{flex-basis:290px;height:150px}

@@ -1,15 +1,7 @@
 /* Type treatment from v2_source/exports/KV_Hero_Motion_v2.html.
    Keep the approved centered layout, responsive sizing and fade-only entrance. */
-@font-face {
-  font-family: 'OutfitNum';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('assets/outfit-latin-wght-normal.woff2') format('woff2');
-}
-
 .hero-wordmark {
-  font-family: Jakarta, Arial, sans-serif;
+  font-family: Montserrat, Arial, sans-serif;
 }
 .hero-wordmark-pretitle {
   font-weight: 600;
@@ -51,7 +43,7 @@
   filter: drop-shadow(0 0 .326em rgba(155,77,255,.7));
 }
 .hero-wordmark-year {
-  font-family: OutfitNum, Jakarta, Arial, sans-serif;
+  font-family: Montserrat, Arial, sans-serif;
   font-weight: 800;
   letter-spacing: -.017em;
   color: rgba(233,213,255,.1);

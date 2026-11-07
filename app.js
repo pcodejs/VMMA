@@ -55,6 +55,7 @@
     nav.classList.toggle('is-open',open);
   });
   $$('.main-nav a').forEach(a => a.addEventListener('click', closeMenu));
+  $('.header-registration').addEventListener('click', closeMenu);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
   document.addEventListener('click', e => { if(!$('#site-header').contains(e.target)) closeMenu(); });
   window.matchMedia('(min-width:721px)').addEventListener('change', e => { if(e.matches) closeMenu(); });
@@ -100,7 +101,23 @@
 
   function renderAgenda(filter = 'all') {
     const rows = content.agenda.filter(row => filter === 'all' || row.category === filter);
-    $('#agenda-list').innerHTML = rows.map(row => `<article class="agenda-row${row.featured ? ' featured' : ''}${row.category === 'connect' ? ' connection' : ''}"><div class="agenda-time"><time datetime="2026-12-13T${escape(row.start)}:00+07:00">${escape(row.start)}</time><span>— <time datetime="2026-12-13T${escape(row.end)}:00+07:00">${escape(row.end)}</time></span></div><div class="agenda-session">${row.kind ? `<span class="micro">${escape(row.kind)}</span>` : ''}<h3>${escape(row.title)}</h3>${row.detail ? `<p>${escape(row.detail)}</p>` : ''}</div></article>`).join('');
+    $('#agenda-list').innerHTML = rows.map(row => `
+      <article class="agenda-row${row.featured ? ' featured' : ''}${row.category === 'connect' ? ' connection' : ''}">
+        <div class="agenda-time">
+          <time datetime="2026-12-13T${escape(row.start)}:00+07:00">${escape(row.start)}</time>
+          <span>— <time datetime="2026-12-13T${escape(row.end)}:00+07:00">${escape(row.end)}</time></span>
+        </div>
+        <div class="agenda-session">
+          <span class="micro">${[...new Set([row.kind, row.format].filter(Boolean))].map(escape).join(' · ')}</span>
+          <h3>${escape(row.title)}</h3>
+          ${row.detail ? `<p>${escape(row.detail)}</p>` : ''}
+          ${row.objectives?.length ? `
+            <details class="agenda-objectives">
+              <summary>Xem mục tiêu phiên</summary>
+              <ul>${row.objectives.map(objective => `<li>${escape(objective)}</li>`).join('')}</ul>
+            </details>` : ''}
+        </div>
+      </article>`).join('');
   }
   renderAgenda();
   $$('[data-filter]').forEach(button => button.addEventListener('click',() => {
@@ -177,6 +194,8 @@
 
   if(content.tickets.price !== null) { $('#ticket-price').textContent = new Intl.NumberFormat('vi-VN',{style:'currency',currency:content.tickets.currency}).format(content.tickets.price); $('#ticket-status').textContent = 'VÉ THAM DỰ'; }
   $('#ticket-note').textContent = content.tickets.note;
+  $('#ticket-dinner-note').textContent = content.tickets.dinnerNote;
+  $('#registration-fee-note').textContent = `${content.tickets.note} ${content.tickets.dinnerNote}`;
   if(content.event.venue) $('#venue-note').textContent = content.event.venue;
 
   if(content.speakers.length) {
