@@ -319,14 +319,18 @@
           <label class="registration-field">Công ty / Tổ chức *<input name="company" autocomplete="organization" maxlength="200" required></label>
           <label class="registration-field">Chức danh của bạn *<input name="title" autocomplete="organization-title" maxlength="200" required></label>
           <label class="registration-field">Quy mô công ty *<select name="companySize" required><option value="">Vui lòng lựa chọn</option></select></label>
-          <label class="registration-field">Giai đoạn phát triển của công ty *<select name="stage" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field">Giai đoạn nào mô tả đúng nhất công ty của bạn? *<select name="stage" required><option value="">Vui lòng lựa chọn</option></select></label>
           <label class="registration-field">Lĩnh vực hoạt động *<select name="industry" required><option value="">Vui lòng lựa chọn</option></select></label>
           <label class="registration-field" id="registration-industry-other" hidden>Lĩnh vực hoạt động khác *<input name="industryOther" maxlength="200" disabled></label>
           <label class="registration-field">Hình thức tham dự *<select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
           <label class="registration-field">Số lượng vé đăng ký *<select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
           <label class="registration-field">Mã mời (nếu có)<input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
         </div>
-        <fieldset class="registration-sessions"><legend>Bạn muốn tham dự phiên nào? *</legend><div id="registration-sessions"></div></fieldset>
+        <fieldset class="registration-sessions">
+          <legend>Bạn muốn kết nối với doanh nghiệp nào? *</legend>
+          <div id="registration-connections"></div>
+          <label class="registration-field" id="registration-connections-other" hidden>Doanh nghiệp muốn kết nối khác *<input name="connectionsOther" maxlength="200" disabled></label>
+        </fieldset>
         <fieldset class="registration-sessions">
           <legend>Xác nhận đồng ý xử lý thông tin cá nhân *</legend>
           <p class="registration-privacy-notice">Thông tin Anh/Chị cung cấp (họ tên, số điện thoại, email, công ty, chức danh) được Ban tổ chức Diễn đàn M&A Miền Trung 2026 và Hiệp hội VMAA sử dụng để xác nhận đăng ký, liên hệ, gửi thông tin về sự kiện và kết nối Anh/Chị với các đối tác đồng hành của chương trình. Thông tin được bảo mật và không cung cấp cho bất kỳ bên nào ngoài phạm vi trên.</p>

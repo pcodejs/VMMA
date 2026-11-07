@@ -76,18 +76,26 @@
     if (!needsDescription) industryOther.value = '';
   }
   industry.addEventListener('change', updateIndustryOther);
-  const sessions = document.querySelector('#registration-sessions');
-  config.sessions.forEach(value => {
+  const connections = document.querySelector('#registration-connections');
+  config.connections.forEach(value => {
     const label = document.createElement('label');
     const input = document.createElement('input');
     input.type = 'checkbox';
-    input.name = 'sessions';
+    input.name = 'connections';
     input.value = value;
     const text = document.createElement('span');
     text.textContent = value;
     label.append(input, text);
-    sessions.append(label);
+    connections.append(label);
   });
+  const connectionsOther = form.elements.namedItem('connectionsOther');
+  function updateConnectionsOther() {
+    const needsDescription = connections.querySelector('input[value="Khác"]').checked;
+    document.querySelector('#registration-connections-other').hidden = !needsDescription;
+    connectionsOther.disabled = !needsDescription;
+    connectionsOther.required = needsDescription;
+    if (!needsDescription) connectionsOther.value = '';
+  }
   const privacyChoices = document.querySelector('#registration-privacy-consent');
   config.privacyConsents.forEach(value => {
     const label = document.createElement('label');
@@ -101,11 +109,9 @@
     label.append(input, text);
     privacyChoices.append(label);
   });
-  sessions.addEventListener('change', event => {
-    const inputs = [...sessions.querySelectorAll('input')];
-    inputs[0].setCustomValidity('');
-    if (event.target.checked && event.target === inputs[0]) inputs.slice(1).forEach(input => { input.checked = false; });
-    else if (event.target.checked) inputs[0].checked = false;
+  connections.addEventListener('change', () => {
+    connections.querySelector('input').setCustomValidity('');
+    updateConnectionsOther();
   });
 
   function showStep(step) {
@@ -124,6 +130,7 @@
     if (completed) {
       form.reset();
       updateIndustryOther();
+      updateConnectionsOther();
       currentData = null;
       currentFingerprint = null;
       requestId = null;
@@ -163,12 +170,12 @@
     event.preventDefault();
     if (busy) return;
     const fields = new FormData(form);
-    const selectedSessions = fields.getAll('sessions');
-    const firstSession = sessions.querySelector('input');
-    firstSession.setCustomValidity(selectedSessions.length ? '' : 'Vui lòng chọn phiên muốn tham dự.');
+    const selectedConnections = fields.getAll('connections');
+    const firstConnection = connections.querySelector('input');
+    firstConnection.setCustomValidity(selectedConnections.length ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
     if (!form.reportValidity()) return;
     const data = Object.fromEntries(fields);
-    data.sessions = selectedSessions;
+    data.connections = selectedConnections;
     const fingerprint = JSON.stringify(data);
     if (fingerprint !== currentFingerprint) {
       requestId = crypto.randomUUID();

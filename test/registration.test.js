@@ -24,7 +24,7 @@ function attendee(overrides = {}) {
     name: 'Nguyễn Văn Kiểm Thử', phone: '0900000000', email: 'test@example.com',
     company: 'Doanh nghiệp kiểm thử', title: 'Giám đốc',
     companySize: config.companySizes[0], stage: config.stages[1], industry: config.industries[3],
-    sessions: [config.sessions[0]], quantity: config.quantities[1], attendeeType: 'paid',
+    connections: [config.connections[0]], quantity: config.quantities[1], attendeeType: 'paid',
     inviteCode: '', privacyConsent: config.privacyConsents[0], requestId, ...overrides
   };
 }
@@ -35,15 +35,15 @@ beforeEach(() => {
   rejectCreate = false;
   rejectUpload = false;
   rejectQR = false;
-  schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'sessions' ? 4 : 1 }));
+  schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'connections' ? 4 : 1 }));
   const choicesByField = {
     companySize: config.companySizes, stage: config.stages, industry: config.industries,
-    sessions: config.sessions, quantity: config.quantities,
+    connections: config.connections, quantity: config.quantities,
     payment: Object.values(config.paymentLabels), privacyConsent: config.privacyConsents
   };
   for (const [key, choices] of Object.entries(choicesByField)) {
     const field = schema.find(item => item.field_id === config.fieldIds[key]);
-    field.type = key === 'sessions' ? 4 : 3;
+    field.type = key === 'connections' ? 4 : 3;
     field.property = { options: choices.map(name => ({ name })) };
   }
   schema.push({ field_id: config.receiptFieldId, field_name: receiptFieldName, type: 17 });
@@ -172,7 +172,7 @@ test('privacy consent is explicit and preserves the selected sharing scope in La
 });
 
 test('changed Lark choices stop payment before displaying a QR', async () => {
-  const field = schema.find(item => item.field_id === config.fieldIds.sessions);
+  const field = schema.find(item => item.field_id === config.fieldIds.connections);
   field.property.options = [{ name: 'Nhu cầu kết nối mới' }];
   const result = await invoke('payment', attendee());
   assert.equal(result.status, 503);
@@ -182,7 +182,7 @@ test('changed Lark choices stop payment before displaying a QR', async () => {
 test('registration refreshes Lark choices after a receipt has been prepared', async () => {
   const data = await paidAttendee();
   schema = structuredClone(schema);
-  schema.find(item => item.field_id === config.fieldIds.sessions).property.options = [{ name: 'Nhu cầu kết nối mới' }];
+  schema.find(item => item.field_id === config.fieldIds.connections).property.options = [{ name: 'Nhu cầu kết nối mới' }];
   const result = await invoke('register', data);
   assert.equal(result.status, 503);
   assert.equal(createdRecords.size, 0);
@@ -195,6 +195,31 @@ test('other industry requires a description and maps it to the matching Base fie
   const data = validateRegistration(attendee({ industry: 'Khác', industryOther: 'Năng lượng' }));
   assert.equal(recordFields(data, schema).industryOther, 'Năng lượng');
   assert.equal(validateRegistration(attendee({ industryOther: 'stale value' })).industryOther, '');
+});
+
+test('networking accepts multiple targets and requires a description for Other', async () => {
+  const { validateRegistration, recordFields } = require('../lib/registration');
+  for (const connectionsOther of [undefined, ' ', 'x'.repeat(201)]) {
+    assert.throws(() => validateRegistration(attendee({ connections: ['Khác'], connectionsOther })), /doanh nghiệp bạn muốn kết nối/);
+  }
+  const connections = [config.connections[0], config.connections[4], 'Khác'];
+  const data = validateRegistration(attendee({ connections: [...connections, connections[0]], connectionsOther: '  Nhà cung cấp công nghệ  ' }));
+  const mapped = recordFields(data, schema);
+  assert.deepEqual(mapped.connections, connections);
+  assert.equal(mapped.connectionsOther, 'Nhà cung cấp công nghệ');
+  assert.equal(validateRegistration(attendee({ connectionsOther: 'stale value' })).connectionsOther, '');
+  assert.equal(recordFields(validateRegistration(attendee()), schema).connectionsOther, undefined);
+  const result = await invoke('register', await paidAttendee({ connections, connectionsOther: 'Nhà cung cấp công nghệ' }));
+  assert.equal(result.status, 200);
+  assert.deepEqual(createdRecords.get(requestId).connections, connections);
+  assert.equal(createdRecords.get(requestId).connectionsOther, 'Nhà cung cấp công nghệ');
+  assert.deepEqual(createdRecords.get(requestId)[receiptFieldName], [{ file_token: 'test_receipt_token' }]);
+});
+
+test('obsolete session choices cannot be submitted as networking targets', async () => {
+  const result = await invoke('payment', attendee({ connections: ['Tham dự toàn bộ chương trình'] }));
+  assert.equal(result.status, 400);
+  assert.equal(requests.length, 0);
 });
 
 test('guest and bulk registrations skip the transfer and keep the correct Lark status', async () => {
@@ -222,7 +247,7 @@ test('retries keep the same Lark idempotency token and exact field mapping', asy
   assert.equal((await invoke('register', data)).status, 200);
   assert.equal((await invoke('register', data)).status, 200);
   assert.equal(createdRecords.size, 1);
-  assert.deepEqual(createdRecords.get(requestId).sessions, data.sessions);
+  assert.deepEqual(createdRecords.get(requestId).connections, data.connections);
   assert.equal(createdRecords.get(requestId).payment, config.paymentLabels.paid);
   assert.equal(createdRecords.get(requestId).phone, data.phone);
   assert.deepEqual(createdRecords.get(requestId)[receiptFieldName], [{ file_token: 'test_receipt_token' }]);
@@ -290,7 +315,7 @@ test('changed Base schema blocks payment rather than accepting an incomplete map
 });
 
 test('invalid input, malformed JSON and cross-origin requests are rejected', async () => {
-  for (const override of [{ phone: '123' }, { email: 'invalid' }, { sessions: [] }, { quantity: '6 vé' }, { attendeeType: 'invalid' }]) {
+  for (const override of [{ phone: '123' }, { email: 'invalid' }, { connections: [] }, { quantity: '6 vé' }, { attendeeType: 'invalid' }]) {
     assert.equal((await invoke('payment', attendee(override))).status, 400);
   }
   assert.equal((await invoke('payment', '{broken')).status, 400);

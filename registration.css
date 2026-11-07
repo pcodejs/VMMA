@@ -12,7 +12,7 @@ dialog.registration-dialog{width:min(840px,calc(100% - 32px));max-height:calc(10
 .registration-sessions legend{font-size:13px;color:var(--text);margin-bottom:14px}
 .registration-privacy-notice{font-size:12px;line-height:1.8;color:var(--muted)}
 .registration-sessions label,.payment-confirmation{display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.8;color:var(--muted);margin-top:12px;cursor:pointer}
-.registration-sessions input,.payment-confirmation input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--lavender)}
+.registration-sessions input[type="checkbox"],.registration-sessions input[type="radio"],.payment-confirmation input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--lavender)}
 .registration-dialog .registration-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;margin-top:26px}
 .registration-dialog button:disabled{opacity:.55;cursor:wait}
 .registration-status{font-size:13px;line-height:1.8;color:var(--lavender);margin-top:18px;overflow-wrap:anywhere}
