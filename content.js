@@ -1,4 +1,4 @@
-/* Source: Canva portfolio DAHZYP2Oy8w, reviewed 04.11.2026. Speakers and agenda remain tentative. */
+/* Programme copy and agenda labels follow the supplied Word document, reviewed 07.11.2026. Individual time slots and speaker profiles from the earlier portfolio remain tentative. */
 window.VMAA_CONTENT = {
   "event": {
     "name": "Diễn đàn M&A Miền Trung 2026",
@@ -93,23 +93,23 @@ window.VMAA_CONTENT = {
       "end": "14:20",
       "kind": "",
       "title": "Ra mắt VMAA Miền Trung – Khai mở hệ sinh thái M&A khu vực",
-      "detail": "Công bố sự hiện diện của VMAA tại Miền Trung · Ra mắt Ban điều hành",
+      "detail": "VMAA Central Vietnam Launch – Activating the Regional M&A Ecosystem",
       "category": "forum"
     },
     {
       "start": "14:20",
       "end": "14:35",
       "kind": "",
-      "title": "Bản đồ dòng vốn và thương vụ Việt Nam 2026",
-      "detail": "",
+      "title": "Bản đồ dòng vốn và thương vụ Việt Nam 2026 – Những cơ hội tiếp theo sẽ đến từ đâu?",
+      "detail": "Vietnam Capital & Deal Map 2026 – Where Will the Next Deals Come From?",
       "category": "forum"
     },
     {
       "start": "14:35",
       "end": "15:20",
-      "kind": "Tọa đàm 1",
-      "title": "Doanh nghiệp Miền Trung – Làm gì để bứt phá thành doanh nghiệp dẫn đầu?",
-      "detail": "",
+      "kind": "Phiên thảo luận 1",
+      "title": "Bất động sản Miền Trung – Làm gì để bứt phá thành doanh nghiệp dẫn đầu?",
+      "detail": "Unlocking Central Vietnam’s Real Estate Champions – What Will It Take to Scale and Lead?",
       "category": "forum",
       "featured": true
     },
@@ -117,41 +117,41 @@ window.VMAA_CONTENT = {
       "start": "15:20",
       "end": "15:35",
       "kind": "",
-      "title": "Coffee break & kết nối",
-      "detail": "Giao lưu giữa khách tham dự",
+      "title": "Coffee Break",
+      "detail": "Networking",
       "category": "connect"
     },
     {
       "start": "15:35",
       "end": "16:20",
-      "kind": "Tọa đàm 2",
+      "kind": "Phiên thảo luận 2",
       "title": "Chiến lược vốn cho tăng trưởng – Công nghệ và những ngành dẫn dắt làn sóng đầu tư mới",
-      "detail": "",
+      "detail": "Unlocking Capital for Growth – Technology and the Sectors Driving Vietnam’s Next Investment Wave",
       "category": "forum",
       "featured": true
     },
     {
       "start": "16:20",
       "end": "16:40",
-      "kind": "",
-      "title": "M&A Reality Check: Điều gì làm nên một thương vụ thành công?",
-      "detail": "",
+      "kind": "Gặp gỡ chuyên gia",
+      "title": "Điều gì làm nên một thương vụ M&A thành công?",
+      "detail": "M&A Reality Check – What Makes a Deal Happen?",
       "category": "forum"
     },
     {
       "start": "16:40",
       "end": "17:00",
       "kind": "",
-      "title": "Hỏi đáp cùng diễn giả",
+      "title": "Q&A",
       "detail": "",
       "category": "forum"
     },
     {
       "start": "17:00",
       "end": "17:15",
-      "kind": "",
-      "title": "Từ tiềm năng đến hành động: VMAA Central Vietnam Action Agenda",
-      "detail": "",
+      "kind": "Tổng kết & Thông báo tuyển thành viên",
+      "title": "Từ tiềm năng đến hành động VMAA Miền Trung",
+      "detail": "Activating the Corridor – VMAA Central Vietnam Action Agenda",
       "category": "forum"
     },
     {
@@ -159,15 +159,15 @@ window.VMAA_CONTENT = {
       "end": "17:30",
       "kind": "",
       "title": "Deal Connect Session",
-      "detail": "Kết nối chuyên sâu giữa diễn giả, doanh nghiệp, nhà đầu tư và đối tác",
+      "detail": "Connect Capital. Unlock Opportunities.",
       "category": "connect"
     },
     {
       "start": "18:00",
       "end": "20:30",
-      "kind": "Founding & Networking Dinner",
+      "kind": "Gala Dinner",
       "title": "Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung",
-      "detail": "",
+      "detail": "VMAA Central Vietnam Founding & Networking Dinner",
       "category": "connect"
     }
   ],
