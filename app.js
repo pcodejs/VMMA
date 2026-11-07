@@ -137,7 +137,7 @@
   const icsEscape = value => String(value).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
   const icsDate = value => new Date(value).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   function downloadCalendar() {
-    const description = `Khơi thông nguồn lực. Kiến tạo tăng trưởng mới. Địa điểm cụ thể và giá vé đang được cập nhật. Liên hệ ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. Lịch nhắc này không phải vé hoặc xác nhận đăng ký tham dự.`;
+    const description = `Khơi thông nguồn lực. Kiến tạo tăng trưởng mới. Địa điểm cụ thể đang được cập nhật. ${content.tickets.note} Liên hệ ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. Thông tin xác nhận tham dự do Ban Tổ chức gửi qua email.`;
     const events = [{id:'forum',name:content.event.name,start:content.event.start,end:content.event.end}];
     if(content.event.dinnerStart && content.event.dinnerEnd) events.push({id:'dinner',name:'Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung',start:content.event.dinnerStart,end:content.event.dinnerEnd});
     const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//VMAA//Central Vietnam Forum 2026//VI','CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(event => ['BEGIN:VEVENT',`UID:vmaa-mientrung-2026-${event.id}@vmaa-forum.local`,`DTSTAMP:${icsDate(new Date())}`,`DTSTART:${icsDate(event.start)}`,`DTEND:${icsDate(event.end)}`,`SUMMARY:${icsEscape(event.name)}`,`LOCATION:${icsEscape(content.event.venue || content.event.location)}`,`DESCRIPTION:${icsEscape(description)}`,'STATUS:TENTATIVE','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',`DESCRIPTION:${icsEscape(event.name)}`,'END:VALARM','END:VEVENT']),'END:VCALENDAR'];

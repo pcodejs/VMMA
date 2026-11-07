@@ -2,6 +2,8 @@
 
 Landing page VMAA dùng HTML, CSS và JavaScript thuần, kèm Vercel Functions để tiếp nhận đăng ký vào Lark Base và tạo QR chuyển khoản.
 
+Website được triển khai tại https://vmaamientrung.vercel.app/.
+
 ## Chạy cục bộ
 
 Yêu cầu Node.js 22 trở lên.

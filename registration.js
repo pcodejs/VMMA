@@ -118,7 +118,9 @@
       document.querySelector('#payment-transfer').hidden = !needsPayment;
       document.querySelector('#payment-exemption').hidden = needsPayment;
       document.querySelector('#payment-exemption').textContent = details.paymentLabel;
-      document.querySelector('#payment-qr').src = details.qrDataURL || '';
+      const qrImage = document.querySelector('#payment-qr');
+      if (details.qrDataURL) qrImage.src = details.qrDataURL;
+      else qrImage.removeAttribute('src');
       document.querySelector('#payment-summary').textContent = needsPayment ? 'Quét QR bằng ứng dụng ngân hàng, hoàn tất chuyển khoản và xác nhận bên dưới để gửi đăng ký.' : 'Kiểm tra lại thông tin và gửi đăng ký để Ban Tổ chức tiếp nhận.';
       showStep('payment');
       document.querySelector('#payment-title').focus();
