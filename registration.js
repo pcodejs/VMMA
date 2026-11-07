@@ -20,6 +20,86 @@
   let completed = false;
   let receiptHandle;
   let previewURL;
+  const invoiceTaxCode = form.elements.namedItem('invoiceTaxCode');
+  const invoiceName = form.elements.namedItem('invoiceName');
+  const invoiceAddress = form.elements.namedItem('invoiceAddress');
+  const invoiceLookupButton = document.querySelector('#invoice-lookup-button');
+  const invoiceLookupStatus = document.querySelector('#invoice-lookup-status');
+  let invoiceLookupTimer;
+  let invoiceLookupSequence = 0;
+  let invoiceLookupController;
+  let invoiceLookupPending = false;
+  let autoFilledInvoice;
+
+  function cancelInvoiceLookup() {
+    clearTimeout(invoiceLookupTimer);
+    invoiceLookupSequence++;
+    invoiceLookupController?.abort();
+    invoiceLookupPending = false;
+    invoiceLookupButton.disabled = false;
+    invoiceLookupStatus.textContent = '';
+  }
+
+  async function lookupInvoice() {
+    cancelInvoiceLookup();
+    const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
+    if (!/^(?:\d{10}|\d{13})$/.test(taxCode)) {
+      invoiceLookupStatus.textContent = 'Vui lòng nhập mã số thuế doanh nghiệp gồm 10 số hoặc 13 số.';
+      return;
+    }
+    invoiceTaxCode.value = taxCode;
+    const sequence = invoiceLookupSequence;
+    const previousName = invoiceName.value;
+    const previousAddress = invoiceAddress.value;
+    invoiceLookupController = new AbortController();
+    invoiceLookupPending = true;
+    invoiceLookupButton.disabled = true;
+    invoiceLookupStatus.textContent = 'Đang tra cứu thông tin doanh nghiệp…';
+    try {
+      const signal = AbortSignal.any([invoiceLookupController.signal, AbortSignal.timeout(12000)]);
+      const company = await post('/api/tax-code', { taxCode }, signal);
+      if (sequence !== invoiceLookupSequence) return;
+      if (invoiceName.value === previousName) invoiceName.value = company.name;
+      if (invoiceAddress.value === previousAddress) invoiceAddress.value = company.address;
+      autoFilledInvoice = { name: company.name, address: company.address };
+      invoiceLookupStatus.textContent = 'Đã lấy thông tin doanh nghiệp. Vui lòng kiểm tra tên và địa chỉ trước khi gửi.';
+    } catch (error) {
+      if (sequence !== invoiceLookupSequence) return;
+      invoiceLookupStatus.textContent = 'Chưa tra cứu được thông tin. Vui lòng kiểm tra mã số thuế, thử lại hoặc điền tên và địa chỉ thủ công.';
+    } finally {
+      if (sequence === invoiceLookupSequence) {
+        invoiceLookupPending = false;
+        invoiceLookupButton.disabled = false;
+        if (status.textContent === 'Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.') status.textContent = '';
+      }
+    }
+  }
+
+  invoiceTaxCode.addEventListener('input', () => {
+    cancelInvoiceLookup();
+    if (autoFilledInvoice) {
+      if (invoiceName.value === autoFilledInvoice.name) invoiceName.value = '';
+      if (invoiceAddress.value === autoFilledInvoice.address) invoiceAddress.value = '';
+      autoFilledInvoice = null;
+    }
+    const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
+    const valid = /^(?:\d{10}|\d{13})$/.test(taxCode);
+    invoiceTaxCode.setCustomValidity(taxCode && !valid ? 'Mã số thuế doanh nghiệp cần gồm 10 số hoặc 13 số.' : '');
+    invoiceName.required = Boolean(taxCode);
+    invoiceAddress.required = Boolean(taxCode);
+    if (valid) invoiceLookupTimer = setTimeout(lookupInvoice, 700);
+  });
+  invoiceLookupButton.addEventListener('click', lookupInvoice);
+  invoiceTaxCode.addEventListener('keydown', event => {
+    if (event.key === 'Enter') { event.preventDefault(); lookupInvoice(); }
+  });
+  form.addEventListener('reset', () => {
+    cancelInvoiceLookup();
+    autoFilledInvoice = null;
+    invoiceTaxCode.setCustomValidity('');
+    invoiceName.required = false;
+    invoiceAddress.required = false;
+  });
 
   function clearReceipt() {
     receiptHandle = null;
@@ -147,10 +227,10 @@
     previousFocus?.focus();
   });
 
-  async function post(path, data) {
+  async function post(path, data, signal = AbortSignal.timeout(25000)) {
     const response = await fetch(path, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data), signal: AbortSignal.timeout(25000)
+      body: JSON.stringify(data), signal
     });
     let result;
     try { result = await response.json(); } catch { throw new Error('Kết nối đang gián đoạn. Vui lòng thử lại.'); }
@@ -163,17 +243,23 @@
     dialog.setAttribute('aria-busy', String(value));
     dialog.querySelectorAll('[data-registration-action]').forEach(button => { button.disabled = value; });
     receiptInput.disabled = value;
+    form.querySelector('.registration-invoice').disabled = value;
     status.textContent = message;
   }
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (busy) return;
+    if (invoiceLookupPending) {
+      status.textContent = 'Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.';
+      return;
+    }
     const fields = new FormData(form);
     const selectedConnections = fields.getAll('connections');
     const firstConnection = connections.querySelector('input');
     firstConnection.setCustomValidity(selectedConnections.length ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
     if (!form.reportValidity()) return;
+    cancelInvoiceLookup();
     const data = Object.fromEntries(fields);
     data.connections = selectedConnections;
     const fingerprint = JSON.stringify(data);

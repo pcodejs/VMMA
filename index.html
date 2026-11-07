@@ -34,11 +34,11 @@
   <link rel="stylesheet" href="takeaways.css?v=grouped-copy-preview">
   <link rel="stylesheet" href="portfolio-update.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="sponsors.css?v=zalo-feedback-20261107">
-  <link rel="stylesheet" href="registration.css?v=20261107">
+  <link rel="stylesheet" href="registration.css?v=vat-tax-lookup-20261107">
   <script src="content.js?v=zalo-feedback-20261107" defer></script>
   <script src="app.js?v=zalo-feedback-20261107" defer></script>
   <script src="registration-config.js?v=20261107" defer></script>
-  <script src="registration.js?v=20261107" defer></script>
+  <script src="registration.js?v=vat-tax-lookup-20261107" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -322,10 +322,26 @@
           <p class="registration-privacy-notice">Thông tin Anh/Chị cung cấp (họ tên, số điện thoại, email, công ty, chức danh) được Ban tổ chức Diễn đàn M&A Miền Trung 2026 và Hiệp hội VMAA sử dụng để xác nhận đăng ký, liên hệ, gửi thông tin về sự kiện và kết nối Anh/Chị với các đối tác đồng hành của chương trình. Thông tin được bảo mật và không cung cấp cho bất kỳ bên nào ngoài phạm vi trên.</p>
           <div id="registration-privacy-consent"></div>
         </fieldset>
-        <label class="registration-field registration-invoice">Thông tin xuất hóa đơn VAT của Quý Anh/Chị (nếu có)
-          <textarea name="invoiceInfo" rows="4" maxlength="2000" aria-describedby="registration-invoice-help"></textarea>
-          <small id="registration-invoice-help">Vui lòng cung cấp tên đơn vị/cá nhân, mã số thuế, địa chỉ xuất hóa đơn và email nhận hóa đơn để Ban Tổ chức hỗ trợ xuất hóa đơn chính xác.</small>
-        </label>
+        <fieldset class="registration-invoice">
+          <legend>Thông tin xuất hóa đơn VAT (nếu có)</legend>
+          <div class="invoice-lookup">
+            <label class="registration-field">Mã số thuế doanh nghiệp
+              <input name="invoiceTaxCode" inputmode="numeric" maxlength="20" autocomplete="off" aria-describedby="invoice-lookup-help invoice-lookup-status">
+            </label>
+            <button class="button button-outline" id="invoice-lookup-button" type="button">Tra cứu</button>
+          </div>
+          <p id="invoice-lookup-help" class="invoice-help">Nhập mã số thuế để tự điền tên và địa chỉ doanh nghiệp từ VietQR. Vui lòng kiểm tra và chỉnh lại thông tin trước khi gửi.</p>
+          <p id="invoice-lookup-status" class="invoice-help" role="status" aria-live="polite"></p>
+          <div class="registration-fields">
+            <label class="registration-field invoice-name">Tên đơn vị / cá nhân<input name="invoiceName" maxlength="400" autocomplete="off"></label>
+            <label class="registration-field">Email nhận hóa đơn<input name="invoiceEmail" type="email" maxlength="200" autocomplete="off"></label>
+            <label class="registration-field invoice-address">Địa chỉ xuất hóa đơn<textarea name="invoiceAddress" rows="3" maxlength="1000" autocomplete="off"></textarea></label>
+          </div>
+          <label class="registration-field invoice-notes">Thông tin bổ sung xuất hóa đơn
+            <textarea name="invoiceInfo" rows="3" maxlength="2000" aria-describedby="registration-invoice-help"></textarea>
+            <small id="registration-invoice-help">Bạn có thể nhập thông tin thủ công khi tra cứu chưa có kết quả.</small>
+          </label>
+        </fieldset>
         <div class="registration-actions"><button class="button button-primary" type="submit" data-registration-action>Tiếp tục <span aria-hidden="true">→</span></button></div>
       </form>
     </div>

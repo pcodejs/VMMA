@@ -6,7 +6,7 @@ for (const file of ['.env.local', '.env']) {
   const envPath = path.join(root, file);
   if (fs.existsSync(envPath)) process.loadEnvFile(envPath);
 }
-const handlers = { '/api/payment': require('../api/payment'), '/api/receipt': require('../api/receipt'), '/api/register': require('../api/register') };
+const handlers = { '/api/payment': require('../api/payment'), '/api/receipt': require('../api/receipt'), '/api/register': require('../api/register'), '/api/tax-code': require('../api/tax-code') };
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 http.createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname;

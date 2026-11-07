@@ -233,6 +233,27 @@ test('VAT invoice information is optional and preserves multiline text in Lark',
   assert.throws(() => validateRegistration(attendee({ invoiceInfo: {} })), /hóa đơn VAT/);
 });
 
+test('company invoice fields and additional notes are saved together in the existing Lark VAT field', async () => {
+  const invoice = {
+    invoiceTaxCode: '0110596988-001', invoiceName: 'CÔNG TY KIỂM THỬ',
+    invoiceAddress: 'Địa chỉ doanh nghiệp', invoiceEmail: 'invoice@example.com',
+    invoiceInfo: 'Ghi chú bổ sung\nDòng thứ hai'
+  };
+  const result = await invoke('register', await paidAttendee(invoice));
+  assert.equal(result.status, 200);
+  assert.equal(createdRecords.get(requestId).invoiceInfo, [
+    'Mã số thuế: 0110596988001', 'Tên đơn vị: CÔNG TY KIỂM THỬ',
+    'Địa chỉ: Địa chỉ doanh nghiệp', 'Email nhận hóa đơn: invoice@example.com',
+    'Ghi chú bổ sung\nDòng thứ hai'
+  ].join('\n'));
+  assert.equal(createdRecords.get(requestId).invoiceTaxCode, undefined);
+  const { validateRegistration } = require('../lib/registration');
+  assert.throws(() => validateRegistration(attendee({ ...invoice, invoiceAddress: '' })), /địa chỉ/);
+  assert.throws(() => validateRegistration(attendee({ ...invoice, invoiceTaxCode: 'invalid' })), /Mã số thuế/);
+  assert.throws(() => validateRegistration(attendee({ ...invoice, invoiceEmail: 'invalid' })), /Email nhận hóa đơn/);
+  assert.throws(() => validateRegistration(attendee({ ...invoice, invoiceInfo: 'x'.repeat(1950) })), /quá dài/);
+});
+
 test('guest and bulk registrations skip the transfer and keep the correct Lark status', async () => {
   for (const override of [{ attendeeType: 'guest' }, { quantity: config.quantities[5] }]) {
     const payment = await invoke('payment', attendee(override));
