@@ -37,7 +37,7 @@
       company: 'fldBf5wvXt', title: 'fld5XBBP7C', companySize: 'fldgH4L5HI',
       stage: 'fldZhnxK3v', industry: 'fldY9JP3Q2', industryOther: 'fldpIr8Dkq',
       connections: 'fldmyrqafx', connectionsOther: 'fldQjssn7U',
-      inviteCode: 'fld7KEG8lq', quantity: 'fld1lcl8fp', payment: 'fldCEUM1kz', privacyConsent: 'fld3LZnubC',
+      inviteCode: 'fld7KEG8lq', quantity: 'fld1lcl8fp', companions: 'fldl4Hfegw', payment: 'fldCEUM1kz', privacyConsent: 'fld3LZnubC',
       invoiceInfo: 'flde0FLtuK'
     }
   };

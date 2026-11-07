@@ -82,7 +82,9 @@ window.VMAA_CONTENT = {
     "price": 500000,
     "currency": "VND",
     "note": "Phí tham dự Diễn đàn là 500.000 VNĐ/khách, chưa bao gồm chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung”. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức.",
-    "dinnerNote": "Chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung” diễn ra từ 18:00–20:30 cùng ngày. Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức."
+    "dinnerNote": "Chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung” diễn ra từ 18:00–20:30 cùng ngày. Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức.",
+    "registrationPrice": "Phí tham dự Diễn đàn: 500.000đ/vé.",
+    "registrationDinner": "Lưu ý: Phí tham dự Diễn đàn chưa bao gồm chương trình “Tiệc ra mắt và Kết nối Cộng đồng M&A Miền Trung” diễn ra từ 18:00 – 20:30 cùng ngày."
   },
   "agenda": [
     {

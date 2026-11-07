@@ -24,7 +24,7 @@ function attendee(overrides = {}) {
     name: 'Nguyễn Văn Kiểm Thử', phone: '0900000000', email: 'test@example.com',
     company: 'Doanh nghiệp kiểm thử', title: 'Giám đốc',
     companySize: config.companySizes[0], stage: config.stages[1], industry: config.industries[3],
-    connections: [config.connections[0]], quantity: config.quantities[1], attendeeType: 'paid',
+    connections: [config.connections[0]], quantity: config.quantities[1], companions: 'Người kiểm thử thứ hai – Giám đốc', attendeeType: 'paid',
     inviteCode: '', privacyConsent: config.privacyConsents[0], requestId, ...overrides
   };
 }
@@ -158,6 +158,37 @@ test('transfer memo uses spaces and the full name within the VietQR limit', () =
 test('all ticket quantities calculate on the server', () => {
   const { validateRegistration } = require('../lib/registration');
   for (let i = 0; i < 5; i++) assert.equal(validateRegistration(attendee({ quantity: config.quantities[i], amount: 0 })).amount, (i + 1) * 500000);
+});
+
+test('group registrations require and save their companion list in the matching Lark field', async () => {
+  const companions = 'Người kiểm thử thứ hai – Giám đốc\nNgười kiểm thử thứ ba – Cố vấn';
+  const result = await invoke('register', await paidAttendee({ quantity: config.quantities[2], companions }));
+  assert.equal(result.status, 200);
+  assert.equal(createdRecords.get(requestId).companions, companions);
+  const { validateRegistration } = require('../lib/registration');
+  for (const quantity of config.quantities.slice(1)) {
+    assert.throws(() => validateRegistration(attendee({ quantity, companions: undefined })), /danh sách/);
+    assert.throws(() => validateRegistration(attendee({ quantity, companions: '   ' })), /danh sách/);
+  }
+  assert.throws(() => validateRegistration(attendee({ companions: 'x'.repeat(2001) })), /2.000/);
+  const single = validateRegistration(attendee({ quantity: config.quantities[0], companions }));
+  assert.equal(single.companions, '');
+});
+
+test('long Vietnamese companion and VAT details can be submitted after the receipt upload', async () => {
+  const data = await paidAttendee({
+    company: 'ậ'.repeat(200), title: 'ậ'.repeat(200), inviteCode: 'ậ'.repeat(100),
+    email: `${'a'.repeat(180)}@example.com`,
+    industry: 'Khác', industryOther: 'ậ'.repeat(200),
+    companySize: config.companySizes[4], stage: config.stages[4], quantity: config.quantities[4],
+    connections: config.connections, connectionsOther: 'ậ'.repeat(200), privacyConsent: config.privacyConsents[1],
+    companions: 'ậ'.repeat(2000), invoiceInfo: 'ậ'.repeat(2000)
+  });
+  assert.ok(Buffer.byteLength(JSON.stringify(data)) > 16000);
+  const result = await invoke('register', JSON.stringify(data));
+  assert.equal(result.status, 200);
+  assert.equal(createdRecords.get(requestId).companions, data.companions);
+  assert.equal(createdRecords.get(requestId).invoiceInfo, data.invoiceInfo);
 });
 
 test('privacy consent is explicit and preserves the selected sharing scope in Lark', async () => {

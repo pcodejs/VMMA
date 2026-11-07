@@ -34,11 +34,11 @@
   <link rel="stylesheet" href="takeaways.css?v=grouped-copy-preview">
   <link rel="stylesheet" href="portfolio-update.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="sponsors.css?v=zalo-feedback-20261107">
-  <link rel="stylesheet" href="registration.css?v=form-layout-20261107">
-  <script src="content.js?v=zalo-feedback-20261107" defer></script>
-  <script src="app.js?v=zalo-feedback-20261107" defer></script>
-  <script src="registration-config.js?v=20261107" defer></script>
-  <script src="registration.js?v=form-layout-20261107" defer></script>
+  <link rel="stylesheet" href="registration.css?v=group-registration-20261108">
+  <script src="content.js?v=group-registration-20261108" defer></script>
+  <script src="app.js?v=group-registration-20261108" defer></script>
+  <script src="registration-config.js?v=group-registration-20261108" defer></script>
+  <script src="registration.js?v=group-registration-20261108" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -114,7 +114,7 @@
       <div class="wrap">
         <div class="section-top"><span class="eyebrow">02 / TỔNG QUAN DIỄN ĐÀN</span><span class="micro">CENTRAL VIETNAM M&A ECOSYSTEM</span></div>
         <div class="overview-layout overview-scene" id="scene">
-          <div class="delegate-number"><span>300</span><h2 id="overview-title">ĐẠI BIỂU DỰ KIẾN</h2><p>Từ cộng đồng doanh nghiệp, đầu tư và hệ sinh thái M&A.</p></div>
+          <div class="delegate-number"><span>250<span class="plus">+</span></span><h2 id="overview-title">ĐẠI BIỂU DỰ KIẾN</h2><p>Từ cộng đồng doanh nghiệp, đầu tư và hệ sinh thái M&A.</p></div>
           <div class="overview-copy"><p>Từ góc nhìn thị trường đến những cơ hội hợp tác thực chất. Nơi những cơ hội của Miền Trung gặp gỡ dòng vốn, nhà đầu tư và đối tác chiến lược, mở ra những hướng đi mới cho tăng trưởng doanh nghiệp và kinh tế khu vực.</p><div class="inline-actions"><a class="button button-primary" href="#tham-du" data-registration>Đăng ký tham dự</a><a class="button button-outline" href="#doi-tac">Trở thành đối tác</a></div></div>
         </div>
         <div class="countdown-bar" hidden><div class="countdown-heading"><span class="status-dot"></span><div><span class="micro">ĐẾM NGƯỢC THỜI GIAN ĐĂNG KÝ</span><p id="countdown-label">Hạn đăng ký sẽ được Ban Tổ chức công bố.</p></div></div><div class="countdown" id="registration-countdown" role="timer" aria-label="Thời gian còn lại đến hạn đăng ký" hidden><div><strong id="days">--</strong><span>NGÀY</span></div><b>:</b><div><strong id="hours">--</strong><span>GIỜ</span></div><b>:</b><div><strong id="minutes">--</strong><span>PHÚT</span></div><b>:</b><div><strong id="seconds">--</strong><span>GIÂY</span></div></div><div class="countdown-pending" id="countdown-pending"><span class="small-tag">SẮP CÔNG BỐ HẠN ĐĂNG KÝ</span></div><button class="calendar-link" data-calendar>Thêm vào lịch <span aria-hidden="true">＋</span></button></div>
@@ -296,7 +296,7 @@
     <p id="registration-description" class="registration-description">13.12.2026 · Đà Nẵng. Ban Tổ chức sẽ xét duyệt và gửi email xác nhận chính thức đến địa chỉ bạn cung cấp.</p>
     <span id="registration-step" class="registration-step">01 / THÔNG TIN THAM DỰ</span>
     <div id="registration-information">
-      <p class="registration-fee-note" id="registration-fee-note"></p>
+      <div class="registration-fee-note" id="registration-fee-note"><p id="registration-fee-price"></p><p id="registration-fee-dinner"></p><p>Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức.</p></div>
       <form id="registration-form">
         <div class="registration-fields">
           <label class="registration-field"><span>Họ và tên *</span><input name="name" autocomplete="name" maxlength="60" required></label>
@@ -324,6 +324,7 @@
           <label class="registration-field registration-field-wide" id="registration-industry-other" hidden><span>Lĩnh vực hoạt động khác *</span><input name="industryOther" maxlength="200" disabled></label>
           <label class="registration-field"><span>Hình thức tham dự *</span><select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
           <label class="registration-field"><span>Số lượng vé đăng ký *</span><select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
+          <label class="registration-field registration-field-wide" id="registration-companions" hidden><span>Danh sách người đăng kí cùng bạn *</span><textarea name="companions" rows="3" maxlength="2000" aria-describedby="registration-companions-help" disabled></textarea><small id="registration-companions-help">Ghi rõ họ tên và chức danh (nếu có) của từng người đi cùng, mỗi người một dòng.</small></label>
           <label class="registration-field registration-field-wide"><span>Mã mời (nếu có)</span><input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
         </div>
         <fieldset class="registration-sessions">

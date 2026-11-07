@@ -15,7 +15,7 @@ http.createServer(async (req, res) => {
   if (handlers[pathname]) {
     let body = '';
     let bodyBytes = 0;
-    const maxBodyBytes = pathname === '/api/receipt' ? require('../lib/receipt').MAX_REQUEST_BYTES : 16000;
+    const maxBodyBytes = pathname === '/api/receipt' ? require('../lib/receipt').MAX_REQUEST_BYTES : 32000;
     for await (const chunk of req) {
       body += chunk;
       bodyBytes += chunk.length;

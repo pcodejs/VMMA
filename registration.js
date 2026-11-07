@@ -156,6 +156,15 @@
     if (!needsDescription) titleOther.value = '';
   }
   title.addEventListener('change', updateTitleOther);
+  const quantity = form.elements.namedItem('quantity');
+  const companions = form.elements.namedItem('companions');
+  function updateCompanions() {
+    const needsList = Boolean(quantity.value) && quantity.value !== config.quantities[0];
+    document.querySelector('#registration-companions').hidden = !needsList;
+    companions.disabled = !needsList;
+    companions.required = needsList;
+  }
+  quantity.addEventListener('change', updateCompanions);
   const industry = form.elements.namedItem('industry');
   const industryOther = form.elements.namedItem('industryOther');
   function updateIndustryOther() {
@@ -220,6 +229,7 @@
     if (completed) {
       form.reset();
       updateTitleOther();
+      updateCompanions();
       updateIndustryOther();
       updateConnectionsOther();
       currentData = null;

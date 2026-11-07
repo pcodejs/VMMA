@@ -195,7 +195,8 @@
   if(content.tickets.price !== null) { $('#ticket-price').textContent = new Intl.NumberFormat('vi-VN',{style:'currency',currency:content.tickets.currency}).format(content.tickets.price); $('#ticket-status').textContent = 'VÉ THAM DỰ'; }
   $('#ticket-note').textContent = content.tickets.note;
   $('#ticket-dinner-note').textContent = content.tickets.dinnerNote;
-  $('#registration-fee-note').textContent = `${content.tickets.note} ${content.tickets.dinnerNote}`;
+  $('#registration-fee-price').textContent = content.tickets.registrationPrice;
+  $('#registration-fee-dinner').textContent = content.tickets.registrationDinner;
   if(content.event.venue) $('#venue-note').textContent = content.event.venue;
 
   if(content.speakers.length) {
