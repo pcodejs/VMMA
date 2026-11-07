@@ -3,5 +3,5 @@
   "framework": null,
   "buildCommand": "npm run build",
   "outputDirectory": "public",
-  "functions": { "api/*.js": { "maxDuration": 30 } }
+  "functions": { "api/*.js": { "maxDuration": 30, "includeFiles": "assets/partners/vmaa.webp" } }
 }

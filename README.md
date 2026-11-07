@@ -49,7 +49,7 @@ Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa t�
 
 Giá hiện tại 500.000đ/vé theo form Lark được đối chiếu ngày 07.11.2026. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé chuyển sang luồng Ban Tổ chức liên hệ.
 
-QR được tạo trên máy chủ bằng thư viện VietQR chạy offline. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `VMAA - Họ và Tên - SĐT`, bỏ dấu tiếng Việt khi mã hóa để tương thích chuyển khoản. Bản xem trước hiển thị cùng nội dung được mã hóa.
+QR được lấy từ API Quick Link của VietQR (`img.vietqr.io`) trên máy chủ, sau đó chèn logo VMAA và thêm khoảng trắng quanh mã để thuận tiện quét. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `MACF2026 Họ Và Tên Số Điện Thoại`, bỏ dấu tiếng Việt, phân cách bằng khoảng trắng, tối đa 50 ký tự theo VietQR. Bản xem trước hiển thị cùng nội dung được mã hóa.
 
 Ảnh biên lai hỗ trợ JPG, PNG và WEBP, tối đa 2 MB. Máy chủ kiểm tra dung lượng, chữ ký định dạng ảnh rồi tải vào đúng Base. Ảnh được lưu cùng bản ghi đăng ký trong trường đính kèm. Khách mời và đăng ký trên 5 vé không cần biên lai.
 

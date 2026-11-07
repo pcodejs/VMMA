@@ -2,7 +2,10 @@ const { test, beforeEach, afterEach } = require('node:test');
 const assert = require('node:assert/strict');
 const jsQR = require('jsqr');
 const { PNG } = require('pngjs');
+const fs = require('node:fs');
+const path = require('node:path');
 const config = require('../registration-config');
+const qrFixture = fs.readFileSync(path.join(__dirname, 'fixtures/vietqr-payment.svg'), 'utf8');
 const receiptFieldName = 'Hình ảnh xác thực đã thanh toán';
 
 const originalFetch = global.fetch;
@@ -14,6 +17,7 @@ let createdRecords;
 let schema;
 let rejectCreate;
 let rejectUpload;
+let rejectQR;
 
 function attendee(overrides = {}) {
   return {
@@ -30,11 +34,16 @@ beforeEach(() => {
   createdRecords = new Map();
   rejectCreate = false;
   rejectUpload = false;
+  rejectQR = false;
   schema = Object.entries(config.fieldIds).map(([key, id]) => ({ field_id: id, field_name: key, type: key === 'sessions' ? 4 : 1 }));
   schema.push({ field_id: config.receiptFieldId, field_name: receiptFieldName, type: 17 });
   envNames.forEach(key => { process.env[key] = 'test_value'; });
   for (const name of ['../lib/registration', '../lib/receipt', '../api/payment', '../api/receipt', '../api/register']) delete require.cache[require.resolve(name)];
   global.fetch = async (url, options) => {
+    if (url.startsWith('https://img.vietqr.io/')) {
+      requests.push({ url, options });
+      return { ok: !rejectQR, text: async () => qrFixture };
+    }
     const request = { url, options, body: typeof options.body === 'string' ? JSON.parse(options.body) : options.body };
     requests.push(request);
     let result;
@@ -96,10 +105,22 @@ test('the rendered QR decodes to the exact ACB account, ticket total and memo', 
   const result = await invoke('payment', attendee({ amount: 1 }));
   assert.equal(result.status, 200);
   assert.equal(result.data.amount, 1000000);
-  assert.equal(result.data.memo, 'VMAA - Nguyen Van Kiem Thu - 0900000000');
+  assert.equal(result.data.memo, 'MACF2026 Nguyen Van Kiem Thu 0900000000');
+  const apiURL = new URL(requests.find(request => request.url.startsWith('https://img.vietqr.io/')).url);
+  assert.equal(apiURL.pathname, '/image/970416-621866-qr_only.svg');
+  assert.equal(apiURL.searchParams.get('addInfo'), result.data.memo);
+  assert.equal(apiURL.searchParams.get('amount'), '1000000');
   const png = PNG.sync.read(Buffer.from(result.data.qrDataURL.split(',')[1], 'base64'));
   const decoded = jsQR(new Uint8ClampedArray(png.data), png.width, png.height);
   assert.ok(decoded, 'QR image must be independently decodable');
+  let logoPixels = 0;
+  for (let y = 225; y < 310; y++) {
+    for (let x = 225; x < 310; x++) {
+      const offset = (y * png.width + x) * 4;
+      if (png.data[offset + 2] > png.data[offset] + 30) logoPixels++;
+    }
+  }
+  assert.ok(logoPixels > 100, 'VMAA blue logo must be embedded in the QR image');
   const payload = fields(decoded.data);
   const provider = fields(payload['38']);
   assert.equal(fields(provider['01'])['00'], '970416');
@@ -109,6 +130,19 @@ test('the rendered QR decodes to the exact ACB account, ticket total and memo', 
   assert.equal(fields(payload['62'])['08'], result.data.memo);
   assert.equal(result.headers['Cache-Control'], 'no-store');
   assert.equal(createdRecords.size, 0);
+});
+
+test('VietQR failure prevents displaying a payment QR', async () => {
+  rejectQR = true;
+  const result = await invoke('payment', attendee());
+  assert.equal(result.status, 502);
+  assert.match(result.data.error, /QR/);
+});
+
+test('transfer memo uses spaces and the full name within the VietQR limit', () => {
+  const { validateRegistration } = require('../lib/registration');
+  assert.equal(validateRegistration(attendee({ name: 'Đặng Văn-An', phone: '+84900000000' })).memo, 'MACF2026 Dang Van An 84900000000');
+  assert.throws(() => validateRegistration(attendee({ name: 'Nguyen '.repeat(9) })), /50 ký tự/);
 });
 
 test('all ticket quantities calculate on the server', () => {
