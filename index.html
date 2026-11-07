@@ -34,11 +34,11 @@
   <link rel="stylesheet" href="takeaways.css?v=grouped-copy-preview">
   <link rel="stylesheet" href="portfolio-update.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="sponsors.css?v=zalo-feedback-20261107">
-  <link rel="stylesheet" href="registration.css?v=vat-tax-lookup-20261107">
+  <link rel="stylesheet" href="registration.css?v=form-layout-20261107">
   <script src="content.js?v=zalo-feedback-20261107" defer></script>
   <script src="app.js?v=zalo-feedback-20261107" defer></script>
   <script src="registration-config.js?v=20261107" defer></script>
-  <script src="registration.js?v=vat-tax-lookup-20261107-rate-limit" defer></script>
+  <script src="registration.js?v=form-layout-20261107" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -299,18 +299,32 @@
       <p class="registration-fee-note" id="registration-fee-note"></p>
       <form id="registration-form">
         <div class="registration-fields">
-          <label class="registration-field">Họ và tên *<input name="name" autocomplete="name" maxlength="60" required></label>
-          <label class="registration-field">Số điện thoại di động *<input name="phone" type="tel" autocomplete="tel" maxlength="24" required></label>
-          <label class="registration-field">Email công việc *<input name="email" type="email" autocomplete="email" maxlength="200" required><small>Email xác nhận đăng ký sẽ được gửi về địa chỉ này.</small></label>
-          <label class="registration-field">Công ty / Tổ chức *<input name="company" autocomplete="organization" maxlength="200" required></label>
-          <label class="registration-field">Chức danh của bạn *<input name="title" autocomplete="organization-title" maxlength="200" required></label>
-          <label class="registration-field">Quy mô công ty *<select name="companySize" required><option value="">Vui lòng lựa chọn</option></select></label>
-          <label class="registration-field">Giai đoạn nào mô tả đúng nhất công ty của bạn? *<select name="stage" required><option value="">Vui lòng lựa chọn</option></select></label>
-          <label class="registration-field">Lĩnh vực hoạt động *<select name="industry" required><option value="">Vui lòng lựa chọn</option></select></label>
-          <label class="registration-field" id="registration-industry-other" hidden>Lĩnh vực hoạt động khác *<input name="industryOther" maxlength="200" disabled></label>
-          <label class="registration-field">Hình thức tham dự *<select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
-          <label class="registration-field">Số lượng vé đăng ký *<select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
-          <label class="registration-field">Mã mời (nếu có)<input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
+          <label class="registration-field"><span>Họ và tên *</span><input name="name" autocomplete="name" maxlength="60" required></label>
+          <label class="registration-field"><span>Số điện thoại di động *</span><input name="phone" type="tel" autocomplete="tel" maxlength="24" required></label>
+          <label class="registration-field"><span>Email công việc *</span><input name="email" type="email" autocomplete="email" maxlength="200" required><small>Email xác nhận đăng ký sẽ được gửi về địa chỉ này.</small></label>
+          <label class="registration-field"><span>Công ty / Tổ chức *</span><input name="company" autocomplete="organization" maxlength="200" required></label>
+          <label class="registration-field"><span>Chức danh của bạn *</span>
+            <select name="title" required>
+              <option value="">Vui lòng lựa chọn</option>
+              <option>Chủ tịch / Thành viên HĐQT</option>
+              <option>Nhà sáng lập / Đồng sáng lập</option>
+              <option>Tổng Giám đốc / Giám đốc</option>
+              <option>Phó Tổng Giám đốc / Phó Giám đốc</option>
+              <option>Trưởng / Phó phòng</option>
+              <option>Quản lý / Trưởng bộ phận</option>
+              <option>Chuyên gia / Cố vấn</option>
+              <option>Chuyên viên / Nhân viên</option>
+              <option>Khác</option>
+            </select>
+          </label>
+          <label class="registration-field"><span>Quy mô công ty *</span><select name="companySize" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field registration-field-wide" id="registration-title-other" hidden><span>Chức danh khác *</span><input name="titleOther" autocomplete="organization-title" maxlength="200" disabled></label>
+          <label class="registration-field"><span>Giai đoạn nào mô tả đúng nhất công ty của bạn? *</span><select name="stage" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field"><span>Lĩnh vực hoạt động *</span><select name="industry" required><option value="">Vui lòng lựa chọn</option></select></label>
+          <label class="registration-field registration-field-wide" id="registration-industry-other" hidden><span>Lĩnh vực hoạt động khác *</span><input name="industryOther" maxlength="200" disabled></label>
+          <label class="registration-field"><span>Hình thức tham dự *</span><select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
+          <label class="registration-field"><span>Số lượng vé đăng ký *</span><select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
+          <label class="registration-field registration-field-wide"><span>Mã mời (nếu có)</span><input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
         </div>
         <fieldset class="registration-sessions">
           <legend>Bạn muốn kết nối với doanh nghiệp nào? *</legend>
@@ -330,17 +344,13 @@
             </label>
             <button class="button button-outline" id="invoice-lookup-button" type="button">Tra cứu</button>
           </div>
-          <p id="invoice-lookup-help" class="invoice-help">Nhập mã số thuế để tự điền tên và địa chỉ doanh nghiệp từ VietQR. Vui lòng kiểm tra và chỉnh lại thông tin trước khi gửi.</p>
+          <p id="invoice-lookup-help" class="invoice-help">Nhập mã số thuế để tự điền tên và địa chỉ doanh nghiệp từ VietQR.</p>
           <p id="invoice-lookup-status" class="invoice-help" role="status" aria-live="polite"></p>
-          <div class="registration-fields">
-            <label class="registration-field invoice-name">Tên đơn vị / cá nhân<input name="invoiceName" maxlength="400" autocomplete="off"></label>
-            <label class="registration-field">Email nhận hóa đơn<input name="invoiceEmail" type="email" maxlength="200" autocomplete="off"></label>
-            <label class="registration-field invoice-address">Địa chỉ xuất hóa đơn<textarea name="invoiceAddress" rows="3" maxlength="1000" autocomplete="off"></textarea></label>
+          <div class="registration-fields invoice-fields">
+            <label class="registration-field"><span>Tên đơn vị / cá nhân</span><input name="invoiceName" maxlength="400" autocomplete="off"></label>
+            <label class="registration-field"><span>Địa chỉ xuất hóa đơn</span><textarea name="invoiceAddress" rows="2" maxlength="1000" autocomplete="off"></textarea></label>
+            <label class="registration-field"><span>Email nhận hóa đơn</span><input name="invoiceEmail" type="email" maxlength="200" autocomplete="off"></label>
           </div>
-          <label class="registration-field invoice-notes">Thông tin bổ sung xuất hóa đơn
-            <textarea name="invoiceInfo" rows="3" maxlength="2000" aria-describedby="registration-invoice-help"></textarea>
-            <small id="registration-invoice-help">Bạn có thể nhập thông tin thủ công khi tra cứu chưa có kết quả.</small>
-          </label>
         </fieldset>
         <div class="registration-actions"><button class="button button-primary" type="submit" data-registration-action>Tiếp tục <span aria-hidden="true">→</span></button></div>
       </form>

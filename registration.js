@@ -146,6 +146,16 @@
     const select = form.elements.namedItem(name);
     choices.forEach(value => select.add(new Option(value, value)));
   }
+  const title = form.elements.namedItem('title');
+  const titleOther = form.elements.namedItem('titleOther');
+  function updateTitleOther() {
+    const needsDescription = title.value === 'Khác';
+    document.querySelector('#registration-title-other').hidden = !needsDescription;
+    titleOther.disabled = !needsDescription;
+    titleOther.required = needsDescription;
+    if (!needsDescription) titleOther.value = '';
+  }
+  title.addEventListener('change', updateTitleOther);
   const industry = form.elements.namedItem('industry');
   const industryOther = form.elements.namedItem('industryOther');
   function updateIndustryOther() {
@@ -209,6 +219,7 @@
     previousOverflow = document.body.style.overflow;
     if (completed) {
       form.reset();
+      updateTitleOther();
       updateIndustryOther();
       updateConnectionsOther();
       currentData = null;
@@ -261,6 +272,8 @@
     if (!form.reportValidity()) return;
     cancelInvoiceLookup();
     const data = Object.fromEntries(fields);
+    if (data.title === 'Khác') data.title = data.titleOther.trim();
+    delete data.titleOther;
     data.connections = selectedConnections;
     const fingerprint = JSON.stringify(data);
     if (fingerprint !== currentFingerprint) {
