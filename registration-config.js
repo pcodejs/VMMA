@@ -21,6 +21,10 @@
       'Deal Connect – Kết nối doanh nghiệp, nhà đầu tư và đối tác chiến lược'
     ],
     quantities: ['1 vé', '2 vé', '3 vé', '4 vé', '5 vé', 'Trên 5 vé (Liên hệ Ban tổ chức để nhận giá ưu đãi)'],
+    privacyConsents: [
+      'Tôi đồng ý để BTC sử dụng thông tin của tôi cho mục đích đăng ký và liên hệ về sự kiện.',
+      'Tôi đồng ý để BTC sử dụng thông tin của tôi, bao gồm việc kết nối với các đối tác của chương trình.'
+    ],
     paymentLabels: {
       paid: 'Tôi đã chuyển khoản phí tham dự',
       guest: 'Tôi là khách mời / diễn giả / đối tác (không cần thanh toán)',
@@ -30,7 +34,7 @@
       name: 'fld2hJoYwG', phone: 'fldYGMiTgF', email: 'fldzHB6qIr',
       company: 'fldBf5wvXt', title: 'fld5XBBP7C', companySize: 'fldgH4L5HI',
       stage: 'fldZhnxK3v', industry: 'fldY9JP3Q2', industryOther: 'fldpIr8Dkq', sessions: 'fldmyrqafx',
-      inviteCode: 'fld7KEG8lq', quantity: 'fld1lcl8fp', payment: 'fldCEUM1kz'
+      inviteCode: 'fld7KEG8lq', quantity: 'fld1lcl8fp', payment: 'fldCEUM1kz', privacyConsent: 'fld3LZnubC'
     }
   };
   if (typeof module === 'object' && module.exports) module.exports = config;

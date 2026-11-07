@@ -25,7 +25,7 @@ function attendee(overrides = {}) {
     company: 'Doanh nghiệp kiểm thử', title: 'Giám đốc',
     companySize: config.companySizes[0], stage: config.stages[1], industry: config.industries[3],
     sessions: [config.sessions[0]], quantity: config.quantities[1], attendeeType: 'paid',
-    inviteCode: '', requestId, ...overrides
+    inviteCode: '', privacyConsent: config.privacyConsents[0], requestId, ...overrides
   };
 }
 
@@ -148,6 +148,17 @@ test('transfer memo uses spaces and the full name within the VietQR limit', () =
 test('all ticket quantities calculate on the server', () => {
   const { validateRegistration } = require('../lib/registration');
   for (let i = 0; i < 5; i++) assert.equal(validateRegistration(attendee({ quantity: config.quantities[i], amount: 0 })).amount, (i + 1) * 500000);
+});
+
+test('privacy consent is explicit and preserves the selected sharing scope in Lark', async () => {
+  const invalid = await invoke('payment', attendee({ privacyConsent: undefined }));
+  assert.equal(invalid.status, 400);
+  assert.equal(requests.length, 0);
+  for (const privacyConsent of config.privacyConsents) {
+    const { validateRegistration, recordFields } = require('../lib/registration');
+    const data = validateRegistration(attendee({ privacyConsent }));
+    assert.equal(recordFields(data, schema).privacyConsent, privacyConsent);
+  }
 });
 
 test('other industry requires a description and maps it to the matching Base field', () => {

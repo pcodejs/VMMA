@@ -88,6 +88,19 @@
     label.append(input, text);
     sessions.append(label);
   });
+  const privacyChoices = document.querySelector('#registration-privacy-consent');
+  config.privacyConsents.forEach(value => {
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'privacyConsent';
+    input.value = value;
+    input.required = true;
+    const text = document.createElement('span');
+    text.textContent = value;
+    label.append(input, text);
+    privacyChoices.append(label);
+  });
   sessions.addEventListener('change', event => {
     const inputs = [...sessions.querySelectorAll('input')];
     inputs[0].setCustomValidity('');

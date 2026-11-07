@@ -2,7 +2,7 @@
 
 Landing page VMAA dùng HTML, CSS và JavaScript thuần, kèm Vercel Functions để tiếp nhận đăng ký vào Lark Base và tạo QR chuyển khoản.
 
-Website được triển khai tại https://vmaamientrung.vercel.app/.
+Website được triển khai tại https://www.vmaamientrung.com/.
 
 ## Chạy cục bộ
 
@@ -43,6 +43,7 @@ Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa t�
 
 1. Khách điền thông tin và chọn phiên, hình thức tham dự, số lượng vé.
 2. Máy chủ kiểm tra dữ liệu và kết nối Base trước khi trả QR.
+   Biểu mẫu yêu cầu đại biểu chọn phạm vi đồng ý xử lý thông tin cá nhân đúng theo form Lark.
 3. Đại biểu trả phí quét QR, chuyển khoản, tải ảnh biên lai và chọn xác nhận đã chuyển khoản.
 4. Website gửi đăng ký vào Lark bằng API chính thức.
 5. Ban Tổ chức xét duyệt và gửi email xác nhận chính thức.
