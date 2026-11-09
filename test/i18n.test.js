@@ -7,20 +7,20 @@ const config = require('../registration-config');
 const root = path.resolve(__dirname, '..');
 const dictionary = Object.assign({}, ...['messages', 'content', 'page'].map(name => JSON.parse(fs.readFileSync(path.join(root, 'locales', `${name}.en.json`), 'utf8'))));
 
-function runtime({ url = 'https://example.com/forum', saved, blockedStorage = false } = {}) {
+function runtime({ url = 'https://example.com/forum', saved, blockedStorage = false, reducedMotion = false, animationTargets = [] } = {}) {
   const storage = new Map(saved ? [['vmaa-language', saved]] : []);
   const documentEvents = {};
   const formEvents = {};
   const form = { elements: [], addEventListener(name, handler) { formEvents[name] = handler; } };
   const context = {
-    window: { VMAA_EN: dictionary }, URL,
+    window: { VMAA_EN: dictionary, matchMedia() { return { matches: reducedMotion }; } }, URL,
     location: { href: url },
     localStorage: {
       getItem(key) { if (blockedStorage) throw new Error('denied'); return storage.get(key); },
       setItem(key, value) { if (blockedStorage) throw new Error('denied'); storage.set(key, value); }
     },
     history: { state: { retained: true }, replaceState(state, title, next) { context.location.href = String(next); this.state = state; } },
-    document: { readyState: 'loading', documentElement: { nodeType: 0 }, addEventListener(name, handler) { documentEvents[name] = handler; }, querySelector(selector) { return selector === '#registration-form' ? form : undefined; }, querySelectorAll() { return []; }, dispatchEvent() {} },
+    document: { readyState: 'loading', documentElement: { nodeType: 0 }, addEventListener(name, handler) { documentEvents[name] = handler; }, querySelector(selector) { return selector === '#registration-form' ? form : undefined; }, querySelectorAll(selector) { return selector.startsWith('main,footer,') ? animationTargets : []; }, dispatchEvent() {} },
     MutationObserver: class { observe() {} },
     CustomEvent: class {}, Node: { TEXT_NODE: 3, ELEMENT_NODE: 1 }
   };
@@ -110,4 +110,49 @@ test('choosing one consent radio clears native errors on its whole group', () =>
   context.formEvents.change({ target: first });
   assert.equal(first.validationMessage, '');
   assert.equal(second.validationMessage, '');
+});
+
+function animationTarget() {
+  const animations = [];
+  return { animations, animate(frames, options) {
+    let resolve;
+    let reject;
+    const animation = { frames, options, cancelled: false, finished: new Promise((done, fail) => { resolve = done; reject = fail; }), finish() { resolve(); }, cancel() { this.cancelled = true; reject(new Error('cancelled')); } };
+    animations.push(animation);
+    return animation;
+  } };
+}
+
+test('language transition commits after fade-out and removes animation effects when finished', async () => {
+  const target = animationTarget();
+  const { api } = runtime({ animationTargets: [target] });
+  const request = api.requestLanguage('en');
+  assert.equal(api.language, 'vi');
+  assert.equal(target.animations[0].options.duration, 90);
+  target.animations[0].finish();
+  await new Promise(setImmediate);
+  assert.equal(api.language, 'en');
+  assert.equal(target.animations[1].options.duration, 170);
+  target.animations[1].finish();
+  await request;
+  assert.ok(target.animations.every(animation => animation.cancelled));
+});
+
+test('rapid language clicks retain the last choice without a stale delayed switch', async () => {
+  const target = animationTarget();
+  const { api } = runtime({ animationTargets: [target] });
+  const first = api.requestLanguage('en');
+  const last = api.requestLanguage('vi');
+  await Promise.all([first, last]);
+  assert.equal(api.language, 'vi');
+  assert.ok(target.animations[0].cancelled);
+});
+
+test('reduced motion changes language immediately without starting an animation', async () => {
+  const target = animationTarget();
+  const { api } = runtime({ reducedMotion: true, animationTargets: [target] });
+  const request = api.requestLanguage('en');
+  assert.equal(api.language, 'en');
+  await request;
+  assert.equal(target.animations.length, 0);
 });

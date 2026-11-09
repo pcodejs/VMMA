@@ -8,6 +8,9 @@
   const nativeValidity = new WeakSet();
   const attributes = ['aria-label', 'alt', 'title', 'placeholder', 'content'];
   const excluded = 'script,style,noscript,textarea,input,[data-i18n-ignore],#payment-name,#payment-phone,#payment-memo,#payment-bank,#payment-account-name';
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  let transitionSequence = 0;
+  let activeAnimations = [];
   let language = 'vi';
   let requested;
   let saved;
@@ -92,6 +95,7 @@
     document.querySelectorAll('[data-language]').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.language === language));
     });
+    document.querySelectorAll('.language-switch').forEach(group => { group.dataset.currentLanguage = language; });
   }
 
   function setLanguage(next, persist = true) {
@@ -111,11 +115,39 @@
     document.dispatchEvent(new CustomEvent('vmaa:languagechange', { detail: { language } }));
   }
 
-  window.VMAA_I18N = { t: translate, sourceText, setLanguage, setValidity, clearNativeValidity, get language() { return language; }, get locale() { return language === 'en' ? 'en-GB' : 'vi-VN'; } };
+  function cancelAnimations() {
+    activeAnimations.forEach(animation => animation.cancel());
+    activeAnimations = [];
+  }
+
+  async function requestLanguage(next) {
+    if (!['vi', 'en'].includes(next)) return;
+    const sequence = ++transitionSequence;
+    cancelAnimations();
+    if (next === language) return;
+    const targets = [...document.querySelectorAll('main,footer,.main-nav,.header-edition,.header-registration,dialog[open]')];
+    if (reducedMotion?.matches || document.visibilityState === 'hidden' || !targets.length || targets.some(target => typeof target.animate !== 'function')) {
+      setLanguage(next);
+      return;
+    }
+    try {
+      activeAnimations = targets.map(target => target.animate([{ opacity: 1 }, { opacity: .45 }], { duration: 90, easing: 'ease-in', fill: 'forwards' }));
+      await Promise.all(activeAnimations.map(animation => animation.finished.catch(() => {})));
+      if (sequence !== transitionSequence) return;
+      setLanguage(next);
+      cancelAnimations();
+      activeAnimations = targets.map(target => target.animate([{ opacity: .45 }, { opacity: 1 }], { duration: 170, easing: 'cubic-bezier(.2,.7,.2,1)', fill: 'forwards' }));
+      await Promise.all(activeAnimations.map(animation => animation.finished.catch(() => {})));
+    } finally {
+      if (sequence === transitionSequence) cancelAnimations();
+    }
+  }
+
+  window.VMAA_I18N = { t: translate, sourceText, setLanguage, requestLanguage, setValidity, clearNativeValidity, get language() { return language; }, get locale() { return language === 'en' ? 'en-GB' : 'vi-VN'; } };
   document.documentElement.lang = language;
 
   function initialize() {
-    document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.language)));
+    document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => requestLanguage(button.dataset.language)));
     setLanguage(language, false);
     // Translate newly rendered agenda, profile dialogs and asynchronous form
     // statuses in place; entered data and DOM/event-handler identity are retained.

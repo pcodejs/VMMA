@@ -60,7 +60,7 @@
   $('.header-registration').addEventListener('click', closeMenu);
   document.addEventListener('keydown', e => { if(e.key === 'Escape') closeMenu(); });
   document.addEventListener('click', e => { if(!$('#site-header').contains(e.target)) closeMenu(); });
-  window.matchMedia('(min-width:721px)').addEventListener('change', e => { if(e.matches) closeMenu(); });
+  window.matchMedia('(min-width:961px)').addEventListener('change', e => { if(e.matches) closeMenu(); });
 
   let scrolled = false;
   const onScroll = () => {
