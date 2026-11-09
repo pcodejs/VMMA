@@ -434,3 +434,23 @@
   #main .faq-section .faq-item h3{font-size:19px}
   #main .faq-section .faq-item p{font-size:15px;line-height:1.85;margin-top:10px}
 }
+
+/* Keep the footer identity and navigation on one shared visual scale. */
+.site-footer{padding-block:40px 24px}
+.footer-main{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:24px;margin-bottom:28px}
+.footer-logo{display:flex;align-items:center;width:105px;min-height:44px}
+.footer-logo img{display:block;width:100%;height:auto}
+.footer-main p{margin:0;font-size:13px;line-height:1.7;letter-spacing:.6px;color:#aeb4ce}
+.footer-main>.text-link{justify-self:end;min-height:44px;margin-left:0;gap:14px;font-size:13px;line-height:1.7;white-space:nowrap}
+.footer-bottom{flex-direction:row;align-items:center;gap:16px 24px;padding-top:24px;font-size:12px;line-height:1.7}
+.footer-bottom>span:last-child{font-size:12px;letter-spacing:1px}
+@media(max-width:640px){
+  .site-footer{padding-block:32px 24px}
+  .footer-main{grid-template-columns:minmax(0,1fr);gap:18px;margin-bottom:24px}
+  .footer-logo{width:96px}
+  .footer-main p{font-size:12px;line-height:1.8;letter-spacing:.5px}
+  .footer-main>.text-link{justify-self:start;min-height:44px;font-size:13px}
+  .footer-bottom{align-items:flex-start;flex-direction:column;gap:10px;padding-top:20px}
+  .footer-bottom,.footer-bottom>span:last-child{font-size:12px}
+  .footer-bottom>span:last-child{letter-spacing:.8px}
+}
