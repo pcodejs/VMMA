@@ -35,10 +35,13 @@
   <link rel="stylesheet" href="portfolio-update.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="sponsors.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="registration.css?v=group-registration-20261108">
+  <link rel="stylesheet" href="i18n.css?v=bilingual-20261109">
   <script src="content.js?v=group-registration-20261108" defer></script>
-  <script src="app.js?v=group-registration-20261108" defer></script>
+  <script src="translations.en.js?v=bilingual-20261109" defer></script>
+  <script src="i18n.js?v=bilingual-20261109" defer></script>
+  <script src="app.js?v=bilingual-20261109" defer></script>
   <script src="registration-config.js?v=group-registration-20261108" defer></script>
-  <script src="registration.js?v=group-registration-20261108" defer></script>
+  <script src="registration.js?v=bilingual-20261109" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -47,8 +50,9 @@
     <span class="header-edition">MIỀN TRUNG <span>2026</span></span>
     <button class="menu-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="main-nav"><span></span><span></span></button>
     <nav class="main-nav" id="main-nav" aria-label="Điều hướng chính">
-      <a href="#tong-quan">Tổng quan</a><a href="#dien-gia">Diễn giả</a><a href="#chuong-trinh">Chương trình</a><a href="#doi-tac">Đối tác</a><a href="#lien-he">Liên hệ</a>
+      <a href="#tong-quan">Tổng quan</a><a href="#dien-gia" data-i18n-en="Speakers">Diễn giả</a><a href="#chuong-trinh">Chương trình</a><a href="#doi-tac">Đối tác</a><a href="#lien-he">Liên hệ</a>
     </nav>
+    <div class="language-switch" role="group" aria-label="Ngôn ngữ / Language" data-i18n-ignore><button type="button" data-language="vi" lang="vi" aria-label="Chuyển sang tiếng Việt" aria-pressed="true">VI</button><button type="button" data-language="en" lang="en" aria-label="Switch to English" aria-pressed="false">EN</button></div>
     <button class="button button-primary header-registration" type="button" data-registration>Đăng ký tham dự</button>
   </header>
 
@@ -291,7 +295,7 @@
   <dialog id="info-dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description"><button class="dialog-close" aria-label="Đóng thông tin">×</button><span class="eyebrow">VMAA · MIỀN TRUNG 2026</span><h2 id="dialog-title">Thông tin diễn giả</h2><p id="dialog-description">Thông tin khách mời và diễn giả sẽ hiển thị tại đây.</p><div id="dialog-speaker" class="dialog-speaker" hidden></div><div class="dialog-event">13.12.2026 <span>13:30 — 17:30</span></div><button class="button button-primary" data-calendar>Lưu sự kiện vào lịch <span aria-hidden="true">＋</span></button><button class="dialog-dismiss">Tiếp tục khám phá</button></dialog>
   <dialog id="registration-dialog" class="registration-dialog" aria-labelledby="registration-title-dialog" aria-describedby="registration-description">
     <button class="dialog-close" type="button" aria-label="Đóng đăng ký" data-registration-close>×</button>
-    <span class="eyebrow">VMAA · MIỀN TRUNG 2026</span>
+    <div class="registration-language"><span class="eyebrow">VMAA · MIỀN TRUNG 2026</span><div class="language-switch" role="group" aria-label="Ngôn ngữ / Language" data-i18n-ignore><button type="button" data-language="vi" lang="vi" aria-label="Chuyển sang tiếng Việt" aria-pressed="true">VI</button><button type="button" data-language="en" lang="en" aria-label="Switch to English" aria-pressed="false">EN</button></div></div>
     <h2 id="registration-title-dialog">Đăng ký tham dự</h2>
     <p id="registration-description" class="registration-description">13.12.2026 · Đà Nẵng. Ban Tổ chức sẽ xét duyệt và gửi email xác nhận chính thức đến địa chỉ bạn cung cấp.</p>
     <span id="registration-step" class="registration-step">01 / THÔNG TIN THAM DỰ</span>

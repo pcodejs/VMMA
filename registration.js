@@ -1,6 +1,8 @@
 (() => {
   'use strict';
   const config = window.VMAA_REGISTRATION_CONFIG;
+  const i18n = window.VMAA_I18N;
+  const setValidity = (field, message) => i18n.setValidity(field, message);
   const dialog = document.querySelector('#registration-dialog');
   const form = document.querySelector('#registration-form');
   const status = document.querySelector('#registration-status');
@@ -10,10 +12,11 @@
   const confirmation = document.querySelector('#payment-confirmed');
   const receiptInput = document.querySelector('#payment-receipt');
   const receiptPreview = document.querySelector('#payment-receipt-preview');
-  const money = value => new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+  const money = value => new Intl.NumberFormat(i18n.locale, { style: 'currency', currency: 'VND' }).format(value);
   let previousFocus;
   let previousOverflow;
   let currentData;
+  let currentPaymentAmount;
   let currentFingerprint;
   let requestId;
   let busy = false;
@@ -61,6 +64,8 @@
       if (sequence !== invoiceLookupSequence) return;
       if (invoiceName.value === previousName) invoiceName.value = company.name;
       if (invoiceAddress.value === previousAddress) invoiceAddress.value = company.address;
+      i18n.clearNativeValidity(invoiceName);
+      i18n.clearNativeValidity(invoiceAddress);
       autoFilledInvoice = { name: company.name, address: company.address };
       invoiceLookupStatus.textContent = 'Đã lấy thông tin doanh nghiệp. Vui lòng kiểm tra tên và địa chỉ trước khi gửi.';
     } catch (error) {
@@ -70,7 +75,7 @@
       if (sequence === invoiceLookupSequence) {
         invoiceLookupPending = false;
         invoiceLookupButton.disabled = false;
-        if (status.textContent === 'Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.') status.textContent = '';
+        if (status.textContent === i18n.t('Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.')) status.textContent = '';
       }
     }
   }
@@ -84,9 +89,11 @@
     }
     const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
     const valid = /^(?:\d{10}|\d{13})$/.test(taxCode);
-    invoiceTaxCode.setCustomValidity(taxCode && !valid ? 'Mã số thuế doanh nghiệp cần gồm 10 số hoặc 13 số.' : '');
+    setValidity(invoiceTaxCode, taxCode && !valid ? 'Mã số thuế doanh nghiệp cần gồm 10 số hoặc 13 số.' : '');
     invoiceName.required = Boolean(taxCode);
     invoiceAddress.required = Boolean(taxCode);
+    i18n.clearNativeValidity(invoiceName);
+    i18n.clearNativeValidity(invoiceAddress);
     if (valid) invoiceLookupTimer = setTimeout(lookupInvoice, 700);
   });
   invoiceLookupButton.addEventListener('click', lookupInvoice);
@@ -96,7 +103,7 @@
   form.addEventListener('reset', () => {
     cancelInvoiceLookup();
     autoFilledInvoice = null;
-    invoiceTaxCode.setCustomValidity('');
+    setValidity(invoiceTaxCode, '');
     invoiceName.required = false;
     invoiceAddress.required = false;
   });
@@ -209,7 +216,7 @@
     privacyChoices.append(label);
   });
   connections.addEventListener('change', () => {
-    connections.querySelector('input').setCustomValidity('');
+    setValidity(connections.querySelector('input'), '');
     updateConnectionsOther();
   });
 
@@ -259,13 +266,13 @@
     return result;
   }
 
-  function setBusy(value, message = '') {
+  function setBusy(value, message) {
     busy = value;
     dialog.setAttribute('aria-busy', String(value));
     dialog.querySelectorAll('[data-registration-action]').forEach(button => { button.disabled = value; });
     receiptInput.disabled = value;
     form.querySelector('.registration-invoice').disabled = value;
-    status.textContent = message;
+    if (message !== undefined) status.textContent = message;
   }
 
   form.addEventListener('submit', async event => {
@@ -278,7 +285,7 @@
     const fields = new FormData(form);
     const selectedConnections = fields.getAll('connections');
     const firstConnection = connections.querySelector('input');
-    firstConnection.setCustomValidity(selectedConnections.length ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
+    setValidity(firstConnection, selectedConnections.length ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
     if (!form.reportValidity()) return;
     cancelInvoiceLookup();
     const data = Object.fromEntries(fields);
@@ -298,6 +305,7 @@
       confirmation.checked = false;
       document.querySelector('#payment-name').textContent = data.name;
       document.querySelector('#payment-phone').textContent = data.phone;
+      currentPaymentAmount = details.amount;
       document.querySelector('#payment-amount').textContent = money(details.amount);
       document.querySelector('#payment-bank').textContent = `${details.bank.name} · ${details.bank.account}`;
       document.querySelector('#payment-account-name').textContent = details.bank.accountName;
@@ -314,7 +322,7 @@
       document.querySelector('#payment-title').focus();
     } catch (error) {
       status.textContent = error.name === 'TimeoutError' ? 'Kết nối đang chậm. Vui lòng thử lại.' : error.message;
-    } finally { setBusy(false, status.textContent); }
+    } finally { setBusy(false); }
   });
 
   document.querySelector('#registration-back').addEventListener('click', () => {
@@ -354,7 +362,10 @@
     } catch (error) {
       if (error.message.includes('tải lại ảnh biên lai')) receiptHandle = null;
       status.textContent = error.name === 'TimeoutError' ? 'Kết nối đang chậm. Bạn có thể bấm gửi lại để kiểm tra kết quả đăng ký.' : error.message;
-    } finally { setBusy(false, status.textContent); }
+    } finally { setBusy(false); }
+  });
+  document.addEventListener('vmaa:languagechange', () => {
+    if (currentPaymentAmount !== undefined) document.querySelector('#payment-amount').textContent = money(currentPaymentAmount);
   });
   document.querySelector('#payment-copy-memo').addEventListener('click', async () => {
     try {

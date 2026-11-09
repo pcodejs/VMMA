@@ -1,0 +1,16 @@
+.language-switch{display:inline-flex;align-items:center;flex:none;gap:2px;padding:3px;border:1px solid #a9adcb40;border-radius:6px;background:#080f23;color:#abb4cf}
+.language-switch button{display:inline-flex;align-items:center;justify-content:center;min-width:34px;min-height:34px;padding:6px 8px;border:0;border-radius:3px;background:transparent;color:inherit;font:600 11px/1.2 Montserrat,sans-serif;letter-spacing:.3px;cursor:pointer}
+.language-switch button[aria-pressed="true"]{background:#c9c3ee;color:#10142b}
+.language-switch button:hover{color:#fff;background:#ffffff16}
+.language-switch button[aria-pressed="true"]:hover{background:#dbd6fa;color:#10142b}
+.language-switch button:focus-visible{outline:2px solid #e7e3ff;outline-offset:3px}
+.registration-language{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-right:32px;margin-bottom:16px}
+.registration-language .eyebrow{margin:0}
+html[lang="en"] .hero-wordmark-region{font-size:clamp(22px,4.2vw,58px);letter-spacing:.03em}
+html[lang="en"] .hero-wordmark-pretitle{letter-spacing:.16em}
+html[lang="en"] .header-edition{letter-spacing:1px}
+html[lang="en"] .speaker-meta{min-height:0}
+html[lang="en"] .agenda-translation{display:none}
+@media(min-width:721px) and (max-width:1100px){.site-header{gap:12px;padding-inline:24px}.site-header .main-nav{gap:12px}.site-header .header-edition{display:none}.site-header .main-nav a{font-size:10px}.site-header .header-registration{padding-inline:10px;font-size:10px}}
+@media(max-width:720px){.site-header{gap:10px;padding-inline:16px}.site-header .brand{width:74px}.site-header.is-scrolled .brand{width:74px}.site-header>.language-switch{order:1;margin-left:auto}.site-header .header-registration{margin-left:0;padding-inline:10px}.site-header .menu-toggle{width:36px;padding-inline:6px}.language-switch button{min-width:30px;min-height:36px;padding-inline:6px}.registration-language{align-items:flex-start;gap:10px;padding-right:30px}.registration-language .eyebrow{padding-top:12px}.registration-language .language-switch{margin-top:-4px}html[lang="en"] .hero-wordmark-region{font-size:clamp(19px,5.6vw,37px);letter-spacing:.01em}html[lang="en"] .delegate-number h2{letter-spacing:2px}}
+@media(max-width:359px){.site-header{gap:6px;padding-inline:12px}.site-header .header-registration{font-size:9px;padding-inline:8px}.site-header .brand,.site-header.is-scrolled .brand{width:62px}.site-header .menu-toggle{width:32px}.language-switch button{min-width:28px;padding-inline:4px}.registration-language .eyebrow{font-size:7px;letter-spacing:.6px}}

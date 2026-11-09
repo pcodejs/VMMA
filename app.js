@@ -1,6 +1,8 @@
 (() => {
   'use strict';
   const content = window.VMAA_CONTENT;
+  const i18n = window.VMAA_I18N;
+  const t = value => i18n.t(value);
   if (!content) return;
   const $ = (selector) => document.querySelector(selector);
   const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -84,7 +86,7 @@
       });
       takeawayPreviewImages.forEach((image,i) => image.classList.toggle('is-active',i === index));
       $('.takeaway-preview-index').textContent = `${String(index+1).padStart(2,'0')} / ${String(takeawayItems.length).padStart(2,'0')}`;
-      $('.takeaway-preview-title').textContent = takeawayItems[index].querySelector('.takeaway-trigger').textContent.trim();
+      $('.takeaway-preview-title').textContent = i18n.sourceText(takeawayItems[index].querySelector('.takeaway-trigger')).trim();
     };
     setTakeaway(takeawayItems[0]);
     takeawayItems.forEach(item => {
@@ -110,7 +112,7 @@
         <div class="agenda-session">
           <span class="micro">${[...new Set([row.kind, row.format].filter(Boolean))].map(escape).join(' · ')}</span>
           <h3>${escape(row.title)}</h3>
-          ${row.detail ? `<p>${escape(row.detail)}</p>` : ''}
+          ${row.detail ? `<p class="agenda-translation">${escape(row.detail)}</p>` : ''}
           ${row.objectives?.length ? `
             <details class="agenda-objectives">
               <summary>Xem mục tiêu phiên</summary>
@@ -154,10 +156,10 @@
   const icsEscape = value => String(value).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
   const icsDate = value => new Date(value).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   function downloadCalendar() {
-    const description = `Khơi thông nguồn lực. Kiến tạo tăng trưởng mới. Địa điểm cụ thể đang được cập nhật. ${content.tickets.note} Liên hệ ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. Thông tin xác nhận tham dự do Ban Tổ chức gửi qua email.`;
+    const description = `${t('Khơi thông nguồn lực. Kiến tạo tăng trưởng mới.')} ${t('Địa điểm cụ thể đang được cập nhật.')} ${t(content.tickets.note)} ${t('Liên hệ')} ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. ${t('Thông tin xác nhận tham dự do Ban Tổ chức gửi qua email.')}`;
     const events = [{id:'forum',name:content.event.name,start:content.event.start,end:content.event.end}];
     if(content.event.dinnerStart && content.event.dinnerEnd) events.push({id:'dinner',name:'Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung',start:content.event.dinnerStart,end:content.event.dinnerEnd});
-    const lines = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//VMAA//Central Vietnam Forum 2026//VI','CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(event => ['BEGIN:VEVENT',`UID:vmaa-mientrung-2026-${event.id}@vmaa-forum.local`,`DTSTAMP:${icsDate(new Date())}`,`DTSTART:${icsDate(event.start)}`,`DTEND:${icsDate(event.end)}`,`SUMMARY:${icsEscape(event.name)}`,`LOCATION:${icsEscape(content.event.venue || content.event.location)}`,`DESCRIPTION:${icsEscape(description)}`,'STATUS:TENTATIVE','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',`DESCRIPTION:${icsEscape(event.name)}`,'END:VALARM','END:VEVENT']),'END:VCALENDAR'];
+    const lines = ['BEGIN:VCALENDAR','VERSION:2.0',`PRODID:-//VMAA//Central Vietnam Forum 2026//${i18n.language.toUpperCase()}`,'CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(event => ['BEGIN:VEVENT',`UID:vmaa-mientrung-2026-${event.id}@vmaa-forum.local`,`DTSTAMP:${icsDate(new Date())}`,`DTSTART:${icsDate(event.start)}`,`DTEND:${icsDate(event.end)}`,`SUMMARY:${icsEscape(t(event.name))}`,`LOCATION:${icsEscape(t(content.event.venue || content.event.location))}`,`DESCRIPTION:${icsEscape(description)}`,'STATUS:TENTATIVE','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',`DESCRIPTION:${icsEscape(t(event.name))}`,'END:VALARM','END:VEVENT']),'END:VCALENDAR'];
     // RFC 5545: fold long UTF-8 content lines at 75 octets, without splitting code points.
     const foldLine = line => { const encoder = new TextEncoder(); let result = '', part = ''; for(const char of line) { if(encoder.encode(part + char).length > 75) { result += part + '\r\n'; part = ' '; } part += char; } return result + part; };
     const blob = new Blob([lines.map(foldLine).join('\r\n')+'\r\n'], {type:'text/calendar;charset=utf-8'});
@@ -251,6 +253,21 @@
     $('#sponsorship-tiers').innerHTML = content.sponsorship.tiers.map((tier,index) => `<article class="sponsorship-tier${index === 0 ? ' sponsorship-tier-lead' : ''}"><span class="micro">HẠNG TÀI TRỢ ${String(index+1).padStart(2,'0')}</span><h4>${escape(tier.name)}</h4><p class="tier-price">${escape(money(tier.price))}</p><p class="tier-note">${escape(tier.note)}</p><ul>${tier.highlights.map(item => `<li>${escape(item)}</li>`).join('')}</ul><a href="#lien-he" class="text-link">Trao đổi hợp tác <span aria-hidden="true">→</span></a></article>`).join('');
     $('#sponsorship-tables').innerHTML = content.sponsorship.groups.map((group,index) => `<section class="sponsorship-table-group" aria-labelledby="sponsorship-group-${index}"><h4 id="sponsorship-group-${index}">${escape(group.title)} <span>${escape(group.subtitle)}</span></h4><div class="sponsor-table-scroll" role="region" aria-label="Quyền lợi ${escape(group.title.toLowerCase())}" tabindex="0"><table><caption class="sr-only">So sánh quyền lợi ${escape(group.title.toLowerCase())}</caption><thead><tr><th scope="col">Hạng mục quyền lợi</th>${content.sponsorship.tiers.map(tier => `<th scope="col">${escape(tier.name)}<small>${escape(money(tier.price))}</small></th>`).join('')}</tr></thead><tbody>${group.rows.map(row => `<tr><th scope="row">${escape(row[0])}</th>${row.slice(1).map(cell => `<td>${cell === '—' ? '<span aria-label="Không bao gồm">—</span>' : escape(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`).join('');
   }
+
+  function updateCurrency() {
+    const format = value => new Intl.NumberFormat(i18n.locale, { style: 'currency', currency: content.tickets.currency }).format(value);
+    if (content.tickets.price !== null) $('#ticket-price').textContent = format(content.tickets.price);
+    content.sponsorship?.tiers.forEach((tier, index) => {
+      const price = $$('.tier-price')[index];
+      if (price) price.textContent = format(tier.price);
+      $$('.sponsorship-table-group thead').forEach(head => {
+        const label = head.querySelectorAll('small')[index];
+        if (label) label.textContent = format(tier.price);
+      });
+    });
+  }
+  document.addEventListener('vmaa:languagechange', updateCurrency);
+  updateCurrency();
 
   if('IntersectionObserver' in window) {
     const navObserver = new IntersectionObserver(entries => entries.forEach(entry => { if(entry.isIntersecting) { $$('.main-nav a').forEach(a => a.classList.toggle('active',a.hash === '#'+entry.target.id)); } }), {rootMargin:'-10% 0px -65% 0px'});
