@@ -1,0 +1,850 @@
+/* Refine the established navy–lavender identity around each section's purpose. */
+#main .content-section {
+  padding-block: clamp(64px, 7vw, 96px);
+}
+
+#main .content-section .section-top {
+  margin-bottom: 24px;
+}
+
+#main .content-section .section-top > .micro,
+#main .portfolio-context-heading > .eyebrow,
+#main .portfolio-block-heading > .eyebrow {
+  display: none;
+}
+
+#main .content-section .section-top .eyebrow {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  color: var(--lavender);
+}
+
+#main .content-section h2 {
+  font-size: clamp(32px, 3.6vw, 48px);
+  line-height: 1.28;
+  letter-spacing: -.025em;
+}
+
+#main .content-section .section-heading {
+  margin-bottom: 36px;
+}
+
+#main .content-section .section-heading > p {
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+#main .faq-section .faq-item {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* The overview pairs a compact statement of scale with an editorial narrative. */
+#main .overview .overview-scene {
+  grid-template-columns: .7fr 1.3fr;
+  gap: 56px;
+}
+
+#main .overview .delegate-number > span {
+  font-size: clamp(100px, 12vw, 164px);
+  letter-spacing: -.055em;
+}
+
+#main .overview .delegate-number h2 {
+  font-size: 16px;
+  letter-spacing: .1em;
+  line-height: 1.6;
+}
+
+#main .overview .overview-copy > p {
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.65;
+}
+
+#main .overview .overview-context {
+  margin-top: 56px;
+  padding-top: 40px;
+  gap: 48px;
+}
+
+#main .portfolio-context-heading h3 {
+  margin-top: 0;
+  font-size: clamp(25px, 2.4vw, 32px);
+  line-height: 1.5;
+}
+
+#main .portfolio-context-copy p {
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+#main .forum-objectives {
+  gap: 28px;
+  margin-top: 36px;
+}
+
+#main .forum-objectives h3 {
+  margin-top: 0;
+  font-size: 18px;
+}
+
+#main .forum-objectives p {
+  font-size: 14px;
+}
+
+/* Portrait, name and role lead into the complete profile in its existing dialog. */
+#main .portfolio-speakers {
+  background: #0c1328;
+}
+
+#main .portfolio-speakers .section-heading {
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+
+#main .portfolio-speakers .speaker-draft-notice {
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 0 20px;
+  margin-bottom: 24px;
+}
+
+#main .portfolio-speakers .speaker-list.speaker-list-five {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+}
+
+#main .portfolio-speakers .speaker-list-five > .speaker-card,
+#main .portfolio-speakers .speaker-list-five > .speaker-card:nth-child(4) {
+  grid-column: span 2;
+}
+
+#main .portfolio-speakers .speaker-list-five > .speaker-card:nth-child(5) {
+  grid-column: 2 / span 2;
+}
+
+#main .portfolio-speakers .speaker-card {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  align-items: start;
+  border: 1px solid #a7b1db36;
+  border-radius: 12px;
+  background: #111a30;
+  overflow: hidden;
+}
+
+#main .portfolio-speakers .speaker-portrait.portfolio-portrait {
+  height: auto;
+  min-height: 0;
+  border: 0;
+  background: none;
+  padding: 24px 0 0 24px;
+}
+
+#main .portfolio-speakers .speaker-portrait.portfolio-portrait img {
+  width: 88px;
+  height: 88px;
+  border: 0;
+}
+
+#main .portfolio-speakers .speaker-copy {
+  padding: 24px;
+  text-align: left;
+  min-width: 0;
+  height: 100%;
+}
+
+#main .portfolio-speakers .speaker-card h3 {
+  font-size: 23px;
+  font-weight: 550;
+  line-height: 1.4;
+  letter-spacing: -.02em;
+  text-wrap: initial;
+}
+
+#main .portfolio-speakers .speaker-meta {
+  min-height: 0;
+  gap: 6px;
+  margin-top: 12px;
+  justify-content: start;
+}
+
+#main .portfolio-speakers .speaker-title,
+#main .portfolio-speakers .speaker-organization {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+#main .portfolio-speakers .speaker-role {
+  margin: 14px 0 20px;
+  font-size: 12px;
+}
+
+#main .portfolio-speakers .speaker-bio {
+  display: none;
+}
+
+#main .portfolio-speakers .speaker-copy button {
+  min-height: 44px;
+  padding-top: 12px;
+  font-size: 13px;
+}
+
+/* The programme uses a time rail instead of another sequence of cards. */
+#main .agenda .agenda-intro {
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+#main .agenda .agenda-intro h2 {
+  margin-top: 16px;
+}
+
+#main .agenda .agenda-row {
+  grid-template-columns: 172px minmax(0, 1fr);
+  padding: 26px 20px;
+}
+
+#main .agenda .agenda-row.featured {
+  padding-left: 20px;
+  background: #b1a0e50a;
+}
+
+#main .agenda .agenda-row h3,
+#main .agenda .agenda-row.connection h3 {
+  font-size: 19px;
+  line-height: 1.6;
+}
+
+#main .agenda .agenda-time,
+#main .agenda .agenda-time span {
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+
+#main .agenda .agenda-session {
+  position: relative;
+  padding-left: 28px;
+}
+
+#main .agenda .agenda-session::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lavender);
+}
+
+/* Audience information is a readable index with a lighter visual footprint. */
+#main .portfolio-audience .audience-grid {
+  gap: 0 36px;
+}
+
+#main .portfolio-audience .audience-grid article {
+  padding: 26px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+#main .portfolio-audience .audience-card-heading {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+}
+
+#main .portfolio-audience .audience-grid h3 {
+  margin-top: 12px;
+  font-size: 24px;
+}
+
+#main .portfolio-audience .audience-grid p {
+  margin-block: 12px 20px;
+  font-size: 15px;
+}
+
+#main .portfolio-audience .audience-tags {
+  min-height: 0;
+  grid-template-rows: auto;
+  padding-top: 0;
+}
+
+/* Logos are always visible; the full partner portfolio opens in place. */
+#main .partners .section-heading {
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  max-width: none;
+  margin: 0 0 36px;
+}
+
+#main .partners .section-heading > p {
+  margin: 0;
+}
+
+#main .partners .organizer-row {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+#main .partners .organizer-row img {
+  width: 140px;
+}
+
+.partner-disclosure {
+  border-block: 1px solid var(--border);
+  margin-top: 28px;
+}
+
+.partner-disclosure > summary,
+.tier-details > summary,
+.ticket-conditions > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 56px;
+  padding-block: 16px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.disclosure-mark {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  color: var(--lavender);
+}
+
+.disclosure-mark::before,
+.disclosure-mark::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+  transition: transform .18s ease-out;
+}
+
+.disclosure-mark::before {
+  width: 14px;
+  height: 1px;
+  left: 1px;
+  top: 7px;
+}
+
+.disclosure-mark::after {
+  height: 14px;
+  width: 1px;
+  left: 7px;
+  top: 1px;
+}
+
+details[open] > summary > .disclosure-mark::after {
+  transform: rotate(90deg);
+}
+
+.partner-disclosure-content {
+  padding: 20px 0 32px;
+}
+
+#main .partners .vmaa-about {
+  margin-bottom: 32px;
+}
+
+#main .partners .partner-benefits {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 36px;
+}
+
+#main .partners .partner-benefits article {
+  padding: 24px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  border-radius: 0;
+  background: transparent;
+}
+
+#main .partners .partner-card-top {
+  min-height: 0;
+  border: 0;
+  padding-bottom: 0;
+}
+
+#main .partners .partner-benefits h3 {
+  margin-top: 12px;
+  font-size: 22px;
+}
+
+#main .partners .sponsorship-block {
+  margin-top: 36px;
+  padding-top: 0;
+  border: 0;
+}
+
+#main .portfolio-block-heading h3 {
+  margin-top: 0;
+  font-size: 28px;
+}
+
+.sponsorship-tiers {
+  align-items: start;
+}
+
+.sponsorship-tier {
+  padding: 24px 20px 20px;
+  border-radius: 12px;
+}
+
+.sponsorship-tier h4 {
+  margin-top: 0;
+  font-size: 22px;
+}
+
+.tier-price {
+  font-size: 23px;
+  letter-spacing: -.025em;
+  font-variant-numeric: tabular-nums;
+}
+
+.tier-note {
+  min-height: 46px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.tier-details {
+  margin-top: 16px;
+  border-block: 1px solid var(--border);
+}
+
+.tier-details > summary {
+  min-height: 48px;
+  padding-block: 12px;
+  font-size: 13px;
+}
+
+.sponsorship-tier .tier-details ul {
+  border: 0;
+  margin: 0;
+  padding: 4px 0 20px 17px;
+  font-size: 13px;
+}
+
+.sponsorship-tier > .text-link {
+  margin-top: 16px;
+  min-height: 44px;
+  font-size: 13px;
+}
+
+#main .partners .communication-block {
+  margin-top: 28px;
+  padding-top: 0;
+}
+
+/* Price, scope and registration form a single decision group. */
+#main .registration .registration-layout {
+  align-items: start;
+  gap: 72px;
+}
+
+#main .registration h2 {
+  margin-top: 0;
+  font-size: clamp(38px, 4vw, 56px);
+}
+
+#main .registration .ticket-panel {
+  padding: 32px;
+  background: #151c34;
+  border: 1px solid #b6afe069;
+}
+
+#main .registration .ticket-panel h3 {
+  margin-top: 16px;
+  font-size: clamp(36px, 3.7vw, 48px);
+  line-height: 1.3;
+  font-variant-numeric: tabular-nums;
+}
+
+#main .registration .ticket-panel > .ticket-scope {
+  margin: 10px 0 24px;
+  font-size: 14px;
+}
+
+#main .registration .ticket-panel > .button {
+  min-height: 52px;
+  font-size: 15px;
+}
+
+#main .registration .ticket-panel > .ticket-exclusion {
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+#main .registration .ticket-panel .ticket-location {
+  padding-top: 24px;
+  margin-block: 24px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 15px;
+}
+
+.ticket-conditions {
+  border-block: 1px solid var(--border);
+}
+
+.ticket-conditions > summary {
+  font-size: 14px;
+}
+
+.ticket-conditions > div {
+  padding-bottom: 20px;
+}
+
+.ticket-conditions p {
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.ticket-conditions p + p {
+  margin-top: 12px;
+}
+
+#main .registration .ticket-calendar {
+  margin-top: 16px;
+  border: 0;
+}
+
+/* A compact, equal-size control strip still exposes the full accessible name. */
+.header-registration-short {
+  display: none;
+}
+
+.site-header .header-registration > span {
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.language-switch {
+  width: 96px;
+  height: 46px;
+  padding: 0;
+}
+
+.language-switch button {
+  min-height: 44px;
+}
+
+.site-header .header-registration,
+.site-header .menu-toggle {
+  min-height: 46px;
+  height: 46px;
+}
+
+.site-header .menu-toggle {
+  width: 44px;
+  padding-inline: 10px;
+}
+
+.partner-disclosure > summary:focus-visible,
+.tier-details > summary:focus-visible,
+.ticket-conditions > summary:focus-visible {
+  outline: 2px solid var(--lavender);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1100px) {
+  #main .portfolio-speakers .section-heading,
+  #main .partners .section-heading {
+    gap: 32px;
+  }
+
+  #main .portfolio-speakers .speaker-card {
+    grid-template-columns: 100px minmax(0, 1fr);
+  }
+
+  #main .portfolio-speakers .speaker-portrait.portfolio-portrait {
+    padding-left: 20px;
+  }
+
+  #main .portfolio-speakers .speaker-portrait.portfolio-portrait img {
+    width: 80px;
+    height: 80px;
+  }
+
+  #main .portfolio-speakers .speaker-copy {
+    padding: 22px 20px;
+  }
+
+  #main .portfolio-speakers .speaker-card h3 {
+    font-size: 21px;
+  }
+
+  #main .registration .registration-layout {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 850px) {
+  #main .portfolio-speakers .section-heading,
+  #main .partners .section-heading {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  #main .portfolio-speakers .speaker-list.speaker-list-five {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main .portfolio-speakers .speaker-list-five > .speaker-card,
+  #main .portfolio-speakers .speaker-list-five > .speaker-card:nth-child(4),
+  #main .portfolio-speakers .speaker-list-five > .speaker-card:nth-child(5) {
+    grid-column: 1;
+  }
+
+  #main .portfolio-audience .audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #main .registration .registration-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
+  #main .content-section {
+    padding-block: 56px;
+  }
+
+  #main .content-section h2 {
+    font-size: 32px;
+  }
+
+  #main .overview .overview-scene {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  #main .overview .delegate-number {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 24px;
+    align-items: center;
+    padding-bottom: 24px;
+  }
+
+  #main .overview .delegate-number > span {
+    grid-row: span 2;
+    font-size: 88px;
+  }
+
+  #main .overview .delegate-number h2 {
+    font-size: 14px;
+    margin-top: 0;
+    letter-spacing: .04em;
+  }
+
+  #main .overview .delegate-number p {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  #main .overview .overview-context {
+    margin-top: 36px;
+    padding-top: 28px;
+    gap: 20px;
+  }
+
+  #main .forum-objectives {
+    margin-top: 28px;
+  }
+
+  #main .portfolio-speakers .section-heading > p {
+    margin-top: 0;
+  }
+
+  #main .portfolio-speakers .speaker-draft-notice {
+    align-items: center;
+  }
+
+  #main .portfolio-speakers .speaker-list.speaker-list-five {
+    gap: 16px;
+  }
+
+  #main .agenda .agenda-intro {
+    align-items: start;
+    gap: 24px;
+  }
+
+  #main .agenda .agenda-row,
+  #main .agenda .agenda-row.featured {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 24px 0;
+    margin-inline: 0;
+    gap: 12px;
+  }
+
+  #main .agenda .agenda-row h3,
+  #main .agenda .agenda-row.connection h3 {
+    font-size: 18px;
+  }
+
+  #main .agenda .agenda-session {
+    padding-left: 20px;
+    border-left: 1px solid var(--border);
+  }
+
+  #main .agenda .agenda-session::before {
+    top: 10px;
+  }
+
+  #main .portfolio-audience .audience-grid,
+  #main .partners .partner-benefits {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #main .portfolio-audience .audience-grid article {
+    padding-block: 24px;
+  }
+
+  #main .portfolio-audience .audience-grid h3 {
+    margin-top: 8px;
+  }
+
+  #main .partners .organizer-row {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+
+  #main .partners .sponsorship-block {
+    margin-top: 28px;
+  }
+
+  .sponsorship-tiers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .sponsorship-tier {
+    padding: 20px 16px 16px;
+  }
+
+  .sponsorship-tier h4 {
+    font-size: 20px;
+  }
+
+  .tier-price {
+    font-size: 20px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .tier-note {
+    min-height: 0;
+    font-size: 12px;
+  }
+
+  .sponsorship-tier > .text-link {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .tier-details > summary {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  #main .registration .ticket-panel {
+    padding: 26px 24px;
+  }
+
+  #main .registration .ticket-panel h3 {
+    font-size: 38px;
+  }
+
+  .site-header .language-switch {
+    width: 96px;
+  }
+}
+
+@media (max-width: 420px) {
+  .site-header {
+    gap: 6px;
+    padding-inline: 12px;
+  }
+
+  .site-header .brand,
+  .site-header.is-scrolled .brand {
+    width: 62px;
+  }
+
+  .site-header .header-registration {
+    padding-inline: 10px;
+    font-size: 12px;
+  }
+
+  .header-registration-full {
+    display: none;
+  }
+
+  .header-registration-short {
+    display: inline;
+  }
+}
+
+@media (max-width: 359px) {
+  .site-header .brand,
+  .site-header.is-scrolled .brand {
+    width: 56px;
+  }
+
+  #main .overview .delegate-number {
+    gap: 0 16px;
+  }
+
+  #main .overview .delegate-number > span {
+    font-size: 72px;
+  }
+
+  #main .portfolio-speakers .speaker-card {
+    grid-template-columns: 80px minmax(0, 1fr);
+  }
+
+  #main .portfolio-speakers .speaker-portrait.portfolio-portrait {
+    padding-left: 16px;
+    padding-top: 20px;
+  }
+
+  #main .portfolio-speakers .speaker-portrait.portfolio-portrait img {
+    width: 64px;
+    height: 64px;
+  }
+
+  #main .portfolio-speakers .speaker-copy {
+    padding: 20px 16px;
+  }
+
+  #main .portfolio-speakers .speaker-card h3 {
+    font-size: 20px;
+  }
+
+  .sponsorship-tiers {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure-mark::before,
+  .disclosure-mark::after {
+    transition: none;
+  }
+}

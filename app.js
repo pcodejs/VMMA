@@ -250,7 +250,18 @@
 
   if(content.sponsorship) {
     const money = value => new Intl.NumberFormat('vi-VN').format(value) + ' đ';
-    $('#sponsorship-tiers').innerHTML = content.sponsorship.tiers.map((tier,index) => `<article class="sponsorship-tier${index === 0 ? ' sponsorship-tier-lead' : ''}"><span class="micro">HẠNG TÀI TRỢ ${String(index+1).padStart(2,'0')}</span><h4>${escape(tier.name)}</h4><p class="tier-price">${escape(money(tier.price))}</p><p class="tier-note">${escape(tier.note)}</p><ul>${tier.highlights.map(item => `<li>${escape(item)}</li>`).join('')}</ul><a href="#lien-he" class="text-link">Trao đổi hợp tác <span aria-hidden="true">→</span></a></article>`).join('');
+    $('#sponsorship-tiers').innerHTML = content.sponsorship.tiers.map((tier, index) => `
+      <article class="sponsorship-tier${index === 0 ? ' sponsorship-tier-lead' : ''}">
+        <h4>${escape(tier.name)}</h4>
+        <p class="tier-price">${escape(money(tier.price))}</p>
+        <p class="tier-note">${escape(tier.note)}</p>
+        <details class="tier-details">
+          <summary>Quyền lợi nổi bật <span class="disclosure-mark" aria-hidden="true"></span></summary>
+          <ul>${tier.highlights.map(item => `<li>${escape(item)}</li>`).join('')}</ul>
+        </details>
+        <a href="#lien-he" class="text-link">Trao đổi hợp tác <span aria-hidden="true">→</span></a>
+      </article>
+    `).join('');
     $('#sponsorship-tables').innerHTML = content.sponsorship.groups.map((group,index) => `<section class="sponsorship-table-group" aria-labelledby="sponsorship-group-${index}"><h4 id="sponsorship-group-${index}">${escape(group.title)} <span>${escape(group.subtitle)}</span></h4><div class="sponsor-table-scroll" role="region" aria-label="Quyền lợi ${escape(group.title.toLowerCase())}" tabindex="0"><table><caption class="sr-only">So sánh quyền lợi ${escape(group.title.toLowerCase())}</caption><thead><tr><th scope="col">Hạng mục quyền lợi</th>${content.sponsorship.tiers.map(tier => `<th scope="col">${escape(tier.name)}<small>${escape(money(tier.price))}</small></th>`).join('')}</tr></thead><tbody>${group.rows.map(row => `<tr><th scope="row">${escape(row[0])}</th>${row.slice(1).map(cell => `<td>${cell === '—' ? '<span aria-label="Không bao gồm">—</span>' : escape(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`).join('');
   }
 

@@ -1,73 +1,201 @@
-dialog.registration-dialog{width:min(840px,calc(100% - 32px));max-height:calc(100dvh - 40px);padding:38px;overflow-y:auto;overscroll-behavior:contain;border-radius:12px}
-.registration-dialog h2{margin-top:14px;font-size:32px}
-.registration-dialog .registration-description{font-size:14px;line-height:1.8;margin:14px 0 26px}
-.registration-dialog .registration-step{display:block;color:var(--lavender);font-size:10px;letter-spacing:1px;margin-bottom:22px}
-.registration-fee-note{display:grid;gap:8px;margin-bottom:24px;font-size:13px;line-height:1.8;color:var(--muted)}
-.registration-fee-note p{margin:0}
-.registration-fee-note p:first-child{color:var(--text);font-weight:600}
-@media(prefers-reduced-motion:no-preference){
-  dialog.registration-dialog[open]{animation:registration-open .24s cubic-bezier(.16,1,.3,1)}
-  dialog.registration-dialog[open]::backdrop{animation:registration-backdrop .2s ease-out}
+dialog.registration-dialog {
+  width: min(840px, calc(100% - 32px));
+  max-height: calc(100dvh - 40px);
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 88px 24px;
+  border-radius: 12px;
+  scrollbar-color: #7e739d #11172f;
+  scrollbar-width: thin;
 }
-@keyframes registration-open{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@keyframes registration-backdrop{from{opacity:0}to{opacity:1}}
-.registration-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 20px}
-.registration-field{display:flex;flex-direction:column;gap:8px;min-width:0;font-size:14px;line-height:1.6;color:var(--text)}
-.registration-fields>.registration-field{display:grid;grid-template-rows:subgrid;grid-row:span 3;padding-bottom:8px}
-.registration-field-wide{grid-column:1/-1}
-.registration-field[hidden]{display:none}
-.registration-field input,.registration-field select,.registration-field textarea{width:100%;min-width:0;min-height:48px;padding:11px 12px;border:1px solid #a1b4e24a;border-radius:5px;background:#090f23;color:var(--text);font:inherit}
-.registration-field input:not([type="file"]),.registration-field select{height:48px}
-.registration-field textarea{resize:vertical}
-.registration-field select{appearance:none;padding-right:44px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e9e5f7' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;background-size:16px;text-overflow:ellipsis;cursor:pointer}
-.registration-field input:focus-visible,.registration-field select:focus-visible,.registration-field textarea:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}
-.registration-invoice{margin:26px 0 0;padding:22px 0 0;border:0;border-top:1px solid var(--border);min-width:0}
-.registration-invoice legend{font-size:14px;color:var(--text);padding:0 12px 0 0}
-.registration-invoice textarea{min-height:88px;resize:vertical}
-.invoice-lookup{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end}
-.invoice-lookup .button{min-height:48px;height:48px;padding:11px 20px}
-.invoice-help{font-size:12px;line-height:1.8;margin:10px 0 16px}
-#invoice-lookup-status{color:var(--lavender)}
-#invoice-lookup-status:empty{display:none}
-.invoice-fields{grid-template-columns:1fr}
-.registration-field small{font-size:11px;color:var(--muted);line-height:1.7}
-.registration-sessions{margin:26px 0 0;padding:0;border:0}
-.registration-sessions legend{font-size:13px;color:var(--text);margin-bottom:14px}
-.registration-privacy-notice{font-size:12px;line-height:1.8;color:var(--muted)}
-.registration-sessions label,.payment-confirmation{display:flex;align-items:flex-start;gap:12px;font-size:13px;line-height:1.8;color:var(--muted);margin-top:12px;cursor:pointer}
-.registration-sessions input[type="checkbox"],.registration-sessions input[type="radio"],.payment-confirmation input{width:18px;height:18px;flex:none;margin-top:3px;accent-color:var(--lavender)}
-.registration-dialog .registration-actions{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;margin-top:26px}
-.registration-dialog button:disabled{opacity:.55;cursor:wait}
-.registration-status{font-size:13px;line-height:1.8;color:var(--lavender);margin-top:18px;overflow-wrap:anywhere}
-.registration-status:empty{display:none}
-.payment-attendee{font-size:14px;color:var(--muted);margin:14px 0 24px}
-.payment-attendee span+span:before{content:' · '}
-.payment-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;align-items:start;margin-top:24px}
-.payment-qr{display:block;width:240px;height:240px;object-fit:contain;background:white;border-radius:8px;padding:8px}
-.payment-details{margin:0;min-width:0}
-.payment-details>div{padding:10px 0;border-bottom:1px solid var(--border)}
-.payment-details dt{font-size:11px;color:var(--muted)}
-.payment-details dd{font-size:15px;color:var(--text);line-height:1.7;margin:5px 0 0;overflow-wrap:anywhere}
-.payment-details .payment-amount{font-size:27px;color:var(--lavender)}
-.payment-copy{padding:6px 0;margin-top:8px;border:0;background:none;color:var(--lavender);font-size:12px;text-decoration:underline;text-underline-offset:4px}
-.payment-exemption{padding:20px;border:1px solid var(--border);border-radius:6px;margin-top:24px;color:var(--lavender)}
-.payment-receipt{margin-top:24px}
-.payment-receipt input{max-width:100%;font-size:12px}
-.payment-receipt input::file-selector-button{border:0;border-radius:3px;background:#c2b9ff;color:#11162c;padding:8px 12px;margin-right:10px;font:inherit;cursor:pointer}
-.payment-receipt-preview{display:block;max-width:100%;width:auto;max-height:260px;object-fit:contain;margin-top:14px;border:1px solid var(--border);border-radius:6px}
-.payment-receipt-preview[hidden]{display:none}
-.registration-success{padding-block:24px}
-.registration-success p{font-size:15px;line-height:1.9;margin-top:18px}
-@media(max-width:600px){
-  dialog.registration-dialog{padding:35px 22px 24px}
-  .registration-dialog h2{font-size:27px}
-  .registration-fields{grid-template-columns:1fr}
-  .registration-field input,.registration-field select,.registration-field textarea{font-size:16px}
-  .payment-layout{grid-template-columns:1fr;gap:18px}
-  .payment-qr{width:min(260px,100%);height:auto;aspect-ratio:1;margin-inline:auto}
-  .registration-dialog .registration-actions{flex-direction:column-reverse}
-  .registration-dialog .registration-actions .button{width:100%}
+
+.registration-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 24px 12px 32px;
+  background: #121830;
+  border-bottom: 1px solid var(--border);
 }
-@media(forced-colors:active){
-  .registration-field select{appearance:auto;background-image:none;padding-right:12px}
+
+.registration-toolbar p { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.registration-toolbar-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+.registration-toolbar .dialog-close {
+  position: static;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 10px;
+  border-radius: 6px;
+  color: var(--text);
+}
+
+.registration-toolbar .dialog-close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.registration-toolbar .dialog-close:hover { background: #c2b9ff14; }
+.registration-dialog-content { padding: 28px 32px 32px; }
+.registration-dialog h2 { margin: 0; font-size: 32px; }
+.registration-dialog .registration-description { max-width: 65ch; margin: 12px 0 24px; font-size: 14px; line-height: 1.8; }
+
+.registration-progress {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin: 0 0 24px;
+  padding: 0 0 24px;
+  list-style: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.registration-progress li { display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.registration-step-number { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border: 1px solid #7e8cb4; border-radius: 50%; font-size: 12px; font-variant-numeric: tabular-nums; }
+.registration-progress [aria-current="step"] { color: var(--text); font-weight: 600; }
+.registration-progress [aria-current="step"] .registration-step-number { background: var(--lavender); border-color: var(--lavender); color: #11162c; }
+.registration-progress [data-complete="true"] .registration-step-number { border-color: var(--lavender); color: var(--lavender); }
+.registration-progress[hidden] { display: none; }
+.registration-dialog .registration-step { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.registration-fee-note { margin-bottom: 28px; font-size: 13px; line-height: 1.8; color: var(--muted); }
+.registration-fee-note p { margin: 0; }
+.registration-fee-note > p { color: var(--text); font-weight: 600; }
+.registration-fee-note details { margin-top: 4px; }
+.registration-fee-note summary { width: fit-content; padding-block: 8px; color: var(--lavender); cursor: pointer; text-underline-offset: 4px; }
+.registration-fee-note summary:hover { text-decoration: underline; }
+.registration-fee-note details p { max-width: 70ch; margin-top: 10px; }
+
+.registration-group, .registration-sessions { min-width: 0; padding: 0; margin: 0; border: 0; }
+.registration-group + .registration-group, .registration-sessions { margin-top: 32px; }
+.registration-group legend, .registration-sessions legend { width: 100%; padding: 0; margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 1.6; color: var(--text); }
+.registration-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
+.registration-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 14px; line-height: 1.6; color: var(--text); }
+.registration-fields > .registration-field { display: grid; grid-template-rows: subgrid; grid-row: span 3; padding-bottom: 8px; }
+.registration-field-wide { grid-column: 1 / -1; }
+.registration-field[hidden] { display: none; }
+
+.registration-field input, .registration-field select, .registration-field textarea {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 11px 12px;
+  border: 1px solid #7e8cb4;
+  border-radius: 6px;
+  background: #090f23;
+  color: var(--text);
+  caret-color: var(--lavender);
+  font: inherit;
+}
+
+.registration-field input:not([type="file"]), .registration-field select { height: 48px; }
+.registration-field textarea { resize: vertical; }
+.registration-field input:hover, .registration-field select:hover, .registration-field textarea:hover { border-color: #b3b9d6; }
+.registration-field input:disabled, .registration-field select:disabled, .registration-field textarea:disabled { opacity: .65; }
+.registration-field input::placeholder, .registration-field textarea::placeholder { color: #a6afc8; opacity: 1; }
+.registration-field select {
+  appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23e9e5f7' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 16px;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.registration-dialog :is(input, select, textarea, button, summary):focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; }
+.registration-field small { font-size: 12px; line-height: 1.7; color: var(--muted); }
+.registration-choice-help { margin: -8px 0 12px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+#registration-connections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 4px; }
+
+.registration-sessions .registration-choice, .payment-confirmation, .registration-invoice-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 44px;
+  padding-block: 10px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.registration-choice input, .payment-confirmation input, .registration-invoice-toggle input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--lavender); }
+.registration-choice:has(:checked) { color: var(--lavender); }
+#registration-connections-other { margin-top: 16px; }
+.registration-privacy-notice { max-width: 70ch; margin: 0 0 12px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+#registration-privacy-consent { display: grid; gap: 4px; }
+
+.registration-invoice-section { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); }
+.registration-invoice-toggle { width: fit-content; font-size: 14px; font-weight: 600; }
+.registration-invoice { min-width: 0; margin: 20px 0 0; padding: 0; border: 0; }
+.registration-invoice legend { padding: 0; margin-bottom: 16px; font-size: 14px; line-height: 1.6; color: var(--text); }
+.registration-invoice textarea { min-height: 88px; }
+.invoice-lookup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: end; }
+.invoice-lookup .button { width: auto; min-height: 48px; height: 48px; padding: 11px 20px; }
+.invoice-help { margin: 10px 0 16px; font-size: 12px; line-height: 1.8; }
+#invoice-lookup-status { color: var(--lavender); }
+#invoice-lookup-status:empty { display: none; }
+.invoice-fields { grid-template-columns: 1fr; }
+
+.registration-dialog .registration-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.registration-actions .button { width: auto; min-height: 48px; }
+.registration-dialog button:disabled { opacity: .55; cursor: wait; }
+.registration-status { margin-top: 20px; font-size: 13px; line-height: 1.8; color: var(--lavender); overflow-wrap: anywhere; }
+.registration-status:empty { display: none; }
+.registration-dialog h3 { font-size: 22px; line-height: 1.5; }
+#payment-summary { max-width: 65ch; font-size: 14px; line-height: 1.8; }
+.payment-attendee { margin: 12px 0 20px; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.payment-attendee span + span::before { content: ' · '; }
+.payment-layout { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 28px; align-items: start; margin-top: 24px; }
+.payment-qr { display: block; width: 240px; height: 240px; object-fit: contain; background: white; border-radius: 8px; padding: 8px; }
+.payment-details { min-width: 0; margin: 0; }
+.payment-details > div { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.payment-details dt { font-size: 12px; color: var(--muted); }
+.payment-details dd { margin: 5px 0 0; font-size: 15px; line-height: 1.7; color: var(--text); overflow-wrap: anywhere; }
+.payment-details .payment-amount { font-size: 27px; color: var(--lavender); font-variant-numeric: tabular-nums; }
+.payment-copy { min-height: 44px; margin-top: 4px; padding: 8px 0; border: 0; background: none; color: var(--lavender); font: inherit; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.payment-exemption { margin-top: 24px; padding: 20px; border: 1px solid var(--border); border-radius: 6px; color: var(--lavender); }
+.payment-receipt { margin-top: 24px; }
+.payment-receipt input { max-width: 100%; font-size: 12px; }
+.payment-receipt input::file-selector-button { margin-right: 10px; padding: 8px 12px; border: 0; border-radius: 3px; background: #c2b9ff; color: #11162c; font: inherit; cursor: pointer; }
+.payment-receipt-preview { display: block; max-width: 100%; width: auto; max-height: 260px; margin-top: 14px; object-fit: contain; border: 1px solid var(--border); border-radius: 6px; }
+.payment-receipt-preview[hidden] { display: none; }
+.payment-confirmation { margin-top: 16px; }
+.registration-success { padding-block: 12px; }
+.registration-success p { max-width: 65ch; margin-top: 18px; font-size: 15px; line-height: 1.9; }
+
+@media (prefers-reduced-motion: no-preference) {
+  dialog.registration-dialog[open] { animation: registration-open .24s cubic-bezier(.16, 1, .3, 1); }
+  dialog.registration-dialog[open]::backdrop { animation: registration-backdrop .2s ease-out; }
+}
+
+@keyframes registration-open { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes registration-backdrop { from { opacity: 0; } to { opacity: 1; } }
+
+@media (max-width: 600px) {
+  dialog.registration-dialog { width: calc(100% - 16px); max-height: calc(100dvh - 16px); }
+  .registration-toolbar { gap: 8px; padding: 8px 12px 8px 20px; }
+  .registration-toolbar p { font-size: 11px; }
+  .registration-toolbar-actions { gap: 4px; }
+  .registration-dialog-content { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .registration-dialog h2 { font-size: 27px; }
+  .registration-progress { gap: 12px; }
+  .registration-progress li { align-items: flex-start; gap: 8px; font-size: 12px; }
+  .registration-step-number { width: 24px; height: 24px; }
+  .registration-fields, #registration-connections { grid-template-columns: 1fr; }
+  .registration-field input, .registration-field select, .registration-field textarea { font-size: 16px; }
+  .payment-layout { grid-template-columns: 1fr; gap: 18px; }
+  .payment-qr { width: min(260px, 100%); height: auto; aspect-ratio: 1; margin-inline: auto; }
+  .registration-dialog .registration-actions { flex-direction: column; }
+  .registration-dialog .registration-actions .button { width: 100%; }
+}
+
+@media (forced-colors: active) {
+  .registration-field select { appearance: auto; background-image: none; padding-right: 12px; }
+  .registration-step-number { border-color: CanvasText; }
 }

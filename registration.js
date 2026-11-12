@@ -9,6 +9,8 @@
   const information = document.querySelector('#registration-information');
   const payment = document.querySelector('#registration-payment');
   const success = document.querySelector('#registration-success');
+  const progress = document.querySelector('#registration-progress');
+  const progressSteps = progress.querySelectorAll('[data-registration-step]');
   const confirmation = document.querySelector('#payment-confirmed');
   const receiptInput = document.querySelector('#payment-receipt');
   const receiptPreview = document.querySelector('#payment-receipt-preview');
@@ -26,6 +28,8 @@
   const invoiceTaxCode = form.elements.namedItem('invoiceTaxCode');
   const invoiceName = form.elements.namedItem('invoiceName');
   const invoiceAddress = form.elements.namedItem('invoiceAddress');
+  const invoiceRequested = document.querySelector('#registration-invoice-requested');
+  const invoiceFields = document.querySelector('#registration-invoice-fields');
   const invoiceLookupButton = document.querySelector('#invoice-lookup-button');
   const invoiceLookupStatus = document.querySelector('#invoice-lookup-status');
   let invoiceLookupTimer;
@@ -33,6 +37,31 @@
   let invoiceLookupController;
   let invoiceLookupPending = false;
   let autoFilledInvoice;
+
+  function validateInvoiceTaxCode() {
+    const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
+    const valid = /^(?:\d{10}|\d{13})$/.test(taxCode);
+    const needsDetails = invoiceRequested.checked && Boolean(taxCode);
+    setValidity(invoiceTaxCode, needsDetails && !valid ? 'Mã số thuế doanh nghiệp cần gồm 10 số hoặc 13 số.' : '');
+    invoiceName.required = needsDetails;
+    invoiceAddress.required = needsDetails;
+    return valid;
+  }
+
+  function updateInvoiceFields() {
+    const requested = invoiceRequested.checked;
+    invoiceFields.hidden = !requested;
+    invoiceFields.disabled = busy || !requested;
+    invoiceRequested.disabled = busy;
+    invoiceRequested.setAttribute('aria-expanded', String(requested));
+    if (!requested) {
+      cancelInvoiceLookup();
+      for (const field of invoiceFields.elements) i18n.clearNativeValidity(field);
+    }
+    validateInvoiceTaxCode();
+  }
+
+  invoiceRequested.addEventListener('change', updateInvoiceFields);
 
   function cancelInvoiceLookup() {
     clearTimeout(invoiceLookupTimer);
@@ -44,6 +73,7 @@
   }
 
   async function lookupInvoice() {
+    if (!invoiceRequested.checked || busy) return;
     cancelInvoiceLookup();
     const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
     if (!/^(?:\d{10}|\d{13})$/.test(taxCode)) {
@@ -87,14 +117,10 @@
       if (invoiceAddress.value === autoFilledInvoice.address) invoiceAddress.value = '';
       autoFilledInvoice = null;
     }
-    const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
-    const valid = /^(?:\d{10}|\d{13})$/.test(taxCode);
-    setValidity(invoiceTaxCode, taxCode && !valid ? 'Mã số thuế doanh nghiệp cần gồm 10 số hoặc 13 số.' : '');
-    invoiceName.required = Boolean(taxCode);
-    invoiceAddress.required = Boolean(taxCode);
+    const valid = validateInvoiceTaxCode();
     i18n.clearNativeValidity(invoiceName);
     i18n.clearNativeValidity(invoiceAddress);
-    if (valid) invoiceLookupTimer = setTimeout(lookupInvoice, 700);
+    if (valid && invoiceRequested.checked) invoiceLookupTimer = setTimeout(lookupInvoice, 700);
   });
   invoiceLookupButton.addEventListener('click', lookupInvoice);
   invoiceTaxCode.addEventListener('keydown', event => {
@@ -103,10 +129,10 @@
   form.addEventListener('reset', () => {
     cancelInvoiceLookup();
     autoFilledInvoice = null;
-    setValidity(invoiceTaxCode, '');
-    invoiceName.required = false;
-    invoiceAddress.required = false;
+    invoiceRequested.checked = false;
+    updateInvoiceFields();
   });
+  updateInvoiceFields();
 
   function clearReceipt() {
     receiptHandle = null;
@@ -185,6 +211,7 @@
   const connections = document.querySelector('#registration-connections');
   config.connections.forEach(value => {
     const label = document.createElement('label');
+    label.className = 'registration-choice';
     const input = document.createElement('input');
     input.type = 'checkbox';
     input.name = 'connections';
@@ -205,6 +232,7 @@
   const privacyChoices = document.querySelector('#registration-privacy-consent');
   config.privacyConsents.forEach(value => {
     const label = document.createElement('label');
+    label.className = 'registration-choice';
     const input = document.createElement('input');
     input.type = 'radio';
     input.name = 'privacyConsent';
@@ -224,6 +252,13 @@
     information.hidden = step !== 'information';
     payment.hidden = step !== 'payment';
     success.hidden = step !== 'success';
+    progress.hidden = step === 'success';
+    progressSteps.forEach(item => {
+      const active = item.dataset.registrationStep === step;
+      if (active) item.setAttribute('aria-current', 'step');
+      else item.removeAttribute('aria-current');
+      item.dataset.complete = String(item.dataset.registrationStep === 'information' && step === 'payment');
+    });
     document.querySelector('#registration-step').textContent = step === 'information' ? '01 / THÔNG TIN THAM DỰ' : step === 'payment' ? '02 / HOÀN TẤT ĐĂNG KÝ' : 'ĐÃ TIẾP NHẬN THÔNG TIN';
     status.textContent = '';
     dialog.scrollTop = 0;
@@ -271,7 +306,7 @@
     dialog.setAttribute('aria-busy', String(value));
     dialog.querySelectorAll('[data-registration-action]').forEach(button => { button.disabled = value; });
     receiptInput.disabled = value;
-    form.querySelector('.registration-invoice').disabled = value;
+    updateInvoiceFields();
     if (message !== undefined) status.textContent = message;
   }
 
@@ -311,6 +346,7 @@
       document.querySelector('#payment-account-name').textContent = details.bank.accountName;
       document.querySelector('#payment-memo').textContent = details.memo;
       const needsPayment = details.amount > 0;
+      document.querySelector('#payment-title').textContent = needsPayment ? 'Thanh toán và xác nhận' : 'Xác nhận thông tin tham dự';
       document.querySelector('#payment-transfer').hidden = !needsPayment;
       document.querySelector('#payment-exemption').hidden = needsPayment;
       document.querySelector('#payment-exemption').textContent = details.paymentLabel;
