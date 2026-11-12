@@ -397,29 +397,54 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 .sponsorship-tiers {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
   align-items: start;
 }
 
 .sponsorship-tier {
-  padding: 24px 20px 20px;
+  padding: 24px;
   border-radius: 12px;
 }
 
 .sponsorship-tier h4 {
   margin-top: 0;
   font-size: 22px;
+  line-height: 1.5;
+  text-wrap: balance;
 }
 
 .tier-price {
-  font-size: 23px;
+  font-size: clamp(20px, 2.2vw, 24px);
+  line-height: 1.5;
   letter-spacing: -.025em;
   font-variant-numeric: tabular-nums;
 }
 
 .tier-note {
-  min-height: 46px;
+  min-height: 48px;
   margin-top: 10px;
-  font-size: 13px;
+  font-size: 14px;
+  line-height: 1.7;
+  text-wrap: balance;
+}
+
+.sponsorship-note {
+  max-width: 80ch;
+  margin: 24px 0 0;
+  padding-left: 20px;
+  border-left: 1px solid var(--lavender);
+  font-size: 14px;
+  line-height: 1.85;
+  color: var(--muted);
+}
+
+.sponsorship-table-group table {
+  min-width: 1360px;
+}
+
+.sponsorship-table-group thead th:first-child {
+  width: 20%;
 }
 
 .tier-details {
@@ -518,6 +543,53 @@ details[open] > summary > .disclosure-mark::after {
   margin-top: 12px;
 }
 
+.hero-centered .hero-event {
+  display: grid;
+  grid-template-columns: auto 1px minmax(0, 1fr);
+  width: min(100%, 580px);
+  gap: 24px;
+  text-align: left;
+}
+
+.hero-centered .hero-event > div,
+.hero-centered .hero-event > div > span {
+  min-width: 0;
+}
+
+.hero-centered .hero-event svg {
+  flex: none;
+}
+
+.hero-centered .hero-event strong {
+  display: block;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.hero-centered .hero-event small {
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+#main .registration .registration-venue {
+  max-width: 36ch;
+  margin-top: 24px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--lavender);
+  text-wrap: balance;
+}
+
+.registration-dialog .registration-location {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--lavender);
+  text-wrap: balance;
+}
+
 #main .registration .ticket-calendar {
   margin-top: 16px;
   border: 0;
@@ -562,6 +634,10 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 @media (max-width: 1100px) {
+  .sponsorship-tiers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   #main .portfolio-speakers .section-heading,
   #main .partners .section-heading {
     gap: 32px;
@@ -745,12 +821,13 @@ details[open] > summary > .disclosure-mark::after {
   .tier-price {
     font-size: 20px;
     white-space: normal;
-    overflow-wrap: anywhere;
+    overflow-wrap: normal;
+    text-wrap: balance;
   }
 
   .tier-note {
-    min-height: 0;
-    font-size: 12px;
+    min-height: 48px;
+    font-size: 13px;
   }
 
   .sponsorship-tier > .text-link {
@@ -773,6 +850,59 @@ details[open] > summary > .disclosure-mark::after {
 
   .site-header .language-switch {
     width: 96px;
+  }
+
+  .hero-centered .hero-event {
+    grid-template-columns: minmax(110px, .9fr) 1px minmax(0, 1.3fr);
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-centered .hero-event > div {
+    gap: 8px;
+  }
+
+  .hero-centered .hero-event > div:first-child small {
+    white-space: nowrap;
+  }
+
+  .hero-centered .hero-event strong {
+    font-size: 13px;
+    letter-spacing: 0;
+  }
+
+  .hero-centered .hero-event small {
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .sponsorship-tiers {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .sponsorship-tier {
+    padding: 24px;
+  }
+
+  .sponsorship-tier h4 {
+    font-size: 22px;
+  }
+
+  .tier-price {
+    font-size: clamp(18px, 5.5vw, 24px);
+  }
+
+  .tier-note {
+    min-height: 0;
+    font-size: 14px;
+  }
+
+  .tier-details > summary,
+  .sponsorship-tier > .text-link {
+    font-size: 14px;
   }
 }
 

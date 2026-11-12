@@ -156,7 +156,7 @@
   const icsEscape = value => String(value).replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
   const icsDate = value => new Date(value).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   function downloadCalendar() {
-    const description = `${t('Khơi thông nguồn lực. Kiến tạo tăng trưởng mới.')} ${t('Địa điểm cụ thể đang được cập nhật.')} ${t(content.tickets.note)} ${t('Liên hệ')} ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. ${t('Thông tin xác nhận tham dự do Ban Tổ chức gửi qua email.')}`;
+    const description = `${t('Khơi thông nguồn lực. Kiến tạo tăng trưởng mới.')} ${t(content.event.venue || content.event.location)} ${t(content.tickets.note)} ${t('Liên hệ')} ${content.contact.name}: ${content.contact.phone} · ${content.links.contactEmail}. ${t('Thông tin xác nhận tham dự do Ban Tổ chức gửi qua email.')}`;
     const events = [{id:'forum',name:content.event.name,start:content.event.start,end:content.event.end}];
     if(content.event.dinnerStart && content.event.dinnerEnd) events.push({id:'dinner',name:'Tiệc ra mắt và kết nối cộng đồng M&A Miền Trung',start:content.event.dinnerStart,end:content.event.dinnerEnd});
     const lines = ['BEGIN:VCALENDAR','VERSION:2.0',`PRODID:-//VMAA//Central Vietnam Forum 2026//${i18n.language.toUpperCase()}`,'CALSCALE:GREGORIAN','METHOD:PUBLISH',...events.flatMap(event => ['BEGIN:VEVENT',`UID:vmaa-mientrung-2026-${event.id}@vmaa-forum.local`,`DTSTAMP:${icsDate(new Date())}`,`DTSTART:${icsDate(event.start)}`,`DTEND:${icsDate(event.end)}`,`SUMMARY:${icsEscape(t(event.name))}`,`LOCATION:${icsEscape(t(content.event.venue || content.event.location))}`,`DESCRIPTION:${icsEscape(description)}`,'STATUS:TENTATIVE','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',`DESCRIPTION:${icsEscape(t(event.name))}`,'END:VALARM','END:VEVENT']),'END:VCALENDAR'];
@@ -199,7 +199,9 @@
   $('#ticket-dinner-note').textContent = content.tickets.dinnerNote;
   $('#registration-fee-price').textContent = content.tickets.registrationPrice;
   $('#registration-fee-dinner').textContent = content.tickets.registrationDinner;
-  if(content.event.venue) $('#venue-note').textContent = content.event.venue;
+  if (content.event.venue) {
+    $$('[data-event-venue]').forEach(element => { element.textContent = content.event.venue; });
+  }
 
   if(content.speakers.length) {
     $('#speaker-list').classList.toggle('speaker-list-five',content.speakers.length === 5);
@@ -248,12 +250,17 @@
     });
   }
 
-  if(content.sponsorship) {
-    const money = value => new Intl.NumberFormat('vi-VN').format(value) + ' đ';
+  function sponsorshipPrice(tier) {
+    const formatter = new Intl.NumberFormat(i18n.locale, { style: 'currency', currency: content.tickets.currency });
+    return tier.priceMax ? formatter.formatRange(tier.price, tier.priceMax) : formatter.format(tier.price);
+  }
+
+  if (content.sponsorship) {
+    $('#sponsorship-note').textContent = content.sponsorship.note;
     $('#sponsorship-tiers').innerHTML = content.sponsorship.tiers.map((tier, index) => `
       <article class="sponsorship-tier${index === 0 ? ' sponsorship-tier-lead' : ''}">
         <h4>${escape(tier.name)}</h4>
-        <p class="tier-price">${escape(money(tier.price))}</p>
+        <p class="tier-price">${escape(sponsorshipPrice(tier))}</p>
         <p class="tier-note">${escape(tier.note)}</p>
         <details class="tier-details">
           <summary>Quyền lợi nổi bật <span class="disclosure-mark" aria-hidden="true"></span></summary>
@@ -262,7 +269,7 @@
         <a href="#lien-he" class="text-link">Trao đổi hợp tác <span aria-hidden="true">→</span></a>
       </article>
     `).join('');
-    $('#sponsorship-tables').innerHTML = content.sponsorship.groups.map((group,index) => `<section class="sponsorship-table-group" aria-labelledby="sponsorship-group-${index}"><h4 id="sponsorship-group-${index}">${escape(group.title)} <span>${escape(group.subtitle)}</span></h4><div class="sponsor-table-scroll" role="region" aria-label="Quyền lợi ${escape(group.title.toLowerCase())}" tabindex="0"><table><caption class="sr-only">So sánh quyền lợi ${escape(group.title.toLowerCase())}</caption><thead><tr><th scope="col">Hạng mục quyền lợi</th>${content.sponsorship.tiers.map(tier => `<th scope="col">${escape(tier.name)}<small>${escape(money(tier.price))}</small></th>`).join('')}</tr></thead><tbody>${group.rows.map(row => `<tr><th scope="row">${escape(row[0])}</th>${row.slice(1).map(cell => `<td>${cell === '—' ? '<span aria-label="Không bao gồm">—</span>' : escape(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`).join('');
+    $('#sponsorship-tables').innerHTML = content.sponsorship.groups.map((group,index) => `<section class="sponsorship-table-group" aria-labelledby="sponsorship-group-${index}"><h4 id="sponsorship-group-${index}">${escape(group.title)} <span>${escape(group.subtitle)}</span></h4><div class="sponsor-table-scroll" role="region" aria-label="Bảng so sánh ${escape(group.title.toLowerCase())}" tabindex="0"><table><caption class="sr-only">Bảng so sánh ${escape(group.title.toLowerCase())}</caption><thead><tr><th scope="col">Hạng mục quyền lợi</th>${content.sponsorship.tiers.map(tier => `<th scope="col">${escape(tier.name)}<small>${escape(sponsorshipPrice(tier))}</small></th>`).join('')}</tr></thead><tbody>${group.rows.map(row => `<tr><th scope="row">${escape(row[0])}</th>${row.slice(1).map(cell => `<td>${cell === '—' ? '<span aria-label="Chưa nêu trong tài liệu">—</span>' : escape(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`).join('');
   }
 
   function updateCurrency() {
@@ -270,10 +277,10 @@
     if (content.tickets.price !== null) $('#ticket-price').textContent = format(content.tickets.price);
     content.sponsorship?.tiers.forEach((tier, index) => {
       const price = $$('.tier-price')[index];
-      if (price) price.textContent = format(tier.price);
+      if (price) price.textContent = sponsorshipPrice(tier);
       $$('.sponsorship-table-group thead').forEach(head => {
         const label = head.querySelectorAll('small')[index];
-        if (label) label.textContent = format(tier.price);
+        if (label) label.textContent = sponsorshipPrice(tier);
       });
     });
   }

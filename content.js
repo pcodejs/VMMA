@@ -1,11 +1,11 @@
-/* Agenda follows the PDF shared on 07.11.2026. Individual time slots and speaker profiles from the earlier portfolio remain tentative. */
+/* Event and sponsorship details approved by the organiser on 12 November 2026. */
 window.VMAA_CONTENT = {
   "event": {
     "name": "Diễn đàn M&A Miền Trung 2026",
     "start": "2026-12-13T13:30:00+07:00",
     "end": "2026-12-13T17:30:00+07:00",
     "location": "Đà Nẵng, Việt Nam",
-    "venue": "",
+    "venue": "The Nalod Hotel - Nhà Khách Quốc Hội Đà Nẵng",
     "registrationDeadline": null,
     "dinnerStart": "2026-12-13T18:00:00+07:00",
     "dinnerEnd": "2026-12-13T20:30:00+07:00"
@@ -64,19 +64,71 @@ window.VMAA_CONTENT = {
     }
   ],
   "partners": [
-    { "name": "DISSC", "tier": "strategic", "logo": "assets/partners/dissc.webp" },
-    { "name": "Diễn đàn Doanh nghiệp", "tier": "strategic", "logo": "assets/partners/dien-dan-doanh-nghiep.webp" },
-    { "name": "JCI Việt Nam", "tier": "strategic", "logo": "assets/partners/jci-vietnam.webp" },
-    { "name": "GoTek", "tier": "companion", "logo": "assets/partners/gotek.webp" },
-    { "name": "D2 Events", "tier": "companion", "logo": "assets/partners/d2-events.webp" },
-    { "name": "DNES — Vườn ươm doanh nghiệp Đà Nẵng", "tier": "companion", "logo": "assets/partners/dnes.webp" },
-    { "name": "WD Capital", "tier": "companion", "logo": "assets/partners/wd-capital.webp" },
-    { "name": "Ascentium", "tier": "companion", "logo": "assets/partners/ascentium.webp" },
-    { "name": "JCI Hội An", "tier": "companion", "logo": "assets/partners/jci-hoi-an.webp" },
-    { "name": "IPC M&A Vietnam", "tier": "companion", "logo": "assets/partners/ipc-ma-vietnam.webp" },
-    { "name": "AnNam Partners", "tier": "companion", "logo": "assets/partners/annam-partners.webp" },
-    { "name": "CBRE", "tier": "companion", "logo": "assets/partners/cbre.webp" },
-    { "name": "Satori", "tier": "companion", "logo": "assets/partners/satori.webp" }
+    {
+      "name": "DISSC",
+      "tier": "strategic",
+      "logo": "assets/partners/dissc.webp"
+    },
+    {
+      "name": "Diễn đàn Doanh nghiệp",
+      "tier": "strategic",
+      "logo": "assets/partners/dien-dan-doanh-nghiep.webp"
+    },
+    {
+      "name": "JCI Việt Nam",
+      "tier": "strategic",
+      "logo": "assets/partners/jci-vietnam.webp"
+    },
+    {
+      "name": "GoTek",
+      "tier": "companion",
+      "logo": "assets/partners/gotek.webp"
+    },
+    {
+      "name": "D2 Events",
+      "tier": "companion",
+      "logo": "assets/partners/d2-events.webp"
+    },
+    {
+      "name": "DNES — Vườn ươm doanh nghiệp Đà Nẵng",
+      "tier": "companion",
+      "logo": "assets/partners/dnes.webp"
+    },
+    {
+      "name": "WD Capital",
+      "tier": "companion",
+      "logo": "assets/partners/wd-capital.webp"
+    },
+    {
+      "name": "Ascentium",
+      "tier": "companion",
+      "logo": "assets/partners/ascentium.webp"
+    },
+    {
+      "name": "JCI Hội An",
+      "tier": "companion",
+      "logo": "assets/partners/jci-hoi-an.webp"
+    },
+    {
+      "name": "IPC M&A Vietnam",
+      "tier": "companion",
+      "logo": "assets/partners/ipc-ma-vietnam.webp"
+    },
+    {
+      "name": "AnNam Partners",
+      "tier": "companion",
+      "logo": "assets/partners/annam-partners.webp"
+    },
+    {
+      "name": "CBRE",
+      "tier": "companion",
+      "logo": "assets/partners/cbre.webp"
+    },
+    {
+      "name": "Satori",
+      "tier": "companion",
+      "logo": "assets/partners/satori.webp"
+    }
   ],
   "tickets": {
     "price": 500000,
@@ -243,197 +295,142 @@ window.VMAA_CONTENT = {
     "telephone": "+84913989365"
   },
   "sponsorship": {
+    "title": "Business Matching & Gala Dinner 2026",
+    "note": "Các hoạt động kết nối được VMAA thực hiện trên cơ sở nhu cầu hợp tác của các bên, thông tin đăng ký và sự phù hợp của đối tác.",
     "tiers": [
       {
-        "name": "Kim cương",
+        "name": "Bạch kim",
         "price": 100000000,
-        "note": "Đơn vị tài trợ chính · Duy nhất 01 đơn vị",
+        "note": "10 đối tác tiềm năng · 05 bàn tiệc",
         "highlights": [
-          "05 vé Networking · tối đa 05 cuộc kết nối 1–1",
-          "Độc quyền 01 suất keynote khai mạc (10 phút)",
-          "01 ghế panelist, được chọn phiên / chủ đề trước"
+          "Bài phát biểu 3 – 5 phút.",
+          "Kết nối chuyên sâu với 10 khách hàng/đối tác tiềm năng theo lĩnh vực kinh doanh và nhu cầu hợp tác của doanh nghiệp.",
+          "Tặng 05 bàn tiệc Gala Dinner.",
+          "Ưu tiên bố trí các cuộc gặp Business Matching trực tiếp.",
+          "Giới thiệu thương hiệu và doanh nghiệp tại chương trình.",
+          "Logo được ưu tiên hiển thị trên các ấn phẩm truyền thông của sự kiện.",
+          "Được ghi nhận là Nhà tài trợ Bạch Kim của chương trình."
+        ]
+      },
+      {
+        "name": "Kim cương",
+        "price": 50000000,
+        "note": "05 đối tác tiềm năng · 03 bàn tiệc",
+        "highlights": [
+          "Kết nối với 05 khách hàng/đối tác tiềm năng theo lĩnh vực hoạt động.",
+          "Tặng 03 bàn tiệc Gala Dinner.",
+          "Hỗ trợ bố trí các cuộc gặp giao thương trực tiếp.",
+          "Giới thiệu thương hiệu và doanh nghiệp tại chương trình.",
+          "Logo xuất hiện trên các ấn phẩm truyền thông sự kiện.",
+          "Được ghi nhận là Nhà tài trợ Kim Cương."
         ]
       },
       {
         "name": "Vàng",
-        "price": 50000000,
-        "note": "Nhà tài trợ Vàng",
+        "price": 30000000,
+        "note": "03 đối tác tiềm năng · 02 bàn tiệc",
         "highlights": [
-          "03 vé Networking · tối đa 03 cuộc kết nối 1–1",
-          "Khu ghế ưu tiên & VIP Networking",
-          "01 ghế panelist trong phiên thảo luận"
+          "Kết nối với 03 khách hàng/đối tác tiềm năng.",
+          "Tặng 02 bàn tiệc Gala Dinner.",
+          "Hỗ trợ giới thiệu doanh nghiệp và nhu cầu hợp tác.",
+          "Logo xuất hiện trong danh sách các đơn vị tài trợ.",
+          "Được ghi nhận là Nhà tài trợ Vàng."
         ]
       },
       {
         "name": "Bạc",
-        "price": 30000000,
-        "note": "Nhà tài trợ Bạc",
+        "price": 20000000,
+        "note": "02 đối tác tiềm năng · 01 bàn tiệc",
         "highlights": [
-          "02 vé Networking · tối đa 01 cuộc kết nối 1–1",
-          "Khu ghế ưu tiên tại sự kiện",
-          "Video doanh nghiệp 30 giây trên LED sân khấu"
+          "Kết nối với 02 khách hàng/đối tác tiềm năng.",
+          "Tặng 01 bàn tiệc Gala Dinner.",
+          "Hỗ trợ giới thiệu doanh nghiệp tới các đối tác tham dự.",
+          "Logo xuất hiện trong danh sách các đơn vị tài trợ.",
+          "Được ghi nhận là Nhà tài trợ Bạc."
         ]
       },
       {
         "name": "Đồng",
         "price": 10000000,
-        "note": "Nhà tài trợ Đồng",
+        "note": "06 suất tham dự Gala Dinner",
         "highlights": [
-          "01 vé tham dự chương trình Networking",
-          "Logo trên website & backdrop sân khấu",
-          "Gian hàng trưng bày ở vị trí ưu tiên số 4"
+          "Tặng 06 suất tham dự Gala Dinner.",
+          "Được giới thiệu tên doanh nghiệp trong danh sách các đơn vị tài trợ.",
+          "Tiếp nhận thông tin đăng ký nhu cầu kết nối giao thương.",
+          "Được ghi nhận là Nhà tài trợ Đồng của chương trình."
+        ]
+      },
+      {
+        "name": "Mức hỗ trợ",
+        "price": 3000000,
+        "priceMax": 5000000,
+        "note": "04 suất tham dự Gala Dinner",
+        "highlights": [
+          "Tặng 04 suất tham dự Gala Dinner.",
+          "Được giới thiệu tên doanh nghiệp trong danh sách các đơn vị tài trợ.",
+          "Tiếp nhận thông tin đăng ký nhu cầu kết nối giao thương.",
+          "Được ghi nhận là Nhà tài trợ Đồng của chương trình."
         ]
       }
     ],
     "groups": [
       {
-        "title": "Trước sự kiện",
-        "subtitle": "Truyền thông & quảng bá",
+        "title": "Quyền lợi đồng hành",
+        "subtitle": "Business Matching & Gala Dinner 2026",
         "rows": [
           [
-            "Tên & logo trên kênh truyền thông chính thức",
-            "Vị trí đầu tiên trên mọi kênh truyền thông",
-            "Website, Fanpage, Zalo, thông cáo báo chí",
-            "Website, Fanpage, Zalo",
-            "Website chính thức"
+            "Kết nối khách hàng/đối tác tiềm năng",
+            "10 khách hàng/đối tác theo lĩnh vực kinh doanh và nhu cầu hợp tác",
+            "05 khách hàng/đối tác theo lĩnh vực hoạt động",
+            "03 khách hàng/đối tác",
+            "02 khách hàng/đối tác",
+            "Tiếp nhận đăng ký nhu cầu kết nối giao thương",
+            "Tiếp nhận đăng ký nhu cầu kết nối giao thương"
           ],
           [
-            "Bài viết giới thiệu truyền thông riêng",
-            "Bài chuyên đề riêng (Website + Fanpage)",
-            "Bài giới thiệu riêng ngắn (Fanpage)",
-            "Bài tổng hợp nhà tài trợ (có mô tả)",
-            "Bài tổng hợp nhà tài trợ (chỉ logo)"
+            "Gala Dinner",
+            "05 bàn tiệc",
+            "03 bàn tiệc",
+            "02 bàn tiệc",
+            "01 bàn tiệc",
+            "06 suất tham dự",
+            "04 suất tham dự"
           ],
           [
-            "Bài PR trước sự kiện trên các báo lớn",
-            "01 bài riêng",
+            "Bài phát biểu",
+            "3 – 5 phút",
             "—",
             "—",
-            "—"
-          ]
-        ]
-      },
-      {
-        "title": "Trong sự kiện",
-        "subtitle": "Hiện diện & kết nối",
-        "rows": [
-          [
-            "Gian hàng trưng bày & giới thiệu sản phẩm",
-            "Vị trí ưu tiên số 1",
-            "Vị trí ưu tiên số 2",
-            "Vị trí ưu tiên số 3",
-            "Vị trí ưu tiên số 4"
-          ],
-          [
-            "Vé tham dự chương trình Networking",
-            "05 vé",
-            "03 vé",
-            "02 vé",
-            "01 vé"
-          ],
-          [
-            "Khu ghế ưu tiên & VIP Networking",
-            "Bàn VIP hàng 1 + VIP Networking",
-            "Khu ghế ưu tiên + VIP Networking",
-            "Khu ghế ưu tiên",
-            "—"
-          ],
-          [
-            "Kết nối 1–1 với đối tác mục tiêu theo danh mục đăng ký (BTC sắp xếp)",
-            "Tối đa 05 cuộc",
-            "Tối đa 03 cuộc",
-            "Tối đa 01 cuộc",
-            "—"
-          ],
-          [
-            "Session phỏng vấn cá nhân chuyên nghiệp tại sự kiện",
-            "02 video",
-            "01 video",
-            "—",
-            "—"
-          ],
-          [
-            "Keynote khai mạc sân khấu chính (10 phút)",
-            "Độc quyền 01 suất",
             "—",
             "—",
             "—"
           ],
           [
-            "Diễn giả / ghế panelist trong phiên thảo luận",
-            "01 ghế (được chọn phiên / chủ đề trước)",
-            "01 ghế panelist",
+            "Hỗ trợ gặp gỡ và giới thiệu doanh nghiệp",
+            "Ưu tiên bố trí cuộc gặp Business Matching trực tiếp. Giới thiệu thương hiệu và doanh nghiệp tại chương trình.",
+            "Hỗ trợ bố trí cuộc gặp giao thương trực tiếp. Giới thiệu thương hiệu và doanh nghiệp tại chương trình.",
+            "Hỗ trợ giới thiệu doanh nghiệp và nhu cầu hợp tác",
+            "Hỗ trợ giới thiệu doanh nghiệp tới các đối tác tham dự",
+            "Giới thiệu tên doanh nghiệp trong danh sách các đơn vị tài trợ",
+            "Giới thiệu tên doanh nghiệp trong danh sách các đơn vị tài trợ"
+          ],
+          [
+            "Hiện diện logo",
+            "Ưu tiên hiển thị trên các ấn phẩm truyền thông của sự kiện",
+            "Trên các ấn phẩm truyền thông sự kiện",
+            "Trong danh sách các đơn vị tài trợ",
+            "Trong danh sách các đơn vị tài trợ",
             "—",
             "—"
           ],
           [
-            "Nghi thức vinh danh trên sân khấu chính",
-            "Trao cúp riêng bởi lãnh đạo + chụp ảnh riêng",
-            "Trao cúp riêng trên sân khấu",
-            "Trao cúp & chụp ảnh nhóm Bạc",
-            "Trao cúp cùng nhóm Đồng"
-          ],
-          [
-            "Logo trên backdrop sân khấu chính",
-            "Kích thước lớn nhất",
-            "Kích thước lớn",
-            "Kích thước vừa",
-            "Kích thước nhỏ"
-          ],
-          [
-            "Video giới thiệu doanh nghiệp trên màn LED sân khấu",
-            "90 giây × 2 lần (mở màn & giữa chương trình) + slide logo",
-            "60 giây × 1 lần + slide logo luân phiên",
-            "30 giây × 1 lần + slide logo luân phiên",
-            "Slide logo luân phiên giờ giải lao"
-          ],
-          [
-            "MC giới thiệu nhà tài trợ",
-            "Giới thiệu riêng",
-            "Giới thiệu riêng",
-            "Nhắc tên",
-            "Lời cảm ơn chung"
-          ],
-          [
-            "Hoa, cúp vinh danh & túi quà tri ân từ BTC",
-            "Có",
-            "Có",
-            "Có",
-            "Có"
-          ]
-        ]
-      },
-      {
-        "title": "Sau sự kiện",
-        "subtitle": "Tổng kết & duy trì kết nối",
-        "rows": [
-          [
-            "Bài PR sau sự kiện trên các báo lớn",
-            "Nhắc tên trong tất cả bài PR trên các báo đưa tin về sự kiện",
-            "Nhắc tên trong một số bài PR trên các báo đưa tin về sự kiện",
-            "—",
-            "—"
-          ],
-          [
-            "Thông tin khách tham dự (chỉ khi người tham dự đồng ý)",
-            "Toàn bộ dữ liệu được khách đồng ý chia sẻ",
-            "Toàn bộ dữ liệu được khách đồng ý chia sẻ",
-            "—",
-            "—"
-          ],
-          [
-            "Buổi uống trà & ăn tối cùng chuyên gia, lãnh đạo mong muốn kết nối tại Đà Nẵng",
-            "Độc quyền",
-            "—",
-            "—",
-            "—"
-          ],
-          [
-            "Gửi thông tin giới thiệu doanh nghiệp đến khách mời và người tham gia",
-            "Có",
-            "Có",
-            "Có",
-            "Có"
+            "Ghi nhận tài trợ",
+            "Nhà tài trợ Bạch Kim",
+            "Nhà tài trợ Kim Cương",
+            "Nhà tài trợ Vàng",
+            "Nhà tài trợ Bạc",
+            "Nhà tài trợ Đồng",
+            "Nhà tài trợ Đồng"
           ]
         ]
       }
