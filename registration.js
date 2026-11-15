@@ -420,7 +420,7 @@
       const paymentDiscount = document.querySelector('#payment-discount');
       if (details.discount) {
         paymentDiscountRow.hidden = false;
-        paymentDiscount.textContent = `${details.discount.code} · ${details.discount.partner} · ${money(details.discount.unitPrice)}/vé`;
+        paymentDiscount.textContent = `${details.discount.code} — ${details.discount.partner} · Giá ưu đãi: ${money(details.discount.unitPrice)}/vé`;
       } else {
         paymentDiscountRow.hidden = true;
         paymentDiscount.textContent = '';

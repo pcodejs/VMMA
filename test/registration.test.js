@@ -179,7 +179,7 @@ test('valid partner discount codes are normalized, priced and retained for Lark'
     code: 'VMAAVN',
     partner: 'VMAA Việt Nam',
     unitPrice: 399000,
-    message: 'Mã hợp lệ · VMAA Việt Nam · 399.000đ/vé'
+    message: 'Tuyệt vời! Mã ưu đãi đã được xác nhận 🎉 · VMAAVN — VMAA Việt Nam · Giá vé ưu đãi: 399.000đ/vé'
   });
 });
 
