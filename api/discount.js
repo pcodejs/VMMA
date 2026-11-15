@@ -12,7 +12,7 @@ module.exports = async function discount(req, res) {
       code: match.code,
       partner: match.partner,
       unitPrice: config.discountPrice,
-      message: `Tuyệt vời! Mã ưu đãi đã được xác nhận 🎉 · ${match.code} — ${match.partner} · Giá vé ưu đãi: ${new Intl.NumberFormat('vi-VN').format(config.discountPrice)}đ/vé`
+      message: `Tuyệt vời! Mã ưu đãi đã được xác nhận 🎉\n${match.code} — ${match.partner}\nGiá vé ưu đãi: ${new Intl.NumberFormat('vi-VN').format(config.discountPrice)}đ/vé`
     });
   } catch (error) { sendError(res, error); }
 };
