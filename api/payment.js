@@ -11,6 +11,6 @@ module.exports = async function payment(req, res) {
     if (data.amount > 0) {
       qrDataURL = await paymentQR(data);
     }
-    res.status(200).json({ amount: data.amount, memo, bank: config.bank, qrDataURL, paymentLabel: data.payment });
+    res.status(200).json({ amount: data.amount, unitPrice: data.unitPrice, memo, bank: config.bank, qrDataURL, paymentLabel: data.payment, discount: data.discount });
   } catch (error) { sendError(res, error); }
 };

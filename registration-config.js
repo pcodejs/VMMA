@@ -1,6 +1,7 @@
 (function (root) {
   const config = {
     price: 500000,
+    discountPrice: 399000,
     receiptFieldId: 'fld1O49NDC',
     maxReceiptBytes: 2 * 1024 * 1024,
     bank: {

@@ -396,7 +396,7 @@
           <label class="registration-field"><span>Hình thức tham dự *</span><select name="attendeeType" required><option value="paid">Đại biểu tham dự · 500.000đ/vé</option><option value="guest">Khách mời / diễn giả / đối tác · Miễn phí</option></select></label>
           <label class="registration-field"><span>Số lượng vé đăng ký *</span><select name="quantity" required><option value="">Vui lòng lựa chọn</option></select><small>Trên 5 vé, Ban Tổ chức sẽ liên hệ trao đổi giá ưu đãi.</small></label>
           <label class="registration-field registration-field-wide" id="registration-companions" hidden><span>Danh sách người đăng kí cùng bạn *</span><textarea name="companions" rows="3" maxlength="2000" aria-describedby="registration-companions-help" disabled></textarea><small id="registration-companions-help">Ghi rõ họ tên và chức danh (nếu có) của từng người đi cùng, mỗi người một dòng.</small></label>
-          <label class="registration-field registration-field-wide"><span>Mã mời (nếu có)</span><input name="inviteCode" maxlength="100"><small>Dành cho khách mời, diễn giả và đối tác của chương trình.</small></label>
+          <label class="registration-field registration-field-wide"><span>Mã giảm giá đối tác (nếu có)</span><div class="discount-code-row"><input id="discount-code" name="inviteCode" maxlength="32" autocomplete="off" aria-describedby="discount-code-help discount-code-status"><button class="button button-outline" id="discount-check-button" type="button">Kiểm tra mã</button></div><small id="discount-code-help">Nhập mã từ đơn vị đối tác để áp dụng giá 399.000đ/vé. Mã được kiểm tra lại khi gửi đăng ký.</small><small id="discount-code-status" class="discount-status" role="status" aria-live="polite"></small></label>
         </div>
         </fieldset>
         <fieldset class="registration-sessions">
@@ -444,6 +444,7 @@
             <div><dt>Ngân hàng · Số tài khoản</dt><dd id="payment-bank"></dd></div>
             <div><dt>Đơn vị thụ hưởng</dt><dd id="payment-account-name"></dd></div>
             <div><dt>Nội dung chuyển khoản</dt><dd id="payment-memo"></dd><button id="payment-copy-memo" class="payment-copy" type="button">Sao chép nội dung</button></div>
+            <div id="payment-discount-row" hidden><dt>Mã giảm giá</dt><dd id="payment-discount"></dd></div>
           </dl>
         </div>
         <label class="registration-field payment-receipt" for="payment-receipt">Ảnh biên lai chuyển khoản *

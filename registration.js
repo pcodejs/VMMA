@@ -32,11 +32,18 @@
   const invoiceFields = document.querySelector('#registration-invoice-fields');
   const invoiceLookupButton = document.querySelector('#invoice-lookup-button');
   const invoiceLookupStatus = document.querySelector('#invoice-lookup-status');
+  const discountCodeInput = document.querySelector('#discount-code');
+  const discountCheckButton = document.querySelector('#discount-check-button');
+  const discountCodeStatus = document.querySelector('#discount-code-status');
   let invoiceLookupTimer;
   let invoiceLookupSequence = 0;
   let invoiceLookupController;
   let invoiceLookupPending = false;
   let autoFilledInvoice;
+  let discountLookupTimer;
+  let discountLookupSequence = 0;
+  let discountLookupController;
+  let discountLookupPending = false;
 
   function validateInvoiceTaxCode() {
     const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
@@ -133,6 +140,68 @@
     updateInvoiceFields();
   });
   updateInvoiceFields();
+
+  function cancelDiscountLookup() {
+    clearTimeout(discountLookupTimer);
+    discountLookupSequence++;
+    discountLookupController?.abort();
+    discountLookupPending = false;
+    discountCheckButton.disabled = false;
+  }
+
+  function resetDiscountStatus() {
+    cancelDiscountLookup();
+    discountCodeStatus.textContent = '';
+    discountCodeStatus.dataset.state = '';
+  }
+
+  async function lookupDiscount() {
+    if (busy) return;
+    cancelDiscountLookup();
+    const code = discountCodeInput.value.trim();
+    if (!code) {
+      discountCodeStatus.textContent = '';
+      discountCodeStatus.dataset.state = '';
+      return;
+    }
+    const sequence = discountLookupSequence;
+    discountLookupController = new AbortController();
+    discountLookupPending = true;
+    discountCheckButton.disabled = true;
+    discountCodeStatus.dataset.state = 'pending';
+    discountCodeStatus.textContent = 'Đang kiểm tra mã…';
+    try {
+      const signal = AbortSignal.any([discountLookupController.signal, AbortSignal.timeout(12000)]);
+      const result = await post('/api/discount', { code }, signal);
+      if (sequence !== discountLookupSequence) return;
+      discountCodeInput.value = result.code;
+      discountCodeStatus.dataset.state = 'valid';
+      discountCodeStatus.textContent = result.message;
+    } catch (error) {
+      if (sequence !== discountLookupSequence) return;
+      discountCodeStatus.dataset.state = 'invalid';
+      discountCodeStatus.textContent = error.name === 'TimeoutError' ? 'Chưa kiểm tra được mã. Vui lòng thử lại.' : error.message;
+    } finally {
+      if (sequence === discountLookupSequence) {
+        discountLookupPending = false;
+        discountCheckButton.disabled = false;
+      }
+    }
+  }
+
+  discountCodeInput.addEventListener('input', () => {
+    cancelDiscountLookup();
+    discountCodeStatus.textContent = '';
+    discountCodeStatus.dataset.state = '';
+    clearTimeout(discountLookupTimer);
+    if (discountCodeInput.value.trim()) discountLookupTimer = setTimeout(lookupDiscount, 450);
+  });
+  discountCodeInput.addEventListener('blur', lookupDiscount);
+  discountCodeInput.addEventListener('keydown', event => {
+    if (event.key === 'Enter') { event.preventDefault(); lookupDiscount(); }
+  });
+  discountCheckButton.addEventListener('click', lookupDiscount);
+  form.addEventListener('reset', resetDiscountStatus);
 
   function clearReceipt() {
     receiptHandle = null;
@@ -306,6 +375,8 @@
     dialog.setAttribute('aria-busy', String(value));
     dialog.querySelectorAll('[data-registration-action]').forEach(button => { button.disabled = value; });
     receiptInput.disabled = value;
+    discountCodeInput.disabled = value;
+    discountCheckButton.disabled = value || discountLookupPending;
     updateInvoiceFields();
     if (message !== undefined) status.textContent = message;
   }
@@ -345,6 +416,15 @@
       document.querySelector('#payment-bank').textContent = `${details.bank.name} · ${details.bank.account}`;
       document.querySelector('#payment-account-name').textContent = details.bank.accountName;
       document.querySelector('#payment-memo').textContent = details.memo;
+      const paymentDiscountRow = document.querySelector('#payment-discount-row');
+      const paymentDiscount = document.querySelector('#payment-discount');
+      if (details.discount) {
+        paymentDiscountRow.hidden = false;
+        paymentDiscount.textContent = `${details.discount.code} · ${details.discount.partner} · ${money(details.discount.unitPrice)}/vé`;
+      } else {
+        paymentDiscountRow.hidden = true;
+        paymentDiscount.textContent = '';
+      }
       const needsPayment = details.amount > 0;
       document.querySelector('#payment-title').textContent = needsPayment ? 'Thanh toán và xác nhận' : 'Xác nhận thông tin tham dự';
       document.querySelector('#payment-transfer').hidden = !needsPayment;

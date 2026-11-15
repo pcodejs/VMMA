@@ -160,6 +160,38 @@ test('all ticket quantities calculate on the server', () => {
   for (let i = 0; i < 5; i++) assert.equal(validateRegistration(attendee({ quantity: config.quantities[i], amount: 0 })).amount, (i + 1) * 500000);
 });
 
+test('valid partner discount codes are normalized, priced and retained for Lark', async () => {
+  const { validateRegistration, recordFields } = require('../lib/registration');
+  const data = validateRegistration(attendee({ inviteCode: '  Reforum  ' }));
+  assert.equal(data.amount, 798000);
+  assert.deepEqual(data.discount, { code: 'REFORUM', partner: 'Reforum', unitPrice: 399000 });
+  assert.match(data.inviteCode, /Mã giảm giá: REFORUM/);
+  assert.match(recordFields(data, schema).inviteCode, /Reforum/);
+  const payment = await invoke('payment', attendee({ inviteCode: 'VMAAVN' }));
+  assert.equal(payment.status, 200);
+  assert.equal(payment.data.amount, 798000);
+  assert.equal(payment.data.discount.partner, 'VMAA Việt Nam');
+  assert.equal(new URL(requests.find(request => request.url.startsWith('https://img.vietqr.io/')).url).searchParams.get('amount'), '798000');
+  const result = await invoke('discount', { code: 'vmaavn' });
+  assert.equal(result.status, 200);
+  assert.deepEqual(result.data, {
+    valid: true,
+    code: 'VMAAVN',
+    partner: 'VMAA Việt Nam',
+    unitPrice: 399000,
+    message: 'Mã hợp lệ · VMAA Việt Nam · 399.000đ/vé'
+  });
+});
+
+test('invalid discount codes never reach Lark or change the ticket total', async () => {
+  const { validateRegistration } = require('../lib/registration');
+  assert.throws(() => validateRegistration(attendee({ inviteCode: 'NOT-A-CODE' })), /Mã giảm giá không hợp lệ/);
+  const result = await invoke('discount', { code: 'NOT-A-CODE' });
+  assert.equal(result.status, 400);
+  assert.match(result.data.error, /Mã giảm giá không hợp lệ/);
+  assert.equal(requests.length, 0);
+});
+
 test('group registrations require and save their companion list in the matching Lark field', async () => {
   const companions = 'Người kiểm thử thứ hai – Giám đốc\nNgười kiểm thử thứ ba – Cố vấn';
   const result = await invoke('register', await paidAttendee({ quantity: config.quantities[2], companions }));
@@ -177,14 +209,14 @@ test('group registrations require and save their companion list in the matching 
 
 test('long Vietnamese companion and VAT details can be submitted after the receipt upload', async () => {
   const data = await paidAttendee({
-    company: 'ậ'.repeat(200), title: 'ậ'.repeat(200), inviteCode: 'ậ'.repeat(100),
+    company: 'ậ'.repeat(200), title: 'ậ'.repeat(200), inviteCode: '',
     email: `${'a'.repeat(180)}@example.com`,
     industry: 'Khác', industryOther: 'ậ'.repeat(200),
     companySize: config.companySizes[4], stage: config.stages[4], quantity: config.quantities[4],
     connections: config.connections, connectionsOther: 'ậ'.repeat(200), privacyConsent: config.privacyConsents[1],
     companions: 'ậ'.repeat(2000), invoiceInfo: 'ậ'.repeat(2000)
   });
-  assert.ok(Buffer.byteLength(JSON.stringify(data)) > 16000);
+  assert.ok(Buffer.byteLength(JSON.stringify(data)) > 15000);
   const result = await invoke('register', JSON.stringify(data));
   assert.equal(result.status, 200);
   assert.equal(createdRecords.get(requestId).companions, data.companions);

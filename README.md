@@ -48,7 +48,9 @@ Sau khi thay đổi biến môi trường, triển khai lại dự án. Khóa t�
 4. Website gửi đăng ký vào Lark bằng API chính thức.
 5. Ban Tổ chức xét duyệt và gửi email xác nhận chính thức.
 
-Giá hiện tại 500.000đ/vé theo form Lark được đối chiếu ngày 07.11.2026. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé chuyển sang luồng Ban Tổ chức liên hệ.
+Giá niêm yết hiện tại 500.000đ/vé theo form Lark được đối chiếu ngày 07.11.2026. Mã đối tác hợp lệ áp dụng mức 399.000đ/vé. Danh sách đối tác và mã được đồng bộ từ sheet “Mã CODE dành cho đối tác”, lưu tại `data/discount-codes.json` dưới dạng SHA-256 để không đưa danh sách mã vào trình duyệt. Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé chuyển sang luồng Ban Tổ chức liên hệ.
+
+Khi khách nhập mã, `/api/discount` chỉ trả kết quả của mã vừa kiểm tra. `/api/payment` và `/api/register` luôn kiểm tra lại mã ở máy chủ, tự tính lại tổng tiền và lưu mã đã dùng cùng tên đơn vị đối tác vào trường mã giảm giá hiện có trong Lark. Vì mã đối tác là mã chia sẻ, việc băm bảo vệ danh sách trong mã nguồn/trình duyệt nhưng không thể ngăn người đã biết mã chia sẻ lại.
 
 QR được lấy từ API Quick Link của VietQR (`img.vietqr.io`) trên máy chủ, sau đó chèn logo VMAA và thêm khoảng trắng quanh mã để thuận tiện quét. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `MACF2026 Họ Và Tên Số Điện Thoại`, bỏ dấu tiếng Việt, phân cách bằng khoảng trắng, tối đa 50 ký tự theo VietQR. Bản xem trước hiển thị cùng nội dung được mã hóa.
 
@@ -63,7 +65,7 @@ Trạng thái chuyển khoản là xác nhận của khách. Ban Tổ chức đ�
 - `app.js` xử lý tương tác trang, hồ sơ diễn giả, bộ lọc, lịch ICS và phân nhóm logo.
 - `registration-config.js` chứa cấu hình công khai, lựa chọn biểu mẫu và ID trường Lark.
 - `registration.js`, `registration.css` xử lý giao diện đăng ký.
-- `api/payment.js`, `api/receipt.js`, `api/register.js`, `lib/registration.js`, `lib/receipt.js` xử lý QR, biên lai, kiểm tra dữ liệu và kết nối Lark.
+- `api/payment.js`, `api/discount.js`, `api/receipt.js`, `api/register.js`, `lib/registration.js`, `lib/discount.js`, `lib/receipt.js` xử lý mã giảm giá, QR, biên lai, kiểm tra dữ liệu và kết nối Lark.
 - `styles.css`, `sections.css`, `hero-v2.css`, `takeaways.css`, `portfolio-update.css` định dạng UI sự kiện.
 - `sponsors.css` định dạng phần logo bổ sung.
 - `assets/partners/` chứa bản logo tối ưu cho website.
