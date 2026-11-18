@@ -287,6 +287,9 @@ dialog.registration-dialog {
 }
 .registration-event-details[open] > summary::after,
 .registration-privacy-details[open] > summary::after { transform: rotate(180deg); }
+.registration-event-details[data-disclosure-expanded="false"] > summary::after,
+.registration-privacy-details[data-disclosure-expanded="false"] > summary::after { transform: rotate(0); }
+details[data-disclosure-expanded="false"] > summary > .disclosure-mark::after { transform: rotate(0); }
 .registration-dialog button[aria-busy="true"]::before,
 .registration-dialog[aria-busy="true"] .registration-actions .button-primary::before {
   content: '';

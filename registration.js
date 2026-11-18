@@ -75,11 +75,6 @@
   }
 
   reducedMotion?.addEventListener('change', cancelMotions);
-  dialog.querySelectorAll('.registration-event-details, .registration-privacy-details').forEach(details => {
-    details.addEventListener('toggle', () => {
-      if (details.open) revealFeedback(details.querySelector('.registration-fee-note, .registration-privacy-notice'));
-    });
-  });
 
   function validateInvoiceTaxCode() {
     const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
@@ -94,7 +89,8 @@
   function updateInvoiceFields() {
     const requested = invoiceRequested.checked;
     const wasHidden = invoiceFields.hidden;
-    invoiceFields.hidden = !requested;
+    if (window.VMAA_DISCLOSURE) window.VMAA_DISCLOSURE.setExpanded(invoiceFields, requested);
+    else invoiceFields.hidden = !requested;
     invoiceFields.disabled = busy || !requested;
     invoiceRequested.disabled = busy;
     invoiceRequested.setAttribute('aria-expanded', String(requested));
