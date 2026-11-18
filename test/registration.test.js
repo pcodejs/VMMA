@@ -183,6 +183,24 @@ test('valid partner discount codes are normalized, priced and retained for Lark'
   });
 });
 
+test('the new WD Capital code applies to QR totals and records the partner in Lark', async () => {
+  const check = await invoke('discount', { code: '  wdc  ' });
+  assert.equal(check.status, 200);
+  assert.equal(check.data.code, 'WDC');
+  assert.equal(check.data.partner, 'WD Capital');
+  assert.equal(check.data.unitPrice, 399000);
+  assert.match(check.data.message, /\nWDC — WD Capital\n/);
+
+  const payment = await invoke('payment', attendee({ inviteCode: 'wdc', amount: 1 }));
+  assert.equal(payment.status, 200);
+  assert.equal(payment.data.amount, 798000);
+  assert.equal(new URL(requests.find(request => request.url.startsWith('https://img.vietqr.io/')).url).searchParams.get('amount'), '798000');
+
+  const result = await invoke('register', await paidAttendee({ inviteCode: 'wdc' }));
+  assert.equal(result.status, 200);
+  assert.equal(createdRecords.get(requestId).inviteCode, 'Mã giảm giá: WDC · Đơn vị: WD Capital · Giá vé: 399.000đ/vé');
+});
+
 test('invalid discount codes never reach Lark or change the ticket total', async () => {
   const { validateRegistration } = require('../lib/registration');
   assert.throws(() => validateRegistration(attendee({ inviteCode: 'NOT-A-CODE' })), /Mã giảm giá không hợp lệ/);

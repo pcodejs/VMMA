@@ -151,6 +151,7 @@
 
   function resetDiscountStatus() {
     cancelDiscountLookup();
+    discountCodeStatus.removeAttribute('data-i18n-en');
     discountCodeStatus.textContent = '';
     discountCodeStatus.dataset.state = '';
   }
@@ -158,6 +159,7 @@
   async function lookupDiscount() {
     if (busy) return;
     cancelDiscountLookup();
+    discountCodeStatus.removeAttribute('data-i18n-en');
     const code = discountCodeInput.value.trim();
     if (!code) {
       discountCodeStatus.textContent = '';
@@ -176,6 +178,7 @@
       if (sequence !== discountLookupSequence) return;
       discountCodeInput.value = result.code;
       discountCodeStatus.dataset.state = 'valid';
+      discountCodeStatus.setAttribute('data-i18n-en', `Great! Your partner discount has been confirmed 🎉\n${result.code} — ${result.partner}\nYour special rate: VND ${new Intl.NumberFormat('en-GB').format(result.unitPrice)} per ticket`);
       discountCodeStatus.textContent = result.message;
     } catch (error) {
       if (sequence !== discountLookupSequence) return;
@@ -191,6 +194,7 @@
 
   discountCodeInput.addEventListener('input', () => {
     cancelDiscountLookup();
+    discountCodeStatus.removeAttribute('data-i18n-en');
     discountCodeStatus.textContent = '';
     discountCodeStatus.dataset.state = '';
     clearTimeout(discountLookupTimer);
