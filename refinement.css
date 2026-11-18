@@ -1,4 +1,15 @@
 /* Refine the established navy–lavender identity around each section's purpose. */
+:root {
+  --content-width: 1200px;
+  --page-gutter: 48px;
+}
+
+#main .content-section > .wrap,
+.site-footer > .wrap {
+  width: calc(100% - 2 * var(--page-gutter));
+  max-width: var(--content-width);
+}
+
 #main .content-section {
   padding-block: clamp(64px, 7vw, 96px);
 }
@@ -21,7 +32,7 @@
 }
 
 #main .content-section h2 {
-  font-size: clamp(32px, 3.6vw, 48px);
+  font-size: clamp(32px, 3.4vw, 44px);
   line-height: 1.28;
   letter-spacing: -.025em;
 }
@@ -193,7 +204,13 @@
   font-size: 13px;
 }
 
-/* The programme uses a time rail instead of another sequence of cards. */
+/* Headings and sessions share one time rail and the same content inset. */
+#main .agenda {
+  --agenda-time-width: 172px;
+  --agenda-inline: 20px;
+  --agenda-content-inset: 28px;
+}
+
 #main .agenda .agenda-intro {
   align-items: center;
   margin-bottom: 32px;
@@ -203,13 +220,22 @@
   margin-top: 16px;
 }
 
+#main .agenda .agenda-column-headings,
 #main .agenda .agenda-row {
-  grid-template-columns: 172px minmax(0, 1fr);
-  padding: 26px 20px;
+  grid-template-columns: var(--agenda-time-width) minmax(0, 1fr);
+  padding-inline: var(--agenda-inline);
+}
+
+#main .agenda .agenda-row {
+  padding-block: 26px;
+}
+
+#main .agenda .agenda-column-headings span + span {
+  padding-left: var(--agenda-content-inset);
 }
 
 #main .agenda .agenda-row.featured {
-  padding-left: 20px;
+  padding-left: var(--agenda-inline);
   background: #b1a0e50a;
 }
 
@@ -227,7 +253,15 @@
 
 #main .agenda .agenda-session {
   position: relative;
-  padding-left: 28px;
+  padding-left: var(--agenda-content-inset);
+}
+
+#main .agenda .agenda-note {
+  max-width: 75ch;
+  margin: 24px var(--agenda-inline) 0;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 1.8;
 }
 
 #main .agenda .agenda-session::before {
@@ -247,6 +281,8 @@
 }
 
 #main .portfolio-audience .audience-grid article {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
   padding: 26px 0;
   border: 0;
   border-top: 1px solid var(--border);
@@ -261,8 +297,10 @@
 }
 
 #main .portfolio-audience .audience-grid h3 {
+  min-block-size: 2lh;
   margin-top: 12px;
   font-size: 24px;
+  text-wrap: balance;
 }
 
 #main .portfolio-audience .audience-grid p {
@@ -273,7 +311,20 @@
 #main .portfolio-audience .audience-tags {
   min-height: 0;
   grid-template-rows: auto;
+  align-self: end;
   padding-top: 0;
+}
+
+@supports (grid-template-rows: subgrid) {
+  #main .portfolio-audience .audience-grid article {
+    grid-row: span 4;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+
+  #main .portfolio-audience .audience-grid h3 {
+    min-block-size: 0;
+  }
 }
 
 /* Logos are always visible; the full partner portfolio opens in place. */
@@ -399,12 +450,22 @@ details[open] > summary > .disclosure-mark::after {
 .sponsorship-tiers {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .sponsorship-tier {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto auto;
   padding: 24px;
   border-radius: 12px;
+}
+
+@supports (grid-template-rows: subgrid) {
+  .sponsorship-tier {
+    grid-row: span 5;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
 }
 
 .sponsorship-tier h4 {
@@ -415,10 +476,14 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 .tier-price {
+  min-width: 0;
   font-size: clamp(20px, 2.2vw, 24px);
   line-height: 1.5;
   letter-spacing: -.025em;
   font-variant-numeric: tabular-nums;
+  white-space: normal;
+  overflow-wrap: normal;
+  text-wrap: balance;
 }
 
 .tier-note {
@@ -634,6 +699,8 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 @media (max-width: 1100px) {
+  :root { --page-gutter: 36px; }
+
   .sponsorship-tiers {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -696,6 +763,8 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 @media (max-width: 720px) {
+  :root { --page-gutter: 20px; }
+
   #main .content-section {
     padding-block: 56px;
   }
@@ -756,6 +825,11 @@ details[open] > summary > .disclosure-mark::after {
     gap: 16px;
   }
 
+  #main .agenda {
+    --agenda-inline: 0px;
+    --agenda-content-inset: 20px;
+  }
+
   #main .agenda .agenda-intro {
     align-items: start;
     gap: 24px;
@@ -775,7 +849,6 @@ details[open] > summary > .disclosure-mark::after {
   }
 
   #main .agenda .agenda-session {
-    padding-left: 20px;
     border-left: 1px solid var(--border);
   }
 
@@ -789,11 +862,20 @@ details[open] > summary > .disclosure-mark::after {
   }
 
   #main .portfolio-audience .audience-grid article {
+    grid-row: auto;
+    grid-template-rows: auto auto auto auto;
     padding-block: 24px;
   }
 
   #main .portfolio-audience .audience-grid h3 {
+    min-block-size: 0;
     margin-top: 8px;
+  }
+
+  #main .takeaways.takeaways-interactive .section-top,
+  #main .takeaways.takeaways-interactive .section-heading,
+  #main .takeaways.takeaways-interactive .takeaway-item {
+    padding-inline: 0;
   }
 
   #main .partners .organizer-row {
@@ -884,6 +966,8 @@ details[open] > summary > .disclosure-mark::after {
   }
 
   .sponsorship-tier {
+    grid-row: auto;
+    grid-template-rows: auto auto auto auto auto;
     padding: 24px;
   }
 
@@ -932,6 +1016,8 @@ details[open] > summary > .disclosure-mark::after {
 }
 
 @media (max-width: 359px) {
+  :root { --page-gutter: 16px; }
+
   .site-header .brand,
   .site-header.is-scrolled .brand {
     width: 56px;

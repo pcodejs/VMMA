@@ -1,5 +1,7 @@
 dialog.registration-dialog {
+  --registration-gutter: 32px;
   width: min(840px, calc(100% - 32px));
+  max-width: none;
   max-height: calc(100dvh - 40px);
   padding: 0;
   overflow-y: auto;
@@ -8,6 +10,9 @@ dialog.registration-dialog {
   border-radius: 12px;
   scrollbar-color: #7e739d #11172f;
   scrollbar-width: thin;
+  font-style: normal;
+  font-synthesis: none;
+  letter-spacing: 0;
 }
 
 .registration-toolbar {
@@ -18,12 +23,12 @@ dialog.registration-dialog {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 24px 12px 32px;
+  padding: 12px var(--registration-gutter);
   background: #121830;
   border-bottom: 1px solid var(--border);
 }
 
-.registration-toolbar p { margin: 0; font-size: 12px; line-height: 1.6; color: var(--muted); }
+.registration-toolbar p { margin: 0; font-size: 12px; line-height: 1.6; color: var(--registration-secondary); }
 .registration-toolbar-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 
 .registration-toolbar .dialog-close {
@@ -39,11 +44,12 @@ dialog.registration-dialog {
 
 .registration-toolbar .dialog-close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
 .registration-toolbar .dialog-close:hover { background: #c2b9ff14; }
-.registration-dialog-content { padding: 28px 32px 32px; }
-.registration-dialog h2 { margin: 0; font-size: 30px; line-height: 1.35; text-wrap: balance; }
+.registration-dialog .button { gap: 12px; font-size: 14px; font-style: normal; line-height: 1.5; letter-spacing: 0; }
+.registration-dialog-content { padding: 24px var(--registration-gutter) 32px; }
+.registration-dialog h2 { margin: 0; font-size: 28px; font-weight: 600; line-height: 1.4; letter-spacing: -.02em; text-wrap: balance; }
 .registration-dialog .registration-description { max-width: 65ch; margin: 12px 0 24px; font-size: 14px; line-height: 1.8; }
 .registration-dialog { --registration-secondary: var(--reading-secondary, #b8c0d4); }
-.registration-event-details { margin: 10px 0 24px; font-size: 14px; color: var(--registration-secondary); }
+.registration-event-details { margin: 8px 0 20px; font-size: 14px; color: var(--registration-secondary); }
 .registration-event-details > summary, .registration-privacy-details > summary { width: fit-content; min-height: 44px; padding-block: 10px; cursor: pointer; line-height: 1.7; color: var(--lavender); }
 .registration-event-details[open] { padding-bottom: 16px; border-bottom: 1px solid var(--border); }
 .registration-event-details .registration-description { margin-bottom: 12px; color: var(--registration-secondary); }
@@ -61,7 +67,7 @@ dialog.registration-dialog {
   border-bottom: 1px solid var(--border);
 }
 
-.registration-progress li { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; color: var(--registration-secondary); }
+.registration-progress li { min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; line-height: 1.5; text-align: center; color: var(--registration-secondary); }
 .registration-progress li > span:last-child { max-width: 100%; overflow-wrap: normal; text-wrap: balance; }
 .registration-step-number { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border: 1px solid #7e8cb4; border-radius: 50%; font-size: 12px; font-variant-numeric: tabular-nums; }
 .registration-progress [aria-current="step"] { color: var(--text); font-weight: 600; }
@@ -80,9 +86,10 @@ dialog.registration-dialog {
 
 .registration-group, .registration-sessions { min-width: 0; padding: 0; margin: 0; border: 0; }
 .registration-group + .registration-group, .registration-sessions { margin-top: 32px; }
-.registration-group legend, .registration-sessions legend { width: 100%; padding: 0; margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 1.6; color: var(--text); }
-.registration-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
-.registration-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 15px; line-height: 1.6; color: var(--text); }
+.registration-group legend, .registration-sessions legend { width: 100%; padding: 0; margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 1.6; letter-spacing: 0; text-wrap: balance; color: var(--text); }
+.registration-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+.registration-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 14px; font-weight: 500; line-height: 1.6; color: var(--text); }
+.registration-field > span { text-wrap: pretty; }
 .registration-fields > .registration-field { display: grid; grid-template-rows: subgrid; grid-row: span 3; padding-bottom: 8px; }
 .registration-field-wide { grid-column: 1 / -1; }
 .registration-field[hidden] { display: none; }
@@ -99,6 +106,11 @@ dialog.registration-dialog {
   caret-color: var(--lavender);
   font: inherit;
   font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: 0;
+  scroll-margin-block: 96px 24px;
 }
 
 .registration-field input:not([type="file"]), .registration-field select { height: 48px; }
@@ -116,9 +128,10 @@ dialog.registration-dialog {
   text-overflow: ellipsis;
   cursor: pointer;
 }
+.registration-field select option { font-family: Montserrat, Arial, sans-serif; font-size: 16px; font-weight: 400; font-style: normal; }
 
 .registration-dialog :is(input, select, textarea, button, summary):focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; }
-.registration-field small { font-size: 13px; line-height: 1.7; color: var(--registration-secondary); }
+.registration-field small { font-size: 13px; font-weight: 400; line-height: 1.7; color: var(--registration-secondary); }
 .discount-code-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: stretch; }
 .discount-code-row .button { min-height: 48px; height: 48px; padding: 11px 20px; }
 .discount-status { min-height: 0; margin-top: 2px; padding: 10px 12px; border: 1px solid #b5a2ef3d; border-radius: 6px; background: #b5a2ef0b; color: var(--lavender); line-height: 1.65; white-space: pre-line; }
@@ -129,28 +142,31 @@ dialog.registration-dialog {
 #registration-connections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 4px; }
 
 .registration-sessions .registration-choice, .payment-confirmation, .registration-invoice-toggle {
-  display: flex;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
   align-items: flex-start;
   gap: 12px;
   min-height: 44px;
-  padding-block: 10px;
+  padding-block: 8px;
   font-size: 14px;
-  line-height: 1.8;
+  font-weight: 400;
+  line-height: 1.7;
   color: var(--text);
   cursor: pointer;
 }
 
-.registration-choice input, .payment-confirmation input, .registration-invoice-toggle input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--lavender); }
+.registration-choice input, .payment-confirmation input, .registration-invoice-toggle input { width: 20px; height: 20px; min-width: 20px; margin: 2px 0 0; accent-color: var(--lavender); }
+.registration-choice > span, .payment-confirmation > span, .registration-invoice-toggle > span { min-width: 0; max-width: 68ch; text-wrap: pretty; }
 .registration-choice:has(:checked) { color: var(--lavender); }
 #registration-connections-other { margin-top: 16px; }
-.registration-privacy-notice { max-width: 70ch; margin: 0 0 12px; font-size: 13px; line-height: 1.8; color: var(--registration-secondary); text-wrap: pretty; }
+.registration-privacy-notice { max-width: 68ch; margin: 0 0 16px; font-size: 14px; line-height: 1.8; color: var(--registration-secondary); text-wrap: pretty; }
 .registration-privacy-details { margin: -8px 0 8px; font-size: 14px; }
 #registration-privacy-consent { display: grid; gap: 4px; }
 
 .registration-invoice-section { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); }
 .registration-invoice-toggle { width: fit-content; font-size: 14px; font-weight: 600; }
 .registration-invoice { min-width: 0; margin: 20px 0 0; padding: 0; border: 0; }
-.registration-invoice legend { padding: 0; margin-bottom: 16px; font-size: 14px; line-height: 1.6; color: var(--text); }
+.registration-invoice legend { padding: 0; margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 1.6; color: var(--text); }
 .registration-invoice textarea { min-height: 88px; }
 .invoice-lookup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: end; }
 .invoice-lookup .button { width: auto; min-height: 48px; height: 48px; padding: 11px 20px; }
@@ -161,6 +177,7 @@ dialog.registration-dialog {
 
 .registration-dialog .registration-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .registration-actions .button { width: auto; min-height: 48px; }
+.registration-dialog .registration-actions .button { min-height: 48px; padding: 12px 20px; box-shadow: none; }
 .registration-form-actions .button { font-size: 14px; white-space: normal; }
 .registration-form-actions .button[type="submit"] { margin-left: auto; }
 .registration-form-actions #registration-next-label { font: inherit; }
@@ -179,10 +196,10 @@ dialog.registration-dialog {
 .payment-details dt { font-size: 12px; color: var(--muted); }
 .payment-details dd { margin: 5px 0 0; font-size: 15px; line-height: 1.7; color: var(--text); overflow-wrap: anywhere; }
 .payment-details .payment-amount { font-size: 27px; color: var(--lavender); font-variant-numeric: tabular-nums; }
-.payment-copy { min-height: 44px; margin-top: 4px; padding: 8px 0; border: 0; background: none; color: var(--lavender); font: inherit; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.payment-copy { min-height: 44px; margin-top: 4px; padding: 8px 0; border: 0; background: none; color: var(--lavender); font: inherit; font-size: 14px; text-decoration: underline; text-underline-offset: 4px; }
 .payment-exemption { margin-top: 24px; padding: 20px; border: 1px solid var(--border); border-radius: 6px; color: var(--lavender); }
 .payment-receipt { margin-top: 24px; }
-.payment-receipt input { max-width: 100%; font-size: 12px; }
+.payment-receipt input { max-width: 100%; font-size: 14px; }
 .payment-receipt input::file-selector-button { margin-right: 10px; padding: 8px 12px; border: 0; border-radius: 3px; background: #c2b9ff; color: #11162c; font: inherit; cursor: pointer; }
 .payment-receipt-preview { display: block; max-width: 100%; width: auto; max-height: 260px; margin-top: 14px; object-fit: contain; border: 1px solid var(--border); border-radius: 6px; }
 .payment-receipt-preview[hidden] { display: none; }
@@ -199,15 +216,15 @@ dialog.registration-dialog {
 @keyframes registration-backdrop { from { opacity: 0; } to { opacity: 1; } }
 
 @media (max-width: 600px) {
-  dialog.registration-dialog { width: calc(100% - 16px); max-height: calc(100dvh - 16px); }
-  .registration-toolbar { gap: 8px; padding: 8px 12px 8px 20px; }
+  dialog.registration-dialog { --registration-gutter: 20px; width: calc(100% - 16px); max-height: calc(100dvh - 16px); }
+  .registration-toolbar { gap: 8px; padding: 8px var(--registration-gutter); }
   .registration-toolbar p { font-size: 11px; }
   .registration-toolbar-actions { gap: 4px; }
-  .registration-dialog-content { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); }
-  .registration-dialog h2 { font-size: 25px; }
+  .registration-dialog-content { padding: 20px var(--registration-gutter) calc(24px + env(safe-area-inset-bottom)); }
+  .registration-dialog h2 { font-size: 24px; }
   .registration-event-details { margin-block: 4px 16px; }
-  .registration-progress { grid-template-columns: 1fr 1.1fr .9fr 1fr; gap: 8px; margin-bottom: 20px; padding-bottom: 20px; }
-  .registration-progress li { align-items: flex-start; gap: 8px; font-size: 12px; }
+  .registration-progress { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 20px; padding-bottom: 20px; }
+  .registration-progress li { gap: 8px; font-size: 12px; }
   .registration-step-number { width: 24px; height: 24px; }
   .registration-fields, #registration-connections { grid-template-columns: 1fr; }
   .registration-field input, .registration-field select, .registration-field textarea { font-size: 16px; }
@@ -250,8 +267,7 @@ dialog.registration-dialog {
 .registration-choice {
   transition: color 160ms ease-out, background-color 160ms ease-out;
 }
-.registration-choice { border-radius: 4px; }
-.registration-choice:has(:checked) { background-color: #c5b8f40b; }
+.registration-choice:has(:checked) { background-color: transparent; }
 .registration-event-details > summary,
 .registration-privacy-details > summary {
   display: flex;
