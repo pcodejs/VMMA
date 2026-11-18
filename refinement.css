@@ -978,3 +978,60 @@ details[open] > summary > .disclosure-mark::after {
     transition: none;
   }
 }
+
+/* Keep secondary copy readable while preserving the established artwork. */
+:root { --reading-secondary: #b8c0d4; }
+#main .content-section .section-heading > p,
+#main .portfolio-context-copy p,
+#main .forum-objectives p,
+#main .overview .delegate-number p {
+  max-width: 70ch;
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--reading-secondary);
+  text-wrap: pretty;
+}
+.hero-centered .hero-inner > .eyebrow {
+  font-size: 11px;
+  letter-spacing: .1em;
+  line-height: 1.6;
+  color: var(--reading-secondary);
+}
+.hero-keyvisual-message > span {
+  font-size: 11px;
+  line-height: 1.6;
+  letter-spacing: .08em;
+  color: var(--reading-secondary);
+}
+.hero-centered .hero-info-strip { width: min(580px, 100%); }
+.hero-centered .hero-actions { flex-direction: row; flex-wrap: wrap; gap: 12px 24px; }
+.hero-centered .hero-actions .hero-register {
+  min-height: 50px;
+  padding: 14px 24px;
+  font-size: 15px;
+  font-weight: 600;
+  box-shadow: none;
+}
+.hero-centered .hero-actions .text-link {
+  min-height: 48px;
+  font-size: 14px;
+  color: var(--reading-secondary);
+}
+.hero-centered .hero-event small { font-size: 13px; color: var(--reading-secondary); }
+@media (max-width: 720px) {
+  .hero-centered .hero-actions { flex-direction: column; gap: 6px; }
+  .hero-centered .hero-actions .hero-register { width: 100%; }
+  .hero-centered .hero-event small { font-size: 12px; }
+  .hero-centered .hero-bottom { margin-top: 16px; }
+  #main .overview .delegate-number p { font-size: 15px; }
+}
+@media (max-width: 420px) {
+  .hero-centered .hero-event { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .hero-centered .hero-event > div { justify-content: flex-start; gap: 12px; }
+  .hero-centered .hero-event .event-divider { display: none; }
+}
+@media (min-width: 961px) and (max-height: 800px) {
+  .hero-keyvisual-composition .hero-heading { gap: 12px; }
+  .hero-heading .hero-info-strip { padding-top: 14px; gap: 12px; }
+  .hero-centered .hero-keyvisual-live { margin-bottom: 8px; }
+}

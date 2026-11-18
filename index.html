@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#070d20">
   <title>Diễn đàn M&A Miền Trung 2026 — Khơi thông nguồn lực</title>
   <meta name="description" content="Diễn đàn M&A Miền Trung 2026. Khơi thông nguồn lực — Kiến tạo tăng trưởng mới. Ngày 13.12.2026, 13:30–17:30 tại The Nalod Hotel - Nhà Khách Quốc Hội Đà Nẵng.">
@@ -34,15 +34,15 @@
   <link rel="stylesheet" href="takeaways.css?v=grouped-copy-preview">
   <link rel="stylesheet" href="portfolio-update.css?v=zalo-feedback-20261107">
   <link rel="stylesheet" href="sponsors.css?v=zalo-feedback-20261107">
-  <link rel="stylesheet" href="registration.css?v=ui-refinement-20261112">
+  <link rel="stylesheet" href="registration.css?v=ui-polish-20261118-5">
   <link rel="stylesheet" href="i18n.css?v=ui-refinement-20261112">
-  <link rel="stylesheet" href="refinement.css?v=venue-sponsorship-20261112">
+  <link rel="stylesheet" href="refinement.css?v=ui-polish-20261118-5">
   <script src="content.js?v=venue-sponsorship-20261112" defer></script>
-  <script src="translations.en.js?v=venue-sponsorship-20261112" defer></script>
+  <script src="translations.en.js?v=ui-polish-20261118-5" defer></script>
   <script src="i18n.js?v=language-polish-20261109" defer></script>
   <script src="app.js?v=venue-sponsorship-20261112" defer></script>
   <script src="registration-config.js?v=group-registration-20261108" defer></script>
-  <script src="registration.js?v=ui-refinement-20261112" defer></script>
+  <script src="registration.js?v=ui-polish-20261118-5" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Đến nội dung chính</a>
@@ -106,7 +106,7 @@
                   <span class="event-divider" aria-hidden="true"></span>
                   <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg><span><strong>The Nalod Hotel</strong><small>Nhà Khách Quốc Hội Đà Nẵng</small></span></div>
                 </div>
-                <div class="hero-actions"><a class="text-link" href="#chuong-trinh">Khám phá chương trình <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></span></a></div>
+                <div class="hero-actions"><button class="button button-primary hero-register" type="button" data-registration>Đăng ký tham dự <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button><a class="text-link" href="#chuong-trinh">Khám phá chương trình <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 5v14m-6-6 6 6 6-6"/></svg></span></a></div>
               </div>
             </div>
           </div>
@@ -339,24 +339,27 @@
     </div>
     <div class="registration-dialog-content">
     <h2 id="registration-title-dialog">Đăng ký tham dự</h2>
-    <p class="registration-location" data-event-venue>The Nalod Hotel - Nhà Khách Quốc Hội Đà Nẵng</p>
-    <p id="registration-description" class="registration-description">Ban Tổ chức sẽ xét duyệt và gửi email xác nhận chính thức đến địa chỉ bạn cung cấp.</p>
-    <ol id="registration-progress" class="registration-progress" aria-label="Tiến trình đăng ký">
-      <li data-registration-step="information" aria-current="step"><span class="registration-step-number" aria-hidden="true">1</span><span>Thông tin tham dự</span></li>
-      <li data-registration-step="payment"><span class="registration-step-number" aria-hidden="true">2</span><span>Thanh toán và xác nhận</span></li>
-    </ol>
-    <p id="registration-step" class="registration-step" aria-live="polite">01 / THÔNG TIN THAM DỰ</p>
-    <div id="registration-information">
+    <details class="registration-event-details">
+      <summary>Thông tin sự kiện và phí tham dự</summary>
+      <p class="registration-location" data-event-venue>The Nalod Hotel - Nhà Khách Quốc Hội Đà Nẵng</p>
+      <p id="registration-description" class="registration-description">Ban Tổ chức sẽ xét duyệt và gửi email xác nhận chính thức đến địa chỉ bạn cung cấp.</p>
       <div class="registration-fee-note" id="registration-fee-note">
         <p id="registration-fee-price"></p>
-        <details>
-          <summary>Điều kiện tham dự và tiệc kết nối</summary>
-          <p>Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức.</p>
-          <p id="registration-fee-dinner"></p>
-          <p>Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức.</p>
-        </details>
+        <p>Khách mời, diễn giả và đối tác được miễn phí. Đăng ký trên 5 vé, vui lòng liên hệ Ban Tổ chức.</p>
+        <p id="registration-fee-dinner"></p>
+        <p>Quý Anh/Chị có nhu cầu tham dự chương trình tiệc vui lòng liên hệ Ban Tổ chức.</p>
       </div>
-      <form id="registration-form">
+    </details>
+    <ol id="registration-progress" class="registration-progress" aria-label="Tiến trình đăng ký">
+      <li data-registration-step="contact" aria-current="step"><span class="registration-step-number" aria-hidden="true">1</span><span>Liên hệ</span></li>
+      <li data-registration-step="company"><span class="registration-step-number" aria-hidden="true">2</span><span data-i18n-en="Company">Doanh nghiệp</span></li>
+      <li data-registration-step="tickets"><span class="registration-step-number" aria-hidden="true">3</span><span data-i18n-en="Tickets">Vé tham dự</span></li>
+      <li data-registration-step="payment"><span class="registration-step-number" aria-hidden="true">4</span><span data-i18n-en="Confirm">Xác nhận</span></li>
+    </ol>
+    <p id="registration-step" class="registration-step" aria-live="polite">Bước 1 / 4 · Thông tin liên hệ</p>
+    <div id="registration-information">
+      <form id="registration-form" novalidate>
+        <section class="registration-panel" data-registration-panel="contact">
         <fieldset class="registration-group">
           <legend>Thông tin liên hệ</legend>
         <div class="registration-fields">
@@ -365,6 +368,8 @@
           <label class="registration-field registration-field-wide"><span>Email công việc *</span><input name="email" type="email" autocomplete="email" maxlength="200" required><small>Email xác nhận đăng ký sẽ được gửi về địa chỉ này.</small></label>
         </div>
         </fieldset>
+        </section>
+        <section class="registration-panel" data-registration-panel="company" hidden>
         <fieldset class="registration-group">
           <legend>Thông tin doanh nghiệp</legend>
         <div class="registration-fields">
@@ -390,6 +395,14 @@
           <label class="registration-field registration-field-wide" id="registration-industry-other" hidden><span>Lĩnh vực hoạt động khác *</span><input name="industryOther" maxlength="200" disabled></label>
         </div>
         </fieldset>
+        <fieldset class="registration-sessions">
+          <legend>Bạn muốn kết nối với doanh nghiệp nào? *</legend>
+          <p id="registration-connections-help" class="registration-choice-help">Bạn có thể chọn nhiều nhóm doanh nghiệp.</p>
+          <div id="registration-connections" aria-describedby="registration-connections-help"></div>
+          <label class="registration-field" id="registration-connections-other" hidden>Doanh nghiệp muốn kết nối khác *<input name="connectionsOther" maxlength="200" disabled></label>
+        </fieldset>
+        </section>
+        <section class="registration-panel" data-registration-panel="tickets" hidden>
         <fieldset class="registration-group">
           <legend>Vé tham dự</legend>
         <div class="registration-fields">
@@ -398,17 +411,6 @@
           <label class="registration-field registration-field-wide" id="registration-companions" hidden><span>Danh sách người đăng kí cùng bạn *</span><textarea name="companions" rows="3" maxlength="2000" aria-describedby="registration-companions-help" disabled></textarea><small id="registration-companions-help">Ghi rõ họ tên và chức danh (nếu có) của từng người đi cùng, mỗi người một dòng.</small></label>
           <label class="registration-field registration-field-wide"><span>Mã giảm giá đối tác (nếu có)</span><div class="discount-code-row"><input id="discount-code" name="inviteCode" maxlength="32" autocomplete="off" aria-describedby="discount-code-status"><button class="button button-outline" id="discount-check-button" type="button">Kiểm tra mã</button></div><small id="discount-code-status" class="discount-status" role="status" aria-live="polite"></small></label>
         </div>
-        </fieldset>
-        <fieldset class="registration-sessions">
-          <legend>Bạn muốn kết nối với doanh nghiệp nào? *</legend>
-          <p id="registration-connections-help" class="registration-choice-help">Bạn có thể chọn nhiều nhóm doanh nghiệp.</p>
-          <div id="registration-connections" aria-describedby="registration-connections-help"></div>
-          <label class="registration-field" id="registration-connections-other" hidden>Doanh nghiệp muốn kết nối khác *<input name="connectionsOther" maxlength="200" disabled></label>
-        </fieldset>
-        <fieldset class="registration-sessions">
-          <legend>Xác nhận đồng ý xử lý thông tin cá nhân *</legend>
-          <p class="registration-privacy-notice">Thông tin Anh/Chị cung cấp (họ tên, số điện thoại, email, công ty, chức danh) được Ban tổ chức Diễn đàn M&A Miền Trung 2026 và Hiệp hội VMAA sử dụng để xác nhận đăng ký, liên hệ, gửi thông tin về sự kiện và kết nối Anh/Chị với các đối tác đồng hành của chương trình. Thông tin được bảo mật và không cung cấp cho bất kỳ bên nào ngoài phạm vi trên.</p>
-          <div id="registration-privacy-consent"></div>
         </fieldset>
         <div class="registration-invoice-section">
           <label class="registration-invoice-toggle"><input id="registration-invoice-requested" type="checkbox" aria-controls="registration-invoice-fields" aria-expanded="false"><span>Cần xuất hóa đơn VAT</span></label>
@@ -429,7 +431,15 @@
           </div>
         </fieldset>
         </div>
-        <div class="registration-actions"><button class="button button-primary" type="submit" data-registration-action>Tiếp tục đến bước xác nhận <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button></div>
+        <fieldset class="registration-sessions">
+          <legend>Xác nhận đồng ý xử lý thông tin cá nhân *</legend>
+          <details class="registration-privacy-details"><summary>Cách Ban Tổ chức sử dụng thông tin</summary>
+          <p class="registration-privacy-notice">Thông tin Anh/Chị cung cấp (họ tên, số điện thoại, email, công ty, chức danh) được Ban tổ chức Diễn đàn M&A Miền Trung 2026 và Hiệp hội VMAA sử dụng để xác nhận đăng ký, liên hệ, gửi thông tin về sự kiện và kết nối Anh/Chị với các đối tác đồng hành của chương trình. Thông tin được bảo mật và không cung cấp cho bất kỳ bên nào ngoài phạm vi trên.</p>
+          </details>
+          <div id="registration-privacy-consent"></div>
+        </fieldset>
+        </section>
+        <div class="registration-actions registration-form-actions"><button class="button button-outline" id="registration-information-back" type="button" data-registration-action hidden>Quay lại</button><button class="button button-primary" type="submit" data-registration-action><span id="registration-next-label">Tiếp tục</span> <span class="action-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></span></button></div>
       </form>
     </div>
     <div id="registration-payment" hidden>

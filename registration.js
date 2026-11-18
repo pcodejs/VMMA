@@ -11,6 +11,10 @@
   const success = document.querySelector('#registration-success');
   const progress = document.querySelector('#registration-progress');
   const progressSteps = progress.querySelectorAll('[data-registration-step]');
+  const informationPanels = [...form.querySelectorAll('[data-registration-panel]')];
+  const informationBack = document.querySelector('#registration-information-back');
+  const nextLabel = document.querySelector('#registration-next-label');
+  let informationPanelIndex = 0;
   const confirmation = document.querySelector('#payment-confirmed');
   const receiptInput = document.querySelector('#payment-receipt');
   const receiptPreview = document.querySelector('#payment-receipt-preview');
@@ -321,21 +325,57 @@
     updateConnectionsOther();
   });
 
-  function showStep(step) {
+  function showStep(step, panelIndex = informationPanelIndex) {
+    informationPanelIndex = panelIndex;
     information.hidden = step !== 'information';
     payment.hidden = step !== 'payment';
     success.hidden = step !== 'success';
     progress.hidden = step === 'success';
-    progressSteps.forEach(item => {
-      const active = item.dataset.registrationStep === step;
+    const activeIndex = step === 'payment' ? 3 : informationPanelIndex;
+    informationPanels.forEach((panel, index) => { panel.hidden = index !== informationPanelIndex; });
+    informationBack.hidden = informationPanelIndex === 0;
+    nextLabel.textContent = informationPanelIndex < 2 ? 'Tiếp tục' : 'Tiếp tục đến bước xác nhận';
+    progressSteps.forEach((item, index) => {
+      const active = index === activeIndex;
       if (active) item.setAttribute('aria-current', 'step');
       else item.removeAttribute('aria-current');
-      item.dataset.complete = String(item.dataset.registrationStep === 'information' && step === 'payment');
+      item.dataset.complete = String(index < activeIndex);
     });
-    document.querySelector('#registration-step').textContent = step === 'information' ? '01 / THÔNG TIN THAM DỰ' : step === 'payment' ? '02 / HOÀN TẤT ĐĂNG KÝ' : 'ĐÃ TIẾP NHẬN THÔNG TIN';
+    const descriptions = ['Bước 1 / 4 · Thông tin liên hệ', 'Bước 2 / 4 · Doanh nghiệp và kết nối', 'Bước 3 / 4 · Vé tham dự', 'Bước 4 / 4 · Xác nhận đăng ký'];
+    document.querySelector('#registration-step').textContent = step === 'success' ? 'ĐÃ TIẾP NHẬN THÔNG TIN' : descriptions[activeIndex];
     status.textContent = '';
     dialog.scrollTop = 0;
   }
+
+  function focusPanelHeading() {
+    const heading = informationPanels[informationPanelIndex].querySelector('legend');
+    heading.tabIndex = -1;
+    heading.focus({ preventScroll: true });
+  }
+
+  function validatePanel(panel) {
+    for (const field of panel.querySelectorAll('input:not([type="checkbox"]):not([type="radio"]), textarea')) {
+      if (!field.disabled && field.type !== 'file') field.value = field.value.trim();
+    }
+    if (panel.dataset.registrationPanel === 'contact') {
+      const phone = form.elements.namedItem('phone');
+      const normalizedPhone = phone.value.replace(/[\s().-]/g, '');
+      setValidity(phone, normalizedPhone && !/^(?:\+?[1-9]\d{7,14}|0\d{8,10})$/.test(normalizedPhone) ? 'Số điện thoại chưa đúng định dạng.' : '');
+    }
+    if (panel.dataset.registrationPanel === 'company') {
+      setValidity(connections.querySelector('input'), connections.querySelector('input:checked') ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
+    }
+    const invalid = [...panel.querySelectorAll('input, select, textarea')].find(field => field.willValidate && !field.validity.valid);
+    if (invalid) { invalid.reportValidity(); return false; }
+    return true;
+  }
+
+  informationBack.addEventListener('click', () => {
+    if (busy || informationPanelIndex === 0) return;
+    showStep('information', informationPanelIndex - 1);
+    focusPanelHeading();
+  });
+  form.elements.namedItem('phone').addEventListener('input', () => setValidity(form.elements.namedItem('phone'), ''));
 
   document.querySelectorAll('[data-registration]').forEach(trigger => trigger.addEventListener('click', event => {
     event.preventDefault();
@@ -352,7 +392,7 @@
       requestId = null;
       completed = false;
       clearReceipt();
-      showStep('information');
+      showStep('information', 0);
     }
     dialog.showModal();
     document.body.style.overflow = 'hidden';
@@ -388,6 +428,12 @@
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if (busy) return;
+    if (!validatePanel(informationPanels[informationPanelIndex])) return;
+    if (informationPanelIndex < informationPanels.length - 1) {
+      showStep('information', informationPanelIndex + 1);
+      focusPanelHeading();
+      return;
+    }
     if (invoiceLookupPending) {
       status.textContent = 'Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.';
       return;
@@ -396,7 +442,12 @@
     const selectedConnections = fields.getAll('connections');
     const firstConnection = connections.querySelector('input');
     setValidity(firstConnection, selectedConnections.length ? '' : 'Vui lòng chọn doanh nghiệp bạn muốn kết nối.');
-    if (!form.reportValidity()) return;
+    const invalidPanel = informationPanels.findIndex(panel => ![...panel.querySelectorAll('input, select, textarea')].every(field => !field.willValidate || field.validity.valid));
+    if (invalidPanel !== -1) {
+      showStep('information', invalidPanel);
+      validatePanel(informationPanels[invalidPanel]);
+      return;
+    }
     cancelInvoiceLookup();
     const data = Object.fromEntries(fields);
     if (data.title === 'Khác') data.title = data.titleOther.trim();
@@ -448,8 +499,8 @@
   document.querySelector('#registration-back').addEventListener('click', () => {
     if (busy) return;
     currentData = null;
-    showStep('information');
-    form.elements.namedItem('name').focus();
+    showStep('information', informationPanels.length - 1);
+    focusPanelHeading();
   });
   document.querySelector('#registration-submit').addEventListener('click', async () => {
     if (busy || !currentData) return;

@@ -40,20 +40,29 @@ dialog.registration-dialog {
 .registration-toolbar .dialog-close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
 .registration-toolbar .dialog-close:hover { background: #c2b9ff14; }
 .registration-dialog-content { padding: 28px 32px 32px; }
-.registration-dialog h2 { margin: 0; font-size: 32px; }
+.registration-dialog h2 { margin: 0; font-size: 30px; line-height: 1.35; text-wrap: balance; }
 .registration-dialog .registration-description { max-width: 65ch; margin: 12px 0 24px; font-size: 14px; line-height: 1.8; }
+.registration-dialog { --registration-secondary: var(--reading-secondary, #b8c0d4); }
+.registration-event-details { margin: 10px 0 24px; font-size: 14px; color: var(--registration-secondary); }
+.registration-event-details > summary, .registration-privacy-details > summary { width: fit-content; min-height: 44px; padding-block: 10px; cursor: pointer; line-height: 1.7; color: var(--lavender); }
+.registration-event-details[open] { padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.registration-event-details .registration-description { margin-bottom: 12px; color: var(--registration-secondary); }
+.registration-event-details .registration-fee-note { margin-bottom: 0; color: var(--registration-secondary); }
+.registration-event-details .registration-fee-note p + p { margin-top: 8px; }
+
 
 .registration-progress {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
   margin: 0 0 24px;
   padding: 0 0 24px;
   list-style: none;
   border-bottom: 1px solid var(--border);
 }
 
-.registration-progress li { display: flex; align-items: center; gap: 10px; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.registration-progress li { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; color: var(--registration-secondary); }
+.registration-progress li > span:last-child { max-width: 100%; overflow-wrap: normal; text-wrap: balance; }
 .registration-step-number { display: grid; place-items: center; flex-shrink: 0; width: 28px; height: 28px; border: 1px solid #7e8cb4; border-radius: 50%; font-size: 12px; font-variant-numeric: tabular-nums; }
 .registration-progress [aria-current="step"] { color: var(--text); font-weight: 600; }
 .registration-progress [aria-current="step"] .registration-step-number { background: var(--lavender); border-color: var(--lavender); color: #11162c; }
@@ -73,7 +82,7 @@ dialog.registration-dialog {
 .registration-group + .registration-group, .registration-sessions { margin-top: 32px; }
 .registration-group legend, .registration-sessions legend { width: 100%; padding: 0; margin-bottom: 16px; font-size: 16px; font-weight: 600; line-height: 1.6; color: var(--text); }
 .registration-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 20px; }
-.registration-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 14px; line-height: 1.6; color: var(--text); }
+.registration-field { display: flex; flex-direction: column; gap: 8px; min-width: 0; font-size: 15px; line-height: 1.6; color: var(--text); }
 .registration-fields > .registration-field { display: grid; grid-template-rows: subgrid; grid-row: span 3; padding-bottom: 8px; }
 .registration-field-wide { grid-column: 1 / -1; }
 .registration-field[hidden] { display: none; }
@@ -89,6 +98,7 @@ dialog.registration-dialog {
   color: var(--text);
   caret-color: var(--lavender);
   font: inherit;
+  font-size: 16px;
 }
 
 .registration-field input:not([type="file"]), .registration-field select { height: 48px; }
@@ -108,14 +118,14 @@ dialog.registration-dialog {
 }
 
 .registration-dialog :is(input, select, textarea, button, summary):focus-visible { outline: 2px solid var(--lavender); outline-offset: 3px; }
-.registration-field small { font-size: 12px; line-height: 1.7; color: var(--muted); }
+.registration-field small { font-size: 13px; line-height: 1.7; color: var(--registration-secondary); }
 .discount-code-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: stretch; }
 .discount-code-row .button { min-height: 48px; height: 48px; padding: 11px 20px; }
 .discount-status { min-height: 0; margin-top: 2px; padding: 10px 12px; border: 1px solid #b5a2ef3d; border-radius: 6px; background: #b5a2ef0b; color: var(--lavender); line-height: 1.65; white-space: pre-line; }
 .discount-status[data-state="pending"] { color: var(--muted); }
 .discount-status[data-state="invalid"] { color: #ffb0b8; }
 .discount-status:empty { display: none; }
-.registration-choice-help { margin: -8px 0 12px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+.registration-choice-help { margin: -8px 0 12px; font-size: 14px; line-height: 1.7; color: var(--registration-secondary); }
 #registration-connections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 4px; }
 
 .registration-sessions .registration-choice, .payment-confirmation, .registration-invoice-toggle {
@@ -124,7 +134,7 @@ dialog.registration-dialog {
   gap: 12px;
   min-height: 44px;
   padding-block: 10px;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.8;
   color: var(--text);
   cursor: pointer;
@@ -133,7 +143,8 @@ dialog.registration-dialog {
 .registration-choice input, .payment-confirmation input, .registration-invoice-toggle input { width: 20px; height: 20px; flex: none; margin-top: 2px; accent-color: var(--lavender); }
 .registration-choice:has(:checked) { color: var(--lavender); }
 #registration-connections-other { margin-top: 16px; }
-.registration-privacy-notice { max-width: 70ch; margin: 0 0 12px; font-size: 12px; line-height: 1.8; color: var(--muted); }
+.registration-privacy-notice { max-width: 70ch; margin: 0 0 12px; font-size: 13px; line-height: 1.8; color: var(--registration-secondary); text-wrap: pretty; }
+.registration-privacy-details { margin: -8px 0 8px; font-size: 14px; }
 #registration-privacy-consent { display: grid; gap: 4px; }
 
 .registration-invoice-section { margin-top: 28px; padding-top: 16px; border-top: 1px solid var(--border); }
@@ -143,13 +154,17 @@ dialog.registration-dialog {
 .registration-invoice textarea { min-height: 88px; }
 .invoice-lookup { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: end; }
 .invoice-lookup .button { width: auto; min-height: 48px; height: 48px; padding: 11px 20px; }
-.invoice-help { margin: 10px 0 16px; font-size: 12px; line-height: 1.8; }
+.invoice-help { margin: 10px 0 16px; font-size: 13px; line-height: 1.8; color: var(--registration-secondary); }
 #invoice-lookup-status { color: var(--lavender); }
 #invoice-lookup-status:empty { display: none; }
 .invoice-fields { grid-template-columns: 1fr; }
 
 .registration-dialog .registration-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
 .registration-actions .button { width: auto; min-height: 48px; }
+.registration-form-actions .button { font-size: 14px; white-space: normal; }
+.registration-form-actions .button[type="submit"] { margin-left: auto; }
+.registration-form-actions #registration-next-label { font: inherit; }
+
 .registration-dialog button:disabled { opacity: .55; cursor: wait; }
 .registration-status { margin-top: 20px; font-size: 13px; line-height: 1.8; color: var(--lavender); overflow-wrap: anywhere; }
 .registration-status:empty { display: none; }
@@ -188,9 +203,10 @@ dialog.registration-dialog {
   .registration-toolbar { gap: 8px; padding: 8px 12px 8px 20px; }
   .registration-toolbar p { font-size: 11px; }
   .registration-toolbar-actions { gap: 4px; }
-  .registration-dialog-content { padding: 24px 20px calc(24px + env(safe-area-inset-bottom)); }
-  .registration-dialog h2 { font-size: 27px; }
-  .registration-progress { gap: 12px; }
+  .registration-dialog-content { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); }
+  .registration-dialog h2 { font-size: 25px; }
+  .registration-event-details { margin-block: 4px 16px; }
+  .registration-progress { grid-template-columns: 1fr 1.1fr .9fr 1fr; gap: 8px; margin-bottom: 20px; padding-bottom: 20px; }
   .registration-progress li { align-items: flex-start; gap: 8px; font-size: 12px; }
   .registration-step-number { width: 24px; height: 24px; }
   .registration-fields, #registration-connections { grid-template-columns: 1fr; }
@@ -201,6 +217,10 @@ dialog.registration-dialog {
   .payment-qr { width: min(260px, 100%); height: auto; aspect-ratio: 1; margin-inline: auto; }
   .registration-dialog .registration-actions { flex-direction: column; }
   .registration-dialog .registration-actions .button { width: 100%; }
+  .registration-dialog .registration-form-actions { flex-direction: row; flex-wrap: nowrap; gap: 10px; }
+  .registration-dialog .registration-form-actions .button { flex: 1; width: auto; padding-inline: 14px; gap: 12px; }
+  .registration-dialog .registration-form-actions #registration-information-back { flex: 0 0 auto; }
+
 }
 
 @media (forced-colors: active) {
