@@ -227,3 +227,74 @@ dialog.registration-dialog {
   .registration-field select { appearance: auto; background-image: none; padding-right: 12px; }
   .registration-step-number { border-color: CanvasText; }
 }
+
+/* Short feedback for actions; content stays usable while transitions run. */
+.registration-dialog {
+  --registration-ease: cubic-bezier(.16, 1, .3, 1);
+}
+.registration-dialog .button,
+.registration-toolbar .dialog-close {
+  transition: background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, opacity 140ms ease-out;
+}
+.registration-field :is(input, select, textarea) {
+  transition: border-color 140ms ease-out, background-color 140ms ease-out;
+}
+.registration-field :is(input, select, textarea):focus {
+  border-color: var(--lavender);
+  background-color: #0d152b;
+}
+.registration-step-number {
+  transition: background-color 180ms ease-out, border-color 180ms ease-out, color 180ms ease-out;
+}
+.registration-progress li,
+.registration-choice {
+  transition: color 160ms ease-out, background-color 160ms ease-out;
+}
+.registration-choice { border-radius: 4px; }
+.registration-choice:has(:checked) { background-color: #c5b8f40b; }
+.registration-event-details > summary,
+.registration-privacy-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+}
+.registration-event-details > summary::-webkit-details-marker,
+.registration-privacy-details > summary::-webkit-details-marker { display: none; }
+.registration-event-details > summary::after,
+.registration-privacy-details > summary::after {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c5b8f4' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.registration-event-details[open] > summary::after,
+.registration-privacy-details[open] > summary::after { transform: rotate(180deg); }
+.registration-dialog button[aria-busy="true"]::before,
+.registration-dialog[aria-busy="true"] .registration-actions .button-primary::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  flex: none;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .registration-dialog .button,
+  .registration-toolbar .dialog-close,
+  .hero-register { transition: transform 140ms var(--registration-ease, ease-out), background-color 140ms ease-out, border-color 140ms ease-out, color 140ms ease-out, opacity 140ms ease-out; }
+  .registration-dialog .button:not(:disabled):active,
+  .hero-register:active { transform: translateY(0) scale(.985); }
+  .registration-toolbar .dialog-close:active { transform: scale(.94); }
+  .registration-event-details > summary::after,
+  .registration-privacy-details > summary::after { transition: transform 180ms var(--registration-ease); }
+  .registration-dialog button[aria-busy="true"]::before,
+  .registration-dialog[aria-busy="true"] .registration-actions .button-primary::before { animation: registration-working .8s linear infinite; }
+}
+@keyframes registration-working { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .registration-dialog .button:not(:disabled):hover,
+  .hero-register:hover { transform: none; }
+}

@@ -48,6 +48,38 @@
   let discountLookupSequence = 0;
   let discountLookupController;
   let discountLookupPending = false;
+  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  const motionAnimations = new Map();
+
+  function cancelMotions() {
+    motionAnimations.forEach(animation => animation.cancel());
+    motionAnimations.clear();
+  }
+
+  function playMotion(element, keyframes, duration = 200) {
+    if (!dialog.open || !element || typeof element.animate !== 'function') return;
+    motionAnimations.get(element)?.cancel();
+    const frames = reducedMotion?.matches ? [{ opacity: .72 }, { opacity: 1 }] : keyframes;
+    const animation = element.animate(frames, {
+      duration: reducedMotion?.matches ? 90 : duration,
+      easing: 'cubic-bezier(.16, 1, .3, 1)'
+    });
+    motionAnimations.set(element, animation);
+    animation.finished.catch(() => {}).then(() => {
+      if (motionAnimations.get(element) === animation) motionAnimations.delete(element);
+    });
+  }
+
+  function revealFeedback(element) {
+    playMotion(element, [{ opacity: .5, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)' }], 180);
+  }
+
+  reducedMotion?.addEventListener('change', cancelMotions);
+  dialog.querySelectorAll('.registration-event-details, .registration-privacy-details').forEach(details => {
+    details.addEventListener('toggle', () => {
+      if (details.open) revealFeedback(details.querySelector('.registration-fee-note, .registration-privacy-notice'));
+    });
+  });
 
   function validateInvoiceTaxCode() {
     const taxCode = invoiceTaxCode.value.replace(/[\s-]/g, '');
@@ -61,6 +93,7 @@
 
   function updateInvoiceFields() {
     const requested = invoiceRequested.checked;
+    const wasHidden = invoiceFields.hidden;
     invoiceFields.hidden = !requested;
     invoiceFields.disabled = busy || !requested;
     invoiceRequested.disabled = busy;
@@ -70,6 +103,7 @@
       for (const field of invoiceFields.elements) i18n.clearNativeValidity(field);
     }
     validateInvoiceTaxCode();
+    if (requested && wasHidden) revealFeedback(invoiceFields);
   }
 
   invoiceRequested.addEventListener('change', updateInvoiceFields);
@@ -80,6 +114,7 @@
     invoiceLookupController?.abort();
     invoiceLookupPending = false;
     invoiceLookupButton.disabled = false;
+    invoiceLookupButton.setAttribute('aria-busy', 'false');
     invoiceLookupStatus.textContent = '';
   }
 
@@ -98,6 +133,7 @@
     invoiceLookupController = new AbortController();
     invoiceLookupPending = true;
     invoiceLookupButton.disabled = true;
+    invoiceLookupButton.setAttribute('aria-busy', 'true');
     invoiceLookupStatus.textContent = 'Đang tra cứu thông tin doanh nghiệp…';
     try {
       const signal = AbortSignal.any([invoiceLookupController.signal, AbortSignal.timeout(25000)]);
@@ -109,13 +145,16 @@
       i18n.clearNativeValidity(invoiceAddress);
       autoFilledInvoice = { name: company.name, address: company.address };
       invoiceLookupStatus.textContent = 'Đã lấy thông tin doanh nghiệp. Vui lòng kiểm tra tên và địa chỉ trước khi gửi.';
+      revealFeedback(invoiceLookupStatus);
     } catch (error) {
       if (sequence !== invoiceLookupSequence) return;
       invoiceLookupStatus.textContent = 'Chưa tra cứu được thông tin. Vui lòng kiểm tra mã số thuế, thử lại hoặc điền tên và địa chỉ thủ công.';
+      revealFeedback(invoiceLookupStatus);
     } finally {
       if (sequence === invoiceLookupSequence) {
         invoiceLookupPending = false;
         invoiceLookupButton.disabled = false;
+        invoiceLookupButton.setAttribute('aria-busy', 'false');
         if (status.textContent === i18n.t('Đang tra cứu thông tin hóa đơn. Vui lòng chờ kết quả rồi tiếp tục.')) status.textContent = '';
       }
     }
@@ -151,6 +190,7 @@
     discountLookupController?.abort();
     discountLookupPending = false;
     discountCheckButton.disabled = false;
+    discountCheckButton.setAttribute('aria-busy', 'false');
   }
 
   function resetDiscountStatus() {
@@ -174,6 +214,7 @@
     discountLookupController = new AbortController();
     discountLookupPending = true;
     discountCheckButton.disabled = true;
+    discountCheckButton.setAttribute('aria-busy', 'true');
     discountCodeStatus.dataset.state = 'pending';
     discountCodeStatus.textContent = 'Đang kiểm tra mã…';
     try {
@@ -184,14 +225,17 @@
       discountCodeStatus.dataset.state = 'valid';
       discountCodeStatus.setAttribute('data-i18n-en', `Great! Your partner discount has been confirmed 🎉\n${result.code} — ${result.partner}\nYour special rate: VND ${new Intl.NumberFormat('en-GB').format(result.unitPrice)} per ticket`);
       discountCodeStatus.textContent = result.message;
+      revealFeedback(discountCodeStatus);
     } catch (error) {
       if (sequence !== discountLookupSequence) return;
       discountCodeStatus.dataset.state = 'invalid';
       discountCodeStatus.textContent = error.name === 'TimeoutError' ? 'Chưa kiểm tra được mã. Vui lòng thử lại.' : error.message;
+      revealFeedback(discountCodeStatus);
     } finally {
       if (sequence === discountLookupSequence) {
         discountLookupPending = false;
         discountCheckButton.disabled = false;
+        discountCheckButton.setAttribute('aria-busy', 'false');
       }
     }
   }
@@ -240,6 +284,7 @@
     previewURL = URL.createObjectURL(file);
     receiptPreview.src = previewURL;
     receiptPreview.hidden = false;
+    revealFeedback(receiptPreview);
     status.textContent = '';
   });
 
@@ -326,6 +371,7 @@
   });
 
   function showStep(step, panelIndex = informationPanelIndex) {
+    const previousIndex = payment.hidden ? informationPanelIndex : 3;
     informationPanelIndex = panelIndex;
     information.hidden = step !== 'information';
     payment.hidden = step !== 'payment';
@@ -345,6 +391,12 @@
     document.querySelector('#registration-step').textContent = step === 'success' ? 'ĐÃ TIẾP NHẬN THÔNG TIN' : descriptions[activeIndex];
     status.textContent = '';
     dialog.scrollTop = 0;
+    if (step === 'success') revealFeedback(success);
+    else {
+      const panel = step === 'payment' ? payment : informationPanels[informationPanelIndex];
+      const offset = activeIndex >= previousIndex ? 12 : -12;
+      playMotion(panel, [{ opacity: .45, transform: `translateX(${offset}px)` }, { opacity: 1, transform: 'translateX(0)' }], 220);
+    }
   }
 
   function focusPanelHeading() {
@@ -399,6 +451,7 @@
   }));
   dialog.querySelectorAll('[data-registration-close]').forEach(button => button.addEventListener('click', () => dialog.close()));
   dialog.addEventListener('close', () => {
+    cancelMotions();
     document.body.style.overflow = previousOverflow || '';
     previousFocus?.focus();
   });
