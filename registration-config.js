@@ -5,10 +5,10 @@
     receiptFieldId: 'fld1O49NDC',
     maxReceiptBytes: 2 * 1024 * 1024,
     bank: {
-      bin: '970416',
-      name: 'ACB',
-      account: '621866',
-      accountName: 'Công ty Cổ phần Đầu tư IPC M&A Việt Nam'
+      bin: '970422',
+      name: 'MB Bank - Sở Giao dịch 3',
+      account: '088556868',
+      accountName: 'Ban Vận động thành lập Hiệp Hội M&A'
     },
     companySizes: ['Dưới 50 nhân sự', '50 – 200 nhân sự', '201 – 500 nhân sự', '501 – 1.000 nhân sự', 'Trên 1.000 nhân sự'],
     stages: ['Khởi nghiệp / mới thành lập', 'Đang tăng trưởng', 'Ổn định, trưởng thành', 'Đang tái cấu trúc', 'Chuẩn bị gọi vốn, M&A hoặc IPO', 'Quỹ đầu tư / đơn vị tư vấn'],

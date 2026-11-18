@@ -69,7 +69,7 @@ test('translations retain whitespace, unknown names and payment references', () 
   const { api } = runtime({ saved: 'en' });
   assert.equal(api.t('  Đăng ký tham dự\n'), `  ${dictionary['Đăng ký tham dự']}\n`);
   assert.equal(api.t('Nguyễn Văn A'), 'Nguyễn Văn A');
-  assert.equal(api.t('MACF2026 Nguyen Van A 0999999999'), 'MACF2026 Nguyen Van A 0999999999');
+  assert.equal(api.t('Nguyen Van A 0999999999 SK1312'), 'Nguyen Van A 0999999999 SK1312');
 });
 
 test('English bundle matches reviewed dictionaries and covers field-specific API errors', () => {

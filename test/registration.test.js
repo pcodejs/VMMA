@@ -111,13 +111,17 @@ function fields(payload) {
   return result;
 }
 
-test('the rendered QR decodes to the exact ACB account, ticket total and memo', async () => {
+test('the rendered QR decodes to the exact MB account, ticket total and memo', async () => {
   const result = await invoke('payment', attendee({ amount: 1 }));
   assert.equal(result.status, 200);
   assert.equal(result.data.amount, 1000000);
-  assert.equal(result.data.memo, 'MACF2026 Nguyen Van Kiem Thu 0900000000');
+  assert.equal(result.data.memo, 'Nguyen Van Kiem Thu 0900000000 SK1312');
+  assert.deepEqual(result.data.bank, {
+    bin: '970422', name: 'MB Bank - Sở Giao dịch 3', account: '088556868',
+    accountName: 'Ban Vận động thành lập Hiệp Hội M&A'
+  });
   const apiURL = new URL(requests.find(request => request.url.startsWith('https://img.vietqr.io/')).url);
-  assert.equal(apiURL.pathname, '/image/970416-621866-qr_only.svg');
+  assert.equal(apiURL.pathname, '/image/970422-088556868-qr_only.svg');
   assert.equal(apiURL.searchParams.get('addInfo'), result.data.memo);
   assert.equal(apiURL.searchParams.get('amount'), '1000000');
   const png = PNG.sync.read(Buffer.from(result.data.qrDataURL.split(',')[1], 'base64'));
@@ -133,8 +137,8 @@ test('the rendered QR decodes to the exact ACB account, ticket total and memo', 
   assert.ok(logoPixels > 100, 'VMAA blue logo must be embedded in the QR image');
   const payload = fields(decoded.data);
   const provider = fields(payload['38']);
-  assert.equal(fields(provider['01'])['00'], '970416');
-  assert.equal(fields(provider['01'])['01'], '621866');
+  assert.equal(fields(provider['01'])['00'], '970422');
+  assert.equal(fields(provider['01'])['01'], '088556868');
   assert.equal(provider['02'], 'QRIBFTTA');
   assert.equal(payload['54'], '1000000');
   assert.equal(fields(payload['62'])['08'], result.data.memo);
@@ -149,9 +153,12 @@ test('VietQR failure prevents displaying a payment QR', async () => {
   assert.match(result.data.error, /QR/);
 });
 
-test('transfer memo uses spaces and the full name within the VietQR limit', () => {
+test('transfer memo uses the full name, phone and SK1312 within the VietQR limit', () => {
   const { validateRegistration } = require('../lib/registration');
-  assert.equal(validateRegistration(attendee({ name: 'Đặng Văn-An', phone: '+84900000000' })).memo, 'MACF2026 Dang Van An 84900000000');
+  assert.equal(validateRegistration(attendee({ name: 'Đặng Văn-An', phone: '+84900000000' })).memo, 'Dang Van An 84900000000 SK1312');
+  const boundaryName = 'A'.repeat(32);
+  assert.equal(validateRegistration(attendee({ name: boundaryName })).memo.length, 50);
+  assert.throws(() => validateRegistration(attendee({ name: `${boundaryName}A` })), /50 ký tự/);
   assert.throws(() => validateRegistration(attendee({ name: 'Nguyen '.repeat(9) })), /50 ký tự/);
 });
 

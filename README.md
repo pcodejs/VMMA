@@ -52,7 +52,7 @@ Giá niêm yết hiện tại 500.000đ/vé theo form Lark được đối chi�
 
 Khi khách nhập mã, `/api/discount` chỉ trả kết quả của mã vừa kiểm tra. `/api/payment` và `/api/register` luôn kiểm tra lại mã ở máy chủ, tự tính lại tổng tiền và lưu mã đã dùng cùng tên đơn vị đối tác vào trường mã giảm giá hiện có trong Lark. Vì mã đối tác là mã chia sẻ, việc băm bảo vệ danh sách trong mã nguồn/trình duyệt nhưng không thể ngăn người đã biết mã chia sẻ lại.
 
-QR được lấy từ API Quick Link của VietQR (`img.vietqr.io`) trên máy chủ, sau đó chèn logo VMAA và thêm khoảng trắng quanh mã để thuận tiện quét. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `MACF2026 Họ Và Tên Số Điện Thoại`, bỏ dấu tiếng Việt, phân cách bằng khoảng trắng, tối đa 50 ký tự theo VietQR. Bản xem trước hiển thị cùng nội dung được mã hóa.
+QR được lấy từ API Quick Link của VietQR (`img.vietqr.io`) trên máy chủ, sau đó chèn logo VMAA và thêm khoảng trắng quanh mã để thuận tiện quét. Tài khoản nhận là `088556868`, MB Bank - Sở Giao dịch 3, tên tài khoản `Ban Vận động thành lập Hiệp Hội M&A`. Số tiền tính từ giá vé và số lượng trên máy chủ. Nội dung dùng `Họ tên SĐT SK1312`, bỏ dấu tiếng Việt trong họ tên, dùng chữ số cho số điện thoại và phân cách bằng khoảng trắng, tối đa 50 ký tự theo VietQR. Bản xem trước hiển thị cùng nội dung được mã hóa.
 
 Ảnh biên lai hỗ trợ JPG, PNG và WEBP, tối đa 2 MB. Máy chủ kiểm tra dung lượng, chữ ký định dạng ảnh rồi tải vào đúng Base. Ảnh được lưu cùng bản ghi đăng ký trong trường đính kèm. Khách mời và đăng ký trên 5 vé không cần biên lai.
 
